@@ -20,12 +20,11 @@ class UnionShopApp extends StatelessWidget {
       home: const HomeScreen(),
       // By default, the app starts at the '/' route, which is the HomeScreen
       initialRoute: '/',
-      // When navigating to '/product', build and return the ProductPage
-      // In your browser, try this link: http://localhost:49856/#/product
-      routes: {'/product': (context) => const ProductPage(),
-              '/about': (context) => const AboutPage(),
+      // Define routes for navigation
+      routes: {
+        '/product': (context) => const ProductPage(), // Product page route
+        '/about': (context) => const AboutPage(), // About page route
       },
-      
     );
   }
 }
@@ -33,17 +32,18 @@ class UnionShopApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  // Navigate to the HomeScreen
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
   }
 
+  // Navigate to the ProductPage
   void navigateToProduct(BuildContext context) {
     Navigator.pushNamed(context, '/product');
   }
 
-  void placeholderCallbackForButtons() {
-    // This is the event handler for buttons that don't work yet
-  }
+  // Placeholder callback for buttons that are not implemented yet
+  void placeholderCallbackForButtons() {}
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +51,13 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header
+            // Header Section
             Container(
               height: 100,
               color: Colors.white,
               child: Column(
                 children: [
-                  // Top banner
+                  // Top banner with promotional text
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 8),
@@ -68,12 +68,13 @@ class HomeScreen extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
-                  // Main header
+                  // Main header with navigation buttons
                   Expanded(
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
+                          // Logo that navigates to the HomeScreen
                           GestureDetector(
                             onTap: () {
                               navigateToHome(context);
@@ -88,8 +89,7 @@ class HomeScreen extends StatelessWidget {
                                   width: 18,
                                   height: 18,
                                   child: const Center(
-                                    child: Icon(Icons.image_not_supported,
-                                        color: Colors.grey),
+                                    child: Icon(Icons.image_not_supported, color: Colors.grey),
                                   ),
                                 );
                               },
@@ -97,6 +97,25 @@ class HomeScreen extends StatelessWidget {
                           ),
 
                           const Spacer(),
+
+                          // Home Button
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                            },
+                            child: const Text(
+                              'Home',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF4d2963),
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(width: 16), // Space between buttons
+
+                          // About Button
                           TextButton(
                             onPressed: () {
                               Navigator.pushNamed(context, '/about'); // Navigate to the About page
@@ -107,11 +126,13 @@ class HomeScreen extends StatelessWidget {
                                 fontSize: 14,
                                 color: Color(0xFF4d2963),
                                 decoration: TextDecoration.underline,
-                                ),
-                                ),
-                                ),
-              
+                              ),
+                            ),
+                          ),
+
                           const Spacer(),
+
+                          // Icons Section
                           ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 600),
                             child: Row(
@@ -199,7 +220,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.7),
+                          color: Colors.black.withOpacity(0.7),
                         ),
                       ),
                     ),
@@ -308,7 +329,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
 
-            // Footer
+            // Footer Section
             Container(
               width: double.infinity,
               color: Colors.grey[50],
