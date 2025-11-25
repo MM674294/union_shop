@@ -10,6 +10,7 @@ class SalePage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         toolbarHeight: 100,
+        automaticallyImplyLeading: false, // This removes the back arrow
         flexibleSpace: Column(
           children: [
             // Top banner
@@ -90,7 +91,7 @@ class SalePage extends StatelessWidget {
                         // Stay on the Sale page (no navigation needed)
                       },
                       child: const Text(
-                        'Sale',
+                        'SALE!',
                         style: TextStyle(
                           fontSize: 14,
                           color: Color(0xFF4d2963),
@@ -177,12 +178,12 @@ class SalePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   Text(
-                    'Welcome to the Sale Page!',
+                    'SALE',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'Check out our amazing discounts!',
+                    'Don’t miss out! Get yours before they’re all gone!\n All prices shown are inclusive of the discount 🛒',
                     style: TextStyle(fontSize: 16),
                   ),
                 ],
