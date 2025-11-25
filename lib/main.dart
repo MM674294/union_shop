@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
+import 'package:union_shop/about_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -21,7 +22,10 @@ class UnionShopApp extends StatelessWidget {
       initialRoute: '/',
       // When navigating to '/product', build and return the ProductPage
       // In your browser, try this link: http://localhost:49856/#/product
-      routes: {'/product': (context) => const ProductPage()},
+      routes: {'/product': (context) => const ProductPage(),
+              '/about': (context) => const AboutPage(),
+      },
+      
     );
   }
 }
@@ -59,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     color: const Color(0xFF4d2963),
                     child: const Text(
-                      'PLACEHOLDER HEADER TEXT',
+                      'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
@@ -91,6 +95,22 @@ class HomeScreen extends StatelessWidget {
                               },
                             ),
                           ),
+
+                          const Spacer(),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/about'); // Navigate to the About page
+                            },
+                            child: const Text(
+                              'About',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF4d2963),
+                                decoration: TextDecoration.underline,
+                                ),
+                                ),
+                                ),
+              
                           const Spacer(),
                           ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 600),
