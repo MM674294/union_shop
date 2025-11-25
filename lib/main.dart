@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
+import 'package:union_shop/sale_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -23,7 +24,8 @@ class UnionShopApp extends StatelessWidget {
       // Define routes for navigation
       routes: {
         '/product': (context) => const ProductPage(), // Product page route
-        '/about': (context) => const AboutPage(), // About page route
+        '/about': (context) => const AboutPage(),
+        '/sale': (context) => const SalePage(), // Sale page route
       },
     );
   }
@@ -40,6 +42,10 @@ class HomeScreen extends StatelessWidget {
   // Navigate to the ProductPage
   void navigateToProduct(BuildContext context) {
     Navigator.pushNamed(context, '/product');
+  }
+
+  void navigateToSale(BuildContext context) {
+    Navigator.pushNamed(context, '/sale'); // Navigate to SalePage
   }
 
   // Placeholder callback for buttons that are not implemented yet
@@ -129,6 +135,25 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+
+
+                          const SizedBox(width: 16), // Space between buttons
+
+                          // Sale Button
+                          TextButton(
+                            onPressed: () {
+                              navigateToSale(context); // Navigate to the Sale page
+                            },
+                            child: const Text(
+                              'Sale',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF4d2963),
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+
 
                           const Spacer(),
 
