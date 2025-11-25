@@ -12,22 +12,16 @@ class AboutPage extends StatefulWidget {
 class _AboutPageState extends State<AboutPage> {
   final TextEditingController _emailController = TextEditingController();
 
-  // void _submitEmail() {
-  //   final email = _emailController.text.trim();
-  //   if (email.isNotEmpty) {
-  //     widget.onEmailSubmitted?.call(email); // Trigger the callback if provided
-  //     _emailController.clear(); // Clear the TextField after submission
-  //   }
-  // }
   void _submitEmail() {
-  final email = _emailController.text.trim();
-  print('Submitting email: $email'); // Debug print
-  if (email.isNotEmpty) {
-    widget.onEmailSubmitted?.call(email); // Trigger the callback if provided
-    _emailController.clear(); // Clear the TextField after submission
-    print('Email cleared'); // Debug print
+    final email = _emailController.text.trim();
+    print('Submitting email: $email'); // Debug print
+    if (email.isNotEmpty) {
+      widget.onEmailSubmitted?.call(email); // Trigger the callback if provided
+      _emailController.clear(); // Clear the TextField after submission
+      print('Email cleared'); // Debug print
+    }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,41 +29,53 @@ class _AboutPageState extends State<AboutPage> {
         title: const Text('About Us'),
         backgroundColor: const Color(0xFF4d2963),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
+      body: Column(
+        children: [
+          // Main Content
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Header Section
+                    const Text(
+                      'About us',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Welcome to the Union Shop!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'We’re dedicated to giving you the very best University branded products, '
+                      'with a range of clothing and merchandise available to shop all year round! '
+                      'We even offer an exclusive personalisation service!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'All online purchases are available for delivery or instore collection!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          // Footer Section
+          Container(
+            color: Colors.grey[200],
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Header Section
-                const Text(
-                  'About us',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  'Welcome to the Union Shop!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16),
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  'We’re dedicated to giving you the very best University branded products, '
-                  'with a range of clothing and merchandise available to shop all year round! '
-                  'We even offer an exclusive personalisation service!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  'All online purchases are available for delivery or instore collection!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16),
-                ),
-                const SizedBox(height: 40),
-
-                // Three Columns Section
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -165,7 +171,7 @@ class _AboutPageState extends State<AboutPage> {
               ],
             ),
           ),
-        ),
+        ],
       ),
     );
   }
