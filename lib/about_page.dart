@@ -28,6 +28,40 @@ class _AboutPageState extends State<AboutPage> {
       appBar: AppBar(
         title: const Text('About Us'),
         backgroundColor: const Color(0xFF4d2963),
+        centerTitle: true,
+        actions: [
+          // Home Button
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+            },
+            child: const Text(
+              'Home',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
+          const SizedBox(width: 16), // Space between buttons
+
+          // About Button
+          TextButton(
+            onPressed: () {
+              // Stay on the About page (no navigation needed)
+            },
+            child: const Text(
+              'About',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
+          const SizedBox(width: 16), // Space between buttons
+        ],
       ),
       body: Column(
         children: [
