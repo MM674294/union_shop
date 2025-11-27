@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 class SalePage extends StatelessWidget {
   const SalePage({super.key});
 
+  void navigateToPage(BuildContext context, String route) {
+    Navigator.pushNamed(context, route);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,6 +100,55 @@ class SalePage extends StatelessWidget {
                           fontSize: 14,
                           color: Color(0xFF4d2963),
                           decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16), // Space between buttons
+
+                    // Dropdown Button labeled "Show"
+                    DropdownButton<String>(
+                      underline: Container(), // Remove underline
+                      icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963)),
+                      items: [
+                        DropdownMenuItem(
+                          value: '/page1',
+                          child: const Text('Page 1'),
+                        ),
+                        DropdownMenuItem(
+                          value: '/page2',
+                          child: const Text('Page 2'),
+                        ),
+                        DropdownMenuItem(
+                          value: '/page3',
+                          child: const Text('Page 3'),
+                        ),
+                        DropdownMenuItem(
+                          value: '/page4',
+                          child: const Text('Page 4'),
+                        ),
+                        DropdownMenuItem(
+                          value: '/page5',
+                          child: const Text('Page 5'),
+                        ),
+                        DropdownMenuItem(
+                          value: '/page6',
+                          child: const Text('Page 6'),
+                        ),
+                        DropdownMenuItem(
+                          value: '/page7',
+                          child: const Text('Page 7'),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        if (value != null) {
+                          navigateToPage(context, value);
+                        }
+                      },
+                      hint: const Text(
+                        'Show',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF4d2963),
                         ),
                       ),
                     ),

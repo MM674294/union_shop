@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
 import 'package:union_shop/sale_page.dart';
+import 'package:union_shop/clothing_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -26,7 +27,7 @@ class UnionShopApp extends StatelessWidget {
         '/product': (context) => const ProductPage(), // Product page route
         '/about': (context) => const AboutPage(),
         '/sale': (context) => const SalePage(), // Sale page route
-        '/page1': (context) => const PlaceholderPage(title: 'Page 1'),
+        '/clothing': (context) => const ClothingPage(),
         '/page2': (context) => const PlaceholderPage(title: 'Page 2'),
         '/page3': (context) => const PlaceholderPage(title: 'Page 3'),
         '/page4': (context) => const PlaceholderPage(title: 'Page 4'),
@@ -173,8 +174,8 @@ class HomeScreen extends StatelessWidget {
                             icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963)),
                             items: [
                               DropdownMenuItem(
-                                value: '/page1',
-                                child: const Text('Page 1'),
+                                value: '/clothing',
+                                child: const Text('clothing'),
                               ),
                               DropdownMenuItem(
                                 value: '/page2',
