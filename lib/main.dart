@@ -39,6 +39,23 @@ class UnionShopApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  // Navigate to the HomeScreen
+  void navigateToHome(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+  }
+
+  // Navigate to the ProductPage
+  void navigateToProduct(BuildContext context) {
+    Navigator.pushNamed(context, '/product');
+  }
+
+  void navigateToSale(BuildContext context) {
+    Navigator.pushNamed(context, '/sale'); // Navigate to SalePage
+  }
+
+  // Placeholder callback for buttons that are not implemented yet
+  void placeholderCallbackForButtons() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                           // Logo that navigates to the HomeScreen
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                              navigateToHome(context);
                             },
                             child: Image.network(
                               'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
@@ -112,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                           // About Button
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/about');
+                              Navigator.pushNamed(context, '/about'); // Navigate to the About page
                             },
                             child: const Text(
                               'About',
@@ -129,7 +146,7 @@ class HomeScreen extends StatelessWidget {
                           // Sale Button
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/sale');
+                              navigateToSale(context); // Navigate to the Sale page
                             },
                             child: const Text(
                               'Sale',
@@ -146,7 +163,6 @@ class HomeScreen extends StatelessWidget {
                           // Shop Dropdown Button
                           DropdownButton<String>(
                             underline: Container(), // Remove underline
-                            icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963)),
                             items: [
                               DropdownMenuItem(
                                 value: '/shop1',
@@ -211,7 +227,7 @@ class HomeScreen extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: () {},
+                                  onPressed: placeholderCallbackForButtons,
                                 ),
                                 IconButton(
                                   icon: const Icon(
@@ -224,7 +240,7 @@ class HomeScreen extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: () {},
+                                  onPressed: placeholderCallbackForButtons,
                                 ),
                                 IconButton(
                                   icon: const Icon(
@@ -237,7 +253,7 @@ class HomeScreen extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: () {},
+                                  onPressed: placeholderCallbackForButtons,
                                 ),
                                 IconButton(
                                   icon: const Icon(
@@ -250,7 +266,7 @@ class HomeScreen extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: () {},
+                                  onPressed: placeholderCallbackForButtons,
                                 ),
                               ],
                             ),

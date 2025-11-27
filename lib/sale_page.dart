@@ -172,11 +172,11 @@ class SalePage extends StatelessWidget {
       body: Column(
         children: [
           // Main Content
-          Expanded(
+          const Expanded(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
                     'SALE',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -200,9 +200,9 @@ class SalePage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Flexible(
+                    const Flexible(
                       child: Column(
-                        children: const [
+                        children: [
                           Text(
                             'Opening Hours',
                             style: TextStyle(
@@ -233,9 +233,9 @@ class SalePage extends StatelessWidget {
                     ),
                     const SizedBox(width: 16), // Space between columns
 
-                    Flexible(
+                    const Flexible(
                       child: Column(
-                        children: const [
+                        children: [
                           Text(
                             'Help and Information',
                             style: TextStyle(

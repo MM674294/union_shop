@@ -67,7 +67,7 @@ void main() {
       // Pump the AboutPage widget with navigation setup
       await tester.pumpWidget(
         MaterialApp(
-          home: AboutPage(),
+          home: const AboutPage(),
           routes: {
             '/personalisation': (context) => const PersonalisationPage(),
           },

@@ -172,11 +172,11 @@ class PersonalisationPage extends StatelessWidget {
       body: Column(
         children: [
           // Main Content
-          Expanded(
+          const Expanded(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
                     'Personalisation Service',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -202,9 +202,9 @@ class PersonalisationPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // Column 1: Opening Hours
-                    Flexible(
+                    const Flexible(
                       child: Column(
-                        children: const [
+                        children: [
                           Text(
                             'Opening Hours',
                             style: TextStyle(
@@ -236,9 +236,9 @@ class PersonalisationPage extends StatelessWidget {
                     const SizedBox(width: 16), // Space between columns
 
                     // Column 2: Help and Information
-                    Flexible(
+                    const Flexible(
                       child: Column(
-                        children: const [
+                        children: [
                           Text(
                             'Help and Information',
                             style: TextStyle(

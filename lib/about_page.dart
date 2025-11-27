@@ -268,9 +268,9 @@ class _AboutPageState extends State<AboutPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // Column 1: Opening Hours
-                    Flexible(
+                    const Flexible(
                       child: Column(
-                        children: const [
+                        children: [
                           Text(
                             'Opening Hours',
                             style: TextStyle(
@@ -302,9 +302,9 @@ class _AboutPageState extends State<AboutPage> {
                     const SizedBox(width: 16), // Space between columns
 
                     // Column 2: Help and Information
-                    Flexible(
+                    const Flexible(
                       child: Column(
-                        children: const [
+                        children: [
                           Text(
                             'Help and Information',
                             style: TextStyle(
