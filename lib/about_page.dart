@@ -25,11 +25,11 @@ class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Navigation bar identical to the homepage
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         toolbarHeight: 100,
+        automaticallyImplyLeading: false, // Removes the back arrow
         flexibleSpace: Column(
           children: [
             // Top banner
@@ -95,6 +95,22 @@ class _AboutPageState extends State<AboutPage> {
                       },
                       child: const Text(
                         'About',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF4d2963),
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16), // Space between buttons
+
+                    // Sale Button
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/sale'); // Navigate to the Sale page
+                      },
+                      child: const Text(
+                        'Sale',
                         style: TextStyle(
                           fontSize: 14,
                           color: Color(0xFF4d2963),
@@ -223,7 +239,7 @@ class _AboutPageState extends State<AboutPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // Column 1: Opening Hours
-                    Expanded(
+                    Flexible(
                       child: Column(
                         children: const [
                           Text(
@@ -257,7 +273,7 @@ class _AboutPageState extends State<AboutPage> {
                     const SizedBox(width: 16), // Space between columns
 
                     // Column 2: Help and Information
-                    Expanded(
+                    Flexible(
                       child: Column(
                         children: const [
                           Text(
@@ -278,7 +294,7 @@ class _AboutPageState extends State<AboutPage> {
                     const SizedBox(width: 16), // Space between columns
 
                     // Column 3: Latest Offers
-                    Expanded(
+                    Flexible(
                       child: Column(
                         children: [
                           const Text(
