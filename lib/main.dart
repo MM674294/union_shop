@@ -19,18 +19,20 @@ class UnionShopApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
       ),
       home: const HomeScreen(),
+      // By default, the app starts at the '/' route, which is the HomeScreen
       initialRoute: '/',
+      // Define routes for navigation
       routes: {
-        '/product': (context) => const ProductPage(),
+        '/product': (context) => const ProductPage(), // Product page route
         '/about': (context) => const AboutPage(),
-        '/sale': (context) => const SalePage(),
-        '/shop1': (context) => const PlaceholderPage(title: 'Shop Page 1'),
-        '/shop2': (context) => const PlaceholderPage(title: 'Shop Page 2'),
-        '/shop3': (context) => const PlaceholderPage(title: 'Shop Page 3'),
-        '/shop4': (context) => const PlaceholderPage(title: 'Shop Page 4'),
-        '/shop5': (context) => const PlaceholderPage(title: 'Shop Page 5'),
-        '/shop6': (context) => const PlaceholderPage(title: 'Shop Page 6'),
-        '/shop7': (context) => const PlaceholderPage(title: 'Shop Page 7'),
+        '/sale': (context) => const SalePage(), // Sale page route
+        '/page1': (context) => const PlaceholderPage(title: 'Page 1'),
+        '/page2': (context) => const PlaceholderPage(title: 'Page 2'),
+        '/page3': (context) => const PlaceholderPage(title: 'Page 3'),
+        '/page4': (context) => const PlaceholderPage(title: 'Page 4'),
+        '/page5': (context) => const PlaceholderPage(title: 'Page 5'),
+        '/page6': (context) => const PlaceholderPage(title: 'Page 6'),
+        '/page7': (context) => const PlaceholderPage(title: 'Page 7'),
       },
     );
   }
@@ -51,6 +53,11 @@ class HomeScreen extends StatelessWidget {
 
   void navigateToSale(BuildContext context) {
     Navigator.pushNamed(context, '/sale'); // Navigate to SalePage
+  }
+
+  // Navigate to specific pages from the dropdown
+  void navigateToPage(BuildContext context, String route) {
+    Navigator.pushNamed(context, route);
   }
 
   // Placeholder callback for buttons that are not implemented yet
@@ -160,50 +167,50 @@ class HomeScreen extends StatelessWidget {
 
                           const SizedBox(width: 16), // Space between buttons
 
-                          // Shop Dropdown Button
+                          // Dropdown Button labeled "Show"
                           DropdownButton<String>(
                             underline: Container(), // Remove underline
+                            icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963)),
                             items: [
                               DropdownMenuItem(
-                                value: '/shop1',
-                                child: const Text('Shop Page 1'),
+                                value: '/page1',
+                                child: const Text('Page 1'),
                               ),
                               DropdownMenuItem(
-                                value: '/shop2',
-                                child: const Text('Shop Page 2'),
+                                value: '/page2',
+                                child: const Text('Page 2'),
                               ),
                               DropdownMenuItem(
-                                value: '/shop3',
-                                child: const Text('Shop Page 3'),
+                                value: '/page3',
+                                child: const Text('Page 3'),
                               ),
                               DropdownMenuItem(
-                                value: '/shop4',
-                                child: const Text('Shop Page 4'),
+                                value: '/page4',
+                                child: const Text('Page 4'),
                               ),
                               DropdownMenuItem(
-                                value: '/shop5',
-                                child: const Text('Shop Page 5'),
+                                value: '/page5',
+                                child: const Text('Page 5'),
                               ),
                               DropdownMenuItem(
-                                value: '/shop6',
-                                child: const Text('Shop Page 6'),
+                                value: '/page6',
+                                child: const Text('Page 6'),
                               ),
                               DropdownMenuItem(
-                                value: '/shop7',
-                                child: const Text('Shop Page 7'),
+                                value: '/page7',
+                                child: const Text('Page 7'),
                               ),
                             ],
                             onChanged: (value) {
                               if (value != null) {
-                                Navigator.pushNamed(context, value);
+                                navigateToPage(context, value);
                               }
                             },
                             hint: const Text(
-                              'Shop',
+                              'Show',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Color(0xFF4d2963),
-                                decoration: TextDecoration.underline,
                               ),
                             ),
                           ),
@@ -279,7 +286,148 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
 
-            // Other content (e.g., Hero Section, Products Section, Footer) remains unchanged
+            // Hero Section
+            SizedBox(
+              height: 400,
+              width: double.infinity,
+              child: Stack(
+                children: [
+                  // Background image
+                  Positioned.fill(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.7),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Content overlay
+                  Positioned(
+                    left: 24,
+                    right: 24,
+                    top: 80,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Placeholder Hero Title',
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            height: 1.2,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          "This is placeholder text for the hero section.",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            height: 1.5,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 32),
+                        ElevatedButton(
+                          onPressed: placeholderCallbackForButtons,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF4d2963),
+                            foregroundColor: Colors.white,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero,
+                            ),
+                          ),
+                          child: const Text(
+                            'BROWSE PRODUCTS',
+                            style: TextStyle(fontSize: 14, letterSpacing: 1),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Products Section
+            Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: Column(
+                  children: [
+                    const Text(
+                      'PRODUCTS SECTION',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                    const SizedBox(height: 48),
+                    GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount:
+                          MediaQuery.of(context).size.width > 600 ? 2 : 1,
+                      crossAxisSpacing: 24,
+                      mainAxisSpacing: 48,
+                      children: const [
+                        ProductCard(
+                          title: 'Placeholder Product 1',
+                          price: '£10.00',
+                          imageUrl:
+                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                        ),
+                        ProductCard(
+                          title: 'Placeholder Product 2',
+                          price: '£15.00',
+                          imageUrl:
+                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                        ),
+                        ProductCard(
+                          title: 'Placeholder Product 3',
+                          price: '£20.00',
+                          imageUrl:
+                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                        ),
+                        ProductCard(
+                          title: 'Placeholder Product 4',
+                          price: '£25.00',
+                          imageUrl:
+                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // Footer Section
+            Container(
+              width: double.infinity,
+              color: Colors.grey[50],
+              padding: const EdgeInsets.all(24),
+              child: const Text(
+                'Placeholder Footer',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -287,7 +435,63 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// Placeholder page for the shop pages
+class ProductCard extends StatelessWidget {
+  final String title;
+  final String price;
+  final String imageUrl;
+
+  const ProductCard({
+    super.key,
+    required this.title,
+    required this.price,
+    required this.imageUrl,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/product');
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[300],
+                  child: const Center(
+                    child: Icon(Icons.image_not_supported, color: Colors.grey),
+                  ),
+                );
+              },
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 4),
+              Text(
+                title,
+                style: const TextStyle(fontSize: 14, color: Colors.black),
+                maxLines: 2,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                price,
+                style: const TextStyle(fontSize: 13, color: Colors.grey),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class PlaceholderPage extends StatelessWidget {
   final String title;
 
