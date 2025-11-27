@@ -259,30 +259,32 @@ class PersonalisationPage extends StatelessWidget {
                     // Column 3: Latest Offers
                     Flexible(
                       child: Column(
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             'Latest Offers',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 8),
-                          TextField(
+                          const SizedBox(height: 8),
+                          const TextField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Email Address',
                               hintText: 'Enter your email',
                             ),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           TextButton(
-                            onPressed: null, // Add functionality if needed
+                            onPressed: () {
+                               // Add functionality if needed
+                            },
                             style: TextButton.styleFrom(
-                              backgroundColor: Color(0xFF4d2963),
+                              backgroundColor: const Color(0xFF4d2963),
                               foregroundColor: Colors.white,
                             ),
-                            child: Text('Subscribe'),
+                            child: const Text('Subscribe'),
                           ),
                         ],
                       ),

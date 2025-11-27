@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:union_shop/personalisation_page.dart'; // Import the PersonalisationPage
 
 class AboutPage extends StatefulWidget {
   final void Function(String email)? onEmailSubmitted;
@@ -210,12 +212,39 @@ class _AboutPageState extends State<AboutPage> {
                       style: TextStyle(fontSize: 16),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      'We’re dedicated to giving you the very best University branded products, '
-                      'with a range of clothing and merchandise available to shop all year round! '
-                      'We even offer an exclusive personalisation service!',
+                    RichText(
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16),
+                      text: TextSpan(
+                        text:
+                            'We’re dedicated to giving you the very best University branded products, '
+                            'with a range of clothing and merchandise available to shop all year round! '
+                            'We even offer an exclusive ',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'personalisation service',
+                            style: const TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const PersonalisationPage(),
+                                  ),
+                                );
+                              },
+                          ),
+                          const TextSpan(
+                            text: '!',
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 20),
                     const Text(
