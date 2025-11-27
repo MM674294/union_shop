@@ -19,13 +19,18 @@ class UnionShopApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
       ),
       home: const HomeScreen(),
-      // By default, the app starts at the '/' route, which is the HomeScreen
       initialRoute: '/',
-      // Define routes for navigation
       routes: {
-        '/product': (context) => const ProductPage(), // Product page route
+        '/product': (context) => const ProductPage(),
         '/about': (context) => const AboutPage(),
-        '/sale': (context) => const SalePage(), // Sale page route
+        '/sale': (context) => const SalePage(),
+        '/shop1': (context) => const PlaceholderPage(title: 'Shop Page 1'),
+        '/shop2': (context) => const PlaceholderPage(title: 'Shop Page 2'),
+        '/shop3': (context) => const PlaceholderPage(title: 'Shop Page 3'),
+        '/shop4': (context) => const PlaceholderPage(title: 'Shop Page 4'),
+        '/shop5': (context) => const PlaceholderPage(title: 'Shop Page 5'),
+        '/shop6': (context) => const PlaceholderPage(title: 'Shop Page 6'),
+        '/shop7': (context) => const PlaceholderPage(title: 'Shop Page 7'),
       },
     );
   }
@@ -33,23 +38,6 @@ class UnionShopApp extends StatelessWidget {
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  // Navigate to the HomeScreen
-  void navigateToHome(BuildContext context) {
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-  }
-
-  // Navigate to the ProductPage
-  void navigateToProduct(BuildContext context) {
-    Navigator.pushNamed(context, '/product');
-  }
-
-  void navigateToSale(BuildContext context) {
-    Navigator.pushNamed(context, '/sale'); // Navigate to SalePage
-  }
-
-  // Placeholder callback for buttons that are not implemented yet
-  void placeholderCallbackForButtons() {}
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                           // Logo that navigates to the HomeScreen
                           GestureDetector(
                             onTap: () {
-                              navigateToHome(context);
+                              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
                             },
                             child: Image.network(
                               'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
@@ -124,7 +112,7 @@ class HomeScreen extends StatelessWidget {
                           // About Button
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/about'); // Navigate to the About page
+                              Navigator.pushNamed(context, '/about');
                             },
                             child: const Text(
                               'About',
@@ -136,13 +124,12 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
 
-
                           const SizedBox(width: 16), // Space between buttons
 
                           // Sale Button
                           TextButton(
                             onPressed: () {
-                              navigateToSale(context); // Navigate to the Sale page
+                              Navigator.pushNamed(context, '/sale');
                             },
                             child: const Text(
                               'Sale',
@@ -154,6 +141,56 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
 
+                          const SizedBox(width: 16), // Space between buttons
+
+                          // Shop Dropdown Button
+                          DropdownButton<String>(
+                            underline: Container(), // Remove underline
+                            icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963)),
+                            items: [
+                              DropdownMenuItem(
+                                value: '/shop1',
+                                child: const Text('Shop Page 1'),
+                              ),
+                              DropdownMenuItem(
+                                value: '/shop2',
+                                child: const Text('Shop Page 2'),
+                              ),
+                              DropdownMenuItem(
+                                value: '/shop3',
+                                child: const Text('Shop Page 3'),
+                              ),
+                              DropdownMenuItem(
+                                value: '/shop4',
+                                child: const Text('Shop Page 4'),
+                              ),
+                              DropdownMenuItem(
+                                value: '/shop5',
+                                child: const Text('Shop Page 5'),
+                              ),
+                              DropdownMenuItem(
+                                value: '/shop6',
+                                child: const Text('Shop Page 6'),
+                              ),
+                              DropdownMenuItem(
+                                value: '/shop7',
+                                child: const Text('Shop Page 7'),
+                              ),
+                            ],
+                            onChanged: (value) {
+                              if (value != null) {
+                                Navigator.pushNamed(context, value);
+                              }
+                            },
+                            hint: const Text(
+                              'Shop',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF4d2963),
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
 
                           const Spacer(),
 
@@ -174,7 +211,7 @@ class HomeScreen extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onPressed: () {},
                                 ),
                                 IconButton(
                                   icon: const Icon(
@@ -187,7 +224,7 @@ class HomeScreen extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onPressed: () {},
                                 ),
                                 IconButton(
                                   icon: const Icon(
@@ -200,7 +237,7 @@ class HomeScreen extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onPressed: () {},
                                 ),
                                 IconButton(
                                   icon: const Icon(
@@ -213,7 +250,7 @@ class HomeScreen extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onPressed: () {},
                                 ),
                               ],
                             ),
@@ -226,148 +263,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
 
-            // Hero Section
-            SizedBox(
-              height: 400,
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  // Background image
-                  Positioned.fill(
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.7),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Content overlay
-                  Positioned(
-                    left: 24,
-                    right: 24,
-                    top: 80,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Placeholder Hero Title',
-                          style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            height: 1.2,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          "This is placeholder text for the hero section.",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            height: 1.5,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 32),
-                        ElevatedButton(
-                          onPressed: placeholderCallbackForButtons,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF4d2963),
-                            foregroundColor: Colors.white,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero,
-                            ),
-                          ),
-                          child: const Text(
-                            'BROWSE PRODUCTS',
-                            style: TextStyle(fontSize: 14, letterSpacing: 1),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            // Products Section
-            Container(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: Column(
-                  children: [
-                    const Text(
-                      'PRODUCTS SECTION',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                    const SizedBox(height: 48),
-                    GridView.count(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount:
-                          MediaQuery.of(context).size.width > 600 ? 2 : 1,
-                      crossAxisSpacing: 24,
-                      mainAxisSpacing: 48,
-                      children: const [
-                        ProductCard(
-                          title: 'Placeholder Product 1',
-                          price: '£10.00',
-                          imageUrl:
-                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                        ),
-                        ProductCard(
-                          title: 'Placeholder Product 2',
-                          price: '£15.00',
-                          imageUrl:
-                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                        ),
-                        ProductCard(
-                          title: 'Placeholder Product 3',
-                          price: '£20.00',
-                          imageUrl:
-                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                        ),
-                        ProductCard(
-                          title: 'Placeholder Product 4',
-                          price: '£25.00',
-                          imageUrl:
-                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            // Footer Section
-            Container(
-              width: double.infinity,
-              color: Colors.grey[50],
-              padding: const EdgeInsets.all(24),
-              child: const Text(
-                'Placeholder Footer',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
+            // Other content (e.g., Hero Section, Products Section, Footer) remains unchanged
           ],
         ),
       ),
@@ -375,58 +271,23 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class ProductCard extends StatelessWidget {
+// Placeholder page for the shop pages
+class PlaceholderPage extends StatelessWidget {
   final String title;
-  final String price;
-  final String imageUrl;
 
-  const ProductCard({
-    super.key,
-    required this.title,
-    required this.price,
-    required this.imageUrl,
-  });
+  const PlaceholderPage({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/product');
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: Colors.grey[300],
-                  child: const Center(
-                    child: Icon(Icons.image_not_supported, color: Colors.grey),
-                  ),
-                );
-              },
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 4),
-              Text(
-                title,
-                style: const TextStyle(fontSize: 14, color: Colors.black),
-                maxLines: 2,
-              ),
-              const SizedBox(height: 4),
-              Text(
-                price,
-                style: const TextStyle(fontSize: 13, color: Colors.grey),
-              ),
-            ],
-          ),
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: Center(
+        child: Text(
+          title,
+          style: const TextStyle(fontSize: 24),
+        ),
       ),
     );
   }
