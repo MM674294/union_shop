@@ -329,6 +329,11 @@ class _ClothingPageState extends State<ClothingPage> {
                     });
                   },
                 ),
+                const SizedBox(width: 16),
+                Text(
+                  '${_clothingItems.length} products',
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
           ),
