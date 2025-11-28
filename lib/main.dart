@@ -208,13 +208,14 @@ class HomeScreen extends StatelessWidget {
                               }
                             },
                             hint: const Text(
-                              'Show',
+                              'Shop',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Color(0xFF4d2963),
                               ),
                             ),
                           ),
+                          
 
                           const Spacer(),
 
