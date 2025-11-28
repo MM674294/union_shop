@@ -10,36 +10,146 @@ class ClothingPage extends StatefulWidget {
 class _ClothingPageState extends State<ClothingPage> {
   String _selectedFilter = 'All Products';
   String _selectedSort = 'Featured';
+  int _currentPage = 1;
 
-  // Simulated clothing items data with title, price, imageUrl, and date
-  final List<Map<String, String>> _clothingItems = List.generate(
-    20,
-    (index) => {
-      'title': 'Clothing Item ${index + 1}',
-      'price': '£${(index + 1) * 5}.00',
-      'imageUrl': 'https://via.placeholder.com/150?text=Item+${index + 1}',
-      'date': DateTime(2024, 1, 1).add(Duration(days: index)).toIso8601String(),
+  // 20 clothing items with unique asset image paths (edit these for your real images)
+  final List<Map<String, String>> _clothingItems = [
+    {
+      'title': 'Clothing Item 1',
+      'price': '£5.00',
+      'imageUrl': 'assets/images/item1.png',
+      'date': DateTime(2024, 1, 1).toIso8601String(),
     },
-  );
+    {
+      'title': 'Clothing Item 2',
+      'price': '£10.00',
+      'imageUrl': 'assets/images/item2.png',
+      'date': DateTime(2024, 1, 2).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 3',
+      'price': '£15.00',
+      'imageUrl': 'assets/images/item3.png',
+      'date': DateTime(2024, 1, 3).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 4',
+      'price': '£20.00',
+      'imageUrl': 'assets/images/item4.png',
+      'date': DateTime(2024, 1, 4).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 5',
+      'price': '£25.00',
+      'imageUrl': 'assets/images/item5.png',
+      'date': DateTime(2024, 1, 5).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 6',
+      'price': '£30.00',
+      'imageUrl': 'assets/images/item6.png',
+      'date': DateTime(2024, 1, 6).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 7',
+      'price': '£35.00',
+      'imageUrl': 'assets/images/item7.png',
+      'date': DateTime(2024, 1, 7).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 8',
+      'price': '£40.00',
+      'imageUrl': 'assets/images/item8.png',
+      'date': DateTime(2024, 1, 8).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 9',
+      'price': '£45.00',
+      'imageUrl': 'assets/images/item9.png',
+      'date': DateTime(2024, 1, 9).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 10',
+      'price': '£50.00',
+      'imageUrl': 'assets/images/item10.png',
+      'date': DateTime(2024, 1, 10).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 11',
+      'price': '£55.00',
+      'imageUrl': 'assets/images/item11.png',
+      'date': DateTime(2024, 1, 11).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 12',
+      'price': '£60.00',
+      'imageUrl': 'assets/images/item12.png',
+      'date': DateTime(2024, 1, 12).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 13',
+      'price': '£65.00',
+      'imageUrl': 'assets/images/item13.png',
+      'date': DateTime(2024, 1, 13).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 14',
+      'price': '£70.00',
+      'imageUrl': 'assets/images/item14.png',
+      'date': DateTime(2024, 1, 14).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 15',
+      'price': '£75.00',
+      'imageUrl': 'assets/images/item15.png',
+      'date': DateTime(2024, 1, 15).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 16',
+      'price': '£80.00',
+      'imageUrl': 'assets/images/item16.png',
+      'date': DateTime(2024, 1, 16).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 17',
+      'price': '£85.00',
+      'imageUrl': 'assets/images/item17.png',
+      'date': DateTime(2024, 1, 17).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 18',
+      'price': '£90.00',
+      'imageUrl': 'assets/images/item18.png',
+      'date': DateTime(2024, 1, 18).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 19',
+      'price': '£95.00',
+      'imageUrl': 'assets/images/item19.png',
+      'date': DateTime(2024, 1, 19).toIso8601String(),
+    },
+    {
+      'title': 'Clothing Item 20',
+      'price': '£100.00',
+      'imageUrl': 'assets/images/item20.png',
+      'date': DateTime(2024, 1, 20).toIso8601String(),
+    },
+  ];
 
-  // Helper to parse price as double
   double _parsePrice(String price) {
     return double.tryParse(price.replaceAll('£', '').replaceAll('.00', '')) ?? 0.0;
   }
 
-  // Helper to parse date
   DateTime _parseDate(String date) {
     return DateTime.tryParse(date) ?? DateTime(2000);
   }
 
-  // Sorting logic
   List<Map<String, String>> _sortClothingItems(List<Map<String, String>> items) {
     List<Map<String, String>> sorted = List<Map<String, String>>.from(items);
     switch (_selectedSort) {
       case 'Featured':
         return sorted;
       case 'Best Selling':
-        // Custom order: 1,2,9,10,11,12,3,4,5,6,7,8,15,16,17,18,19,20,13,14
         List<int> order = [
           0, 1, 8, 9, 10, 11, 2, 3, 4, 5, 6, 7, 14, 15, 16, 17, 18, 19, 12, 13
         ];
@@ -67,10 +177,14 @@ class _ClothingPageState extends State<ClothingPage> {
     }
   }
 
-  // Filtered and sorted clothing items (always returns all 20 for this page)
   List<Map<String, String>> get _filteredClothingItems {
-    return _sortClothingItems(_clothingItems);
+    final sorted = _sortClothingItems(_clothingItems);
+    final start = (_currentPage - 1) * 10;
+    final end = (_currentPage * 10).clamp(0, sorted.length);
+    return sorted.sublist(start, end);
   }
+
+  int get _totalPages => (_clothingItems.length / 10).ceil();
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +196,6 @@ class _ClothingPageState extends State<ClothingPage> {
         automaticallyImplyLeading: false,
         flexibleSpace: Column(
           children: [
-            // Top banner
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -93,13 +206,11 @@ class _ClothingPageState extends State<ClothingPage> {
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
-            // Navigation bar
             Expanded(
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
-                    // Logo
                     GestureDetector(
                       onTap: () {
                         Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -219,7 +330,6 @@ class _ClothingPageState extends State<ClothingPage> {
       ),
       body: Column(
         children: [
-          // Title Section
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
@@ -234,7 +344,6 @@ class _ClothingPageState extends State<ClothingPage> {
               textAlign: TextAlign.center,
             ),
           ),
-          // Filter & Sort Section
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -278,6 +387,7 @@ class _ClothingPageState extends State<ClothingPage> {
                   onChanged: (value) {
                     setState(() {
                       _selectedFilter = value!;
+                      _currentPage = 1;
                     });
                   },
                 ),
@@ -326,6 +436,7 @@ class _ClothingPageState extends State<ClothingPage> {
                   onChanged: (value) {
                     setState(() {
                       _selectedSort = value!;
+                      _currentPage = 1;
                     });
                   },
                 ),
@@ -337,7 +448,6 @@ class _ClothingPageState extends State<ClothingPage> {
               ],
             ),
           ),
-          // Clothing Grid Section
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.all(16),
@@ -356,7 +466,7 @@ class _ClothingPageState extends State<ClothingPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Image.network(
+                        child: Image.asset(
                           item['imageUrl']!,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
@@ -388,6 +498,32 @@ class _ClothingPageState extends State<ClothingPage> {
                 );
               },
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: _currentPage > 1
+                    ? () {
+                        setState(() {
+                          _currentPage--;
+                        });
+                      }
+                    : null,
+                child: const Text('Previous'),
+              ),
+              Text('Page $_currentPage of $_totalPages'),
+              TextButton(
+                onPressed: _currentPage < _totalPages
+                    ? () {
+                        setState(() {
+                          _currentPage++;
+                        });
+                      }
+                    : null,
+                child: const Text('Next'),
+              ),
+            ],
           ),
         ],
       ),
