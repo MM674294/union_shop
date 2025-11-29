@@ -179,7 +179,7 @@ class HomeScreen extends StatelessWidget {
                                 child: const Text('clothing'),
                               ),
                               DropdownMenuItem(
-                                value: '/page2',
+                                value: '/merchandise',
                                 child: const Text('Merchandise'),
                               ),
                               DropdownMenuItem(

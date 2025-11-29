@@ -283,8 +283,8 @@ class _ClothingPageState extends State<ClothingPage> {
                           child: const Text('Clothing'),
                         ),
                         DropdownMenuItem(
-                          value: '/page2',
-                          child: const Text('Page 2'),
+                          value: '/merchandise',
+                          child: const Text('Merchandise'),
                         ),
                         DropdownMenuItem(
                           value: '/page3',
@@ -524,6 +524,101 @@ class _ClothingPageState extends State<ClothingPage> {
                 child: const Text('Next'),
               ),
             ],
+          ),
+          // Footer Section (copied from sale/about page)
+          Container(
+            color: Colors.grey[200],
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        children: const [
+                          Text(
+                            'Opening Hours',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            '❄️ Winter Break Closure Dates ❄️\nClosing 4pm 19/12/2025\nReopening 9am 06/01/2026',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            '---------------------------------',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            '(Term Time)\nMonday - Friday 10am - 4pm\n(Outside of Term Time / Consolidation Weeks)\nMonday - Friday 10am - 3pm\nPurchase online 24/7',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Flexible(
+                      child: Column(
+                        children: const [
+                          Text(
+                            'Help and Information',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'Search\nTerms & Conditions of Sale Policy',
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Flexible(
+                      child: Column(
+                        children: [
+                          const Text(
+                            'Latest Offers',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          const TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Email Address',
+                              hintText: 'Enter your email',
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          TextButton(
+                            onPressed: null, // Replace with your logic if needed
+                            style: TextButton.styleFrom(
+                              backgroundColor: Color(0xFF4d2963),
+                              foregroundColor: Colors.white,
+                            ),
+                            child: const Text('Subscribe'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
