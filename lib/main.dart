@@ -3,6 +3,7 @@ import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
 import 'package:union_shop/sale_page.dart';
 import 'package:union_shop/clothing_page.dart';
+import 'package:union_shop/merchandise_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -28,7 +29,7 @@ class UnionShopApp extends StatelessWidget {
         '/about': (context) => const AboutPage(),
         '/sale': (context) => const SalePage(), // Sale page route
         '/clothing': (context) => const ClothingPage(),
-        '/page2': (context) => const PlaceholderPage(title: 'Page 2'),
+        '/merchandise': (context) => const MerchandisePage(),
         '/page3': (context) => const PlaceholderPage(title: 'Page 3'),
         '/page4': (context) => const PlaceholderPage(title: 'Page 4'),
         '/page5': (context) => const PlaceholderPage(title: 'Page 5'),
@@ -179,7 +180,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                               DropdownMenuItem(
                                 value: '/page2',
-                                child: const Text('Page 2'),
+                                child: const Text('Merchandise'),
                               ),
                               DropdownMenuItem(
                                 value: '/page3',
