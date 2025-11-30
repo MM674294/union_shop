@@ -16,6 +16,7 @@ class _ClothingPageState extends State<ClothingPage> {
   int _currentPage = 1;
   String _searchQuery = '';
 
+  // List of clothing items
   final List<Map<String, String>> _clothingItems = [
     {
       'title': 'Classic Hoodies',
@@ -121,6 +122,7 @@ class _ClothingPageState extends State<ClothingPage> {
     },
   ];
 
+  // Helper to parse price for sorting
   double _parsePrice(String price) {
     final matches = RegExp(r'£([\d.]+)').allMatches(price);
     if (matches.isNotEmpty) {
@@ -129,9 +131,11 @@ class _ClothingPageState extends State<ClothingPage> {
     return 0.0;
   }
 
+  // Helper to parse date for sorting
   DateTime _parseDate(String date) =>
       DateTime.tryParse(date) ?? DateTime(2000);
 
+  // Sort items based on selected sort option
   List<Map<String, String>> _sortClothingItems(List<Map<String, String>> items) {
     List<Map<String, String>> sorted = List<Map<String, String>>.from(items);
     switch (_selectedSort) {
@@ -160,25 +164,83 @@ class _ClothingPageState extends State<ClothingPage> {
     }
   }
 
+  // Filter, search, and paginate items
   List<Map<String, String>> get _filteredClothingItems {
-    final sorted = _sortClothingItems(_clothingItems);
-    final filtered = sorted.where((item) {
+    List<Map<String, String>> filtered = _clothingItems;
+
+    // Filtering logic
+    if (_selectedFilter != 'All Products') {
+      if (_selectedFilter == 'Clothing') {
+        filtered = filtered.where((item) =>
+          item['title']!.toLowerCase().contains('hoodie') ||
+          item['title']!.toLowerCase().contains('t-shirt') ||
+          item['title']!.toLowerCase().contains('sweatshirt') ||
+          item['title']!.toLowerCase().contains('leggings') ||
+          item['title']!.toLowerCase().contains('shorts') ||
+          item['title']!.toLowerCase().contains('poncho')
+        ).toList();
+      } else if (_selectedFilter == 'Merchandise') {
+        filtered = filtered.where((item) =>
+          item['title']!.toLowerCase().contains('cap') ||
+          item['title']!.toLowerCase().contains('beanies')
+        ).toList();
+      } else if (_selectedFilter == 'Popular') {
+        filtered = filtered.take(5).toList();
+      } else if (_selectedFilter == 'PSUT') {
+        filtered = filtered.where((item) =>
+          item['title']!.toLowerCase().contains('graduation')
+        ).toList();
+      }
+    }
+
+    // Search logic
+    filtered = filtered.where((item) {
       if (_searchQuery.isEmpty) return true;
       return item['title']!.toLowerCase().contains(_searchQuery.toLowerCase());
     }).toList();
+
+    // Sort and paginate
+    final sorted = _sortClothingItems(filtered);
     final start = (_currentPage - 1) * 10;
-    final end = (_currentPage * 10).clamp(0, filtered.length);
-    return filtered.sublist(start, end);
+    final end = (_currentPage * 10).clamp(0, sorted.length);
+    return sorted.sublist(start, end);
   }
 
+  // Calculate total pages for pagination
   int get _totalPages {
-    final filtered = _clothingItems.where((item) {
-      if (_searchQuery.isEmpty) return true;
-      return item['title']!.toLowerCase().contains(_searchQuery.toLowerCase());
-    }).toList();
+    List<Map<String, String>> filtered = _clothingItems;
+    if (_selectedFilter != 'All Products') {
+      if (_selectedFilter == 'Clothing') {
+        filtered = filtered.where((item) =>
+          item['title']!.toLowerCase().contains('hoodie') ||
+          item['title']!.toLowerCase().contains('t-shirt') ||
+          item['title']!.toLowerCase().contains('sweatshirt') ||
+          item['title']!.toLowerCase().contains('leggings') ||
+          item['title']!.toLowerCase().contains('shorts') ||
+          item['title']!.toLowerCase().contains('poncho')
+        ).toList();
+      } else if (_selectedFilter == 'Merchandise') {
+        filtered = filtered.where((item) =>
+          item['title']!.toLowerCase().contains('cap') ||
+          item['title']!.toLowerCase().contains('beanies')
+        ).toList();
+      } else if (_selectedFilter == 'Popular') {
+        filtered = filtered.take(5).toList();
+      } else if (_selectedFilter == 'PSUT') {
+        filtered = filtered.where((item) =>
+          item['title']!.toLowerCase().contains('graduation')
+        ).toList();
+      }
+    }
+    if (_searchQuery.isNotEmpty) {
+      filtered = filtered.where((item) =>
+        item['title']!.toLowerCase().contains(_searchQuery.toLowerCase())
+      ).toList();
+    }
     return (filtered.length / 10).ceil();
   }
 
+  // Show search overlay
   void _showSearch(BuildContext context) async {
     final result = await showSearch<Map<String, String>?>(
       context: context,
@@ -194,6 +256,7 @@ class _ClothingPageState extends State<ClothingPage> {
     }
   }
 
+  // Navigation helper
   void _navigateTo(BuildContext context, String route) {
     Navigator.pushNamed(context, route);
   }
@@ -275,10 +338,11 @@ class _ClothingPageState extends State<ClothingPage> {
               ),
             ),
             const SizedBox(width: 12),
-            // Dropdown Button
+            // Dropdown Button for Shop
             DropdownButton<String>(
               underline: Container(),
               icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963)),
+              isDense: true,
               items: [
                 DropdownMenuItem(
                   value: '/clothing',
@@ -314,12 +378,19 @@ class _ClothingPageState extends State<ClothingPage> {
                   _navigateTo(context, value);
                 }
               },
-              hint: const Text(
-                'Shop',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF4d2963),
-                ),
+              hint: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Text(
+                    'Shop',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF4d2963),
+                    ),
+                  ),
+                  SizedBox(width: 2),
+                  // The arrow is already in the icon property, so you can remove this if you want only one arrow
+                ],
               ),
             ),
             const Spacer(),

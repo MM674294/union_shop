@@ -216,10 +216,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 2), // Adjust this for spacing
-                          Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963), size: 20),
-    ],
-
+                  
                           const Spacer(),
 
                           // Icons Section
