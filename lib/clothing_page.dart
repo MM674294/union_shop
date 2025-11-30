@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'custom_app_bar.dart'; // Import your custom app bar
 
 // Dummy cart state for demonstration
 List<Map<String, dynamic>> cartItems = [];
@@ -264,189 +265,9 @@ class _ClothingPageState extends State<ClothingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        toolbarHeight: 100,
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            // Logo
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-              },
-              child: Image.network(
-                'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                height: 18,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: Colors.grey[300],
-                    width: 18,
-                    height: 18,
-                    child: const Center(
-                      child: Icon(Icons.image_not_supported, color: Colors.grey),
-                    ),
-                  );
-                },
-              ),
-            ),
-            const Spacer(),
-            // Home Button
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-              },
-              child: const Text(
-                'Home',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF4d2963),
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-            const SizedBox(width: 16),
-            // About Button
-            TextButton(
-              onPressed: () {
-                _navigateTo(context, '/about');
-              },
-              child: const Text(
-                'About',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF4d2963),
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-            const SizedBox(width: 16),
-            // Sale Button
-            TextButton(
-              onPressed: () {
-                _navigateTo(context, '/sale');
-              },
-              child: const Text(
-                'Sale',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF4d2963),
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            // Dropdown Button for Shop
-            DropdownButton<String>(
-              underline: Container(),
-              icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963)),
-              isDense: true,
-              items: [
-                DropdownMenuItem(
-                  value: '/clothing',
-                  child: const Text('Clothing'),
-                ),
-                DropdownMenuItem(
-                  value: '/merchandise',
-                  child: const Text('Merchandise'),
-                ),
-                DropdownMenuItem(
-                  value: '/page3',
-                  child: const Text('Page 3'),
-                ),
-                DropdownMenuItem(
-                  value: '/page4',
-                  child: const Text('Page 4'),
-                ),
-                DropdownMenuItem(
-                  value: '/page5',
-                  child: const Text('Page 5'),
-                ),
-                DropdownMenuItem(
-                  value: '/page6',
-                  child: const Text('Page 6'),
-                ),
-                DropdownMenuItem(
-                  value: '/page7',
-                  child: const Text('Page 7'),
-                ),
-              ],
-              onChanged: (value) {
-                if (value != null) {
-                  _navigateTo(context, value);
-                }
-              },
-              hint: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Text(
-                    'Shop',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF4d2963),
-                    ),
-                  ),
-                  SizedBox(width: 2),
-                  // The arrow is already in the icon property, so you can remove this if you want only one arrow
-                ],
-              ),
-            ),
-            const Spacer(),
-            // Icons Section
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.search, size: 18, color: Colors.grey),
-                  onPressed: () => _showSearch(context),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.person_outline, size: 18, color: Colors.grey),
-                  onPressed: () {
-                    // TODO: Navigate to profile page
-                  },
-                ),
-                Stack(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.shopping_bag_outlined, size: 18, color: Colors.grey),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const CartPage()),
-                        );
-                      },
-                    ),
-                    if (cartItems.isNotEmpty)
-                      Positioned(
-                        right: 8,
-                        top: 8,
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Text(
-                            '${cartItems.length}',
-                            style: const TextStyle(color: Colors.white, fontSize: 12),
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-                IconButton(
-                  icon: const Icon(Icons.menu, size: 18, color: Colors.grey),
-                  onPressed: () {
-                    // TODO: Open menu drawer or similar
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
+      appBar: CustomAppBar(
+        parentContext: context,
+        onSearch: (ctx) => _showSearch(ctx),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -799,18 +620,119 @@ class ClothingSearchDelegate extends SearchDelegate<Map<String, String>?> {
     final results = items
         .where((item) => item['title']!.toLowerCase().contains(query.toLowerCase()))
         .toList();
-    if (results.isEmpty) {
-      return const Center(child: Text('No results found.'));
-    }
-    return ListView(
-      children: results
-          .map((item) => ListTile(
-                leading: Image.asset(item['imageUrl']!, width: 40, height: 40, fit: BoxFit.cover),
-                title: Text(item['title']!),
-                subtitle: Text(item['price']!),
-                onTap: () => close(context, item),
-              ))
-          .toList(),
+    return Column(
+      children: [
+        // Search results
+        Expanded(
+          child: results.isEmpty
+              ? const Center(child: Text('No results found.'))
+              : ListView(
+                  children: results
+                      .map((item) => ListTile(
+                            leading: Image.asset(item['imageUrl']!, width: 40, height: 40, fit: BoxFit.cover),
+                            title: Text(item['title']!),
+                            subtitle: Text(item['price']!),
+                            onTap: () => close(context, item),
+                          ))
+                      .toList(),
+                ),
+        ),
+        // Footer (same as main page)
+        Container(
+          color: Colors.grey[200],
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Column(
+                      children: const [
+                        Text(
+                          'Opening Hours',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          '❄️ Winter Break Closure Dates ❄️\nClosing 4pm 19/12/2025\nReopening 9am 06/01/2026',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          '---------------------------------',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          '(Term Time)\nMonday - Friday 10am - 4pm\n(Outside of Term Time / Consolidation Weeks)\nMonday - Friday 10am - 3pm\nPurchase online 24/7',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Flexible(
+                    child: Column(
+                      children: const [
+                        Text(
+                          'Help and Information',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Search\nTerms & Conditions of Sale Policy',
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Flexible(
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Latest Offers',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        const TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Email Address',
+                            hintText: 'Enter your email',
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        TextButton(
+                          onPressed: null, // Replace with your logic if needed
+                          style: TextButton.styleFrom(
+                            backgroundColor: Color(0xFF4d2963),
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text('Subscribe'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -819,15 +741,117 @@ class ClothingSearchDelegate extends SearchDelegate<Map<String, String>?> {
     final suggestions = items
         .where((item) => item['title']!.toLowerCase().contains(query.toLowerCase()))
         .toList();
-    return ListView(
-      children: suggestions
-          .map((item) => ListTile(
-                leading: Image.asset(item['imageUrl']!, width: 40, height: 40, fit: BoxFit.cover),
-                title: Text(item['title']!),
-                subtitle: Text(item['price']!),
-                onTap: () => close(context, item),
-              ))
-          .toList(),
+    return Column(
+      children: [
+        // Suggestions list
+        Expanded(
+          child: ListView(
+            children: suggestions
+                .map((item) => ListTile(
+                      leading: Image.asset(item['imageUrl']!, width: 40, height: 40, fit: BoxFit.cover),
+                      title: Text(item['title']!),
+                      subtitle: Text(item['price']!),
+                      onTap: () => close(context, item),
+                    ))
+                .toList(),
+          ),
+        ),
+        // Footer (same as main page)
+        Container(
+          color: Colors.grey[200],
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Column(
+                      children: const [
+                        Text(
+                          'Opening Hours',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          '❄️ Winter Break Closure Dates ❄️\nClosing 4pm 19/12/2025\nReopening 9am 06/01/2026',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          '---------------------------------',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          '(Term Time)\nMonday - Friday 10am - 4pm\n(Outside of Term Time / Consolidation Weeks)\nMonday - Friday 10am - 3pm\nPurchase online 24/7',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Flexible(
+                    child: Column(
+                      children: const [
+                        Text(
+                          'Help and Information',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Search\nTerms & Conditions of Sale Policy',
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Flexible(
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Latest Offers',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        const TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Email Address',
+                            hintText: 'Enter your email',
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        TextButton(
+                          onPressed: null, // Replace with your logic if needed
+                          style: TextButton.styleFrom(
+                            backgroundColor: Color(0xFF4d2963),
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text('Subscribe'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
