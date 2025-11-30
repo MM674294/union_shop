@@ -421,7 +421,7 @@ class HomeScreen extends StatelessWidget {
             Container(
               width: double.infinity,
               color: Colors.grey[50],
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(20),
               child: const Text(
                 'Placeholder Footer',
                 style: TextStyle(
