@@ -37,7 +37,7 @@ class _ClothingPageState extends State<ClothingPage> {
     },
     {
       'title': 'Classic Sweatshirts - neutral',
-      'price': '£17.00 £10.99',
+      'price': '£ 1̶7̶.̶0̶0̶  £10.99',
       'imageUrl': 'assets/images/clothing4.png',
       'date': DateTime(2024, 1, 3).toIso8601String(),
     },
@@ -61,37 +61,37 @@ class _ClothingPageState extends State<ClothingPage> {
     },
     {
       'title': 'Classic limited edition Hoodie',
-      'price': '£30.00 £12.99',
+      'price': '£3̶0̶.̶0̶0̶  £12.99',
       'imageUrl': 'assets/images/clothing8.png',
       'date': DateTime(2024, 1, 14).toIso8601String(),
     },
     {
       'title': 'Heavyweight Shorts',
-      'price': '£30.00 £12.99',
+      'price': '£3̶0̶.̶0̶0̶  £12.99',
       'imageUrl': 'assets/images/clothing9.png',
       'date': DateTime(2024, 5, 17).toIso8601String(),
     },
     {
       'title': 'Signiture Hoodie',
-      'price': '£30.00 £12.99',
+      'price': '£3̶0̶.̶0̶0̶  £12.99',
       'imageUrl': 'assets/images/clothing10.png',
       'date': DateTime(2024, 2, 2).toIso8601String(),
     },
     {
       'title': 'Ladies athletic Leggings',
-      'price': '£26.00 £12.99',
+      'price': '£ ̶2̶6̶.̶0̶0̶  £12.99',
       'imageUrl': 'assets/images/clothing11.png',
       'date': DateTime(2024, 7, 6).toIso8601String(),
     },
     {
       'title': 'Essential T-Shirt',
-      'price': '£10.99 £6.99',
+      'price': '£ ̶ ̶1̶0̶.̶9̶9̶  £6.99',
       'imageUrl': 'assets/images/clothing12.png',
       'date': DateTime(2024, 12, 20).toIso8601String(),
     },
     {
       'title': 'Limmited Edition Essential Zip Hoodies',
-      'price': '£20.00 £6.99',
+      'price': '£2̶0̶.̶0̶0̶  £6.99',
       'imageUrl': 'assets/images/clothing13.png',
       'date': DateTime(2024, 11, 20).toIso8601String(),
     },
@@ -103,26 +103,25 @@ class _ClothingPageState extends State<ClothingPage> {
     },
     {
       'title': 'Classic Burgendy Hoodie',
-      'price': '£25.00 £12.00',
+      'price': '̶£2̶5̶.̶0̶0̶  £12.00',
       'imageUrl': 'assets/images/clothing15.png',
       'date': DateTime(2024, 4, 3).toIso8601String(),
     },
     {
       'title': 'Signature T-Shirt',
-      'price': '£25.00 £12.00',
+      'price': '̶£2̶5̶.̶0̶0̶  £12.00',
       'imageUrl': 'assets/images/clothing16.png',
       'date': DateTime(2024, 3, 26).toIso8601String(),
     },
     {
       'title': 'Limited Edition UoM Beanies',
-      'price': '£7.50',
+      'price': '̶£7.50',
       'imageUrl': 'assets/images/clothing17.png',
       'date': DateTime(2024, 9, 8).toIso8601String(),
     },
   ];
 
   double _parsePrice(String price) {
-    // Extracts the last price in the string (handles sale prices)
     final matches = RegExp(r'£([\d.]+)').allMatches(price);
     if (matches.isNotEmpty) {
       return double.tryParse(matches.last.group(1)!) ?? 0.0;
@@ -195,6 +194,10 @@ class _ClothingPageState extends State<ClothingPage> {
     }
   }
 
+  void _navigateTo(BuildContext context, String route) {
+    Navigator.pushNamed(context, route);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -205,19 +208,20 @@ class _ClothingPageState extends State<ClothingPage> {
         automaticallyImplyLeading: false,
         title: Row(
           children: [
+            // Logo
             GestureDetector(
               onTap: () {
                 Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
               },
               child: Image.network(
                 'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                height: 32,
+                height: 18,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
                     color: Colors.grey[300],
-                    width: 32,
-                    height: 32,
+                    width: 18,
+                    height: 18,
                     child: const Center(
                       child: Icon(Icons.image_not_supported, color: Colors.grey),
                     ),
@@ -225,56 +229,149 @@ class _ClothingPageState extends State<ClothingPage> {
                 },
               ),
             ),
-            const SizedBox(width: 8),
-            const Text(
-              'Clothing',
-              style: TextStyle(
-                color: Color(0xFF4d2963),
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
+            const Spacer(),
+            // Home Button
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+              },
+              child: const Text(
+                'Home',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF4d2963),
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            // About Button
+            TextButton(
+              onPressed: () {
+                _navigateTo(context, '/about');
+              },
+              child: const Text(
+                'About',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF4d2963),
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            // Sale Button
+            TextButton(
+              onPressed: () {
+                _navigateTo(context, '/sale');
+              },
+              child: const Text(
+                'Sale',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF4d2963),
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            // Dropdown Button
+            DropdownButton<String>(
+              underline: Container(),
+              icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963)),
+              items: [
+                DropdownMenuItem(
+                  value: '/clothing',
+                  child: const Text('Clothing'),
+                ),
+                DropdownMenuItem(
+                  value: '/merchandise',
+                  child: const Text('Merchandise'),
+                ),
+                DropdownMenuItem(
+                  value: '/page3',
+                  child: const Text('Page 3'),
+                ),
+                DropdownMenuItem(
+                  value: '/page4',
+                  child: const Text('Page 4'),
+                ),
+                DropdownMenuItem(
+                  value: '/page5',
+                  child: const Text('Page 5'),
+                ),
+                DropdownMenuItem(
+                  value: '/page6',
+                  child: const Text('Page 6'),
+                ),
+                DropdownMenuItem(
+                  value: '/page7',
+                  child: const Text('Page 7'),
+                ),
+              ],
+              onChanged: (value) {
+                if (value != null) {
+                  _navigateTo(context, value);
+                }
+              },
+              hint: const Text(
+                'Shop',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF4d2963),
+                ),
               ),
             ),
             const Spacer(),
-            IconButton(
-              icon: const Icon(Icons.search, color: Color(0xFF4d2963)),
-              onPressed: () => _showSearch(context),
-              tooltip: 'Search',
-            ),
-            IconButton(
-              icon: const Icon(Icons.person, color: Color(0xFF4d2963)),
-              onPressed: () {
-                // TODO: Navigate to profile page
-              },
-              tooltip: 'Profile',
-            ),
-            Stack(
+            // Icons Section
+            Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.shopping_basket, color: Color(0xFF4d2963)),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const CartPage()),
-                    );
-                  },
-                  tooltip: 'Basket',
+                  icon: const Icon(Icons.search, size: 18, color: Colors.grey),
+                  onPressed: () => _showSearch(context),
                 ),
-                if (cartItems.isNotEmpty)
-                  Positioned(
-                    right: 8,
-                    top: 8,
-                    child: Container(
-                      padding: const EdgeInsets.all(2),
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Text(
-                        '${cartItems.length}',
-                        style: const TextStyle(color: Colors.white, fontSize: 12),
-                      ),
+                IconButton(
+                  icon: const Icon(Icons.person_outline, size: 18, color: Colors.grey),
+                  onPressed: () {
+                    // TODO: Navigate to profile page
+                  },
+                ),
+                Stack(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.shopping_bag_outlined, size: 18, color: Colors.grey),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const CartPage()),
+                        );
+                      },
                     ),
-                  ),
+                    if (cartItems.isNotEmpty)
+                      Positioned(
+                        right: 8,
+                        top: 8,
+                        child: Container(
+                          padding: const EdgeInsets.all(2),
+                          decoration: const BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            '${cartItems.length}',
+                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+                IconButton(
+                  icon: const Icon(Icons.menu, size: 18, color: Colors.grey),
+                  onPressed: () {
+                    // TODO: Open menu drawer or similar
+                  },
+                ),
               ],
             ),
           ],
@@ -292,6 +389,21 @@ class _ClothingPageState extends State<ClothingPage> {
                 'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+            // Page Title
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              color: Colors.grey[200],
+              child: const Text(
+                'Clothing',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF4d2963),
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
             // Filter & Sort Section
