@@ -323,177 +323,201 @@ class AllProductsSearchDelegate extends SearchDelegate<Map<String, String>?> {
   }
 }
 
-// --- Custom AppBar Widget ---
+// --- Custom AppBar Widget with Banner ---
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final BuildContext parentContext;
   const CustomAppBar({required this.parentContext, super.key});
 
   @override
-  Size get preferredSize => const Size.fromHeight(100);
+  Size get preferredSize => const Size.fromHeight(100 + 56);
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      toolbarHeight: 100,
-      automaticallyImplyLeading: false,
-      title: Row(
+    return Material(
+      color: Colors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-            },
-            child: Image.network(
-              'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-              height: 18,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: Colors.grey[300],
-                  width: 18,
-                  height: 18,
-                  child: const Center(
-                    child: Icon(Icons.image_not_supported, color: Colors.grey),
-                  ),
-                );
-              },
-            ),
-          ),
-          const Spacer(),
-          TextButton(
-            onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-            },
-            child: const Text(
-              'Home',
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xFF4d2963),
-                decoration: TextDecoration.underline,
+          // Top banner with promotional text
+          Container(
+            width: double.infinity,
+            height: 44,
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            color: const Color(0xFF4d2963),
+            child: const Center(
+              child: Text(
+                'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
           ),
-          const SizedBox(width: 16),
-          TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/about');
-            },
-            child: const Text(
-              'About',
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xFF4d2963),
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
-          const SizedBox(width: 16),
-          TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/sale');
-            },
-            child: const Text(
-              'Sale',
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xFF4d2963),
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          DropdownButton<String>(
-            underline: Container(),
-            icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963)),
-            isDense: true,
-            items: [
-              DropdownMenuItem(
-                value: '/clothing',
-                child: const Text('Clothing'),
-              ),
-              DropdownMenuItem(
-                value: '/merchandise',
-                child: const Text('Merchandise'),
-              ),
-              DropdownMenuItem(
-                value: '/halloween',
-                child: const Text('Halloween'),
-              ),
-              DropdownMenuItem(
-                value: '/signature',
-                child: const Text('Signature & Essential'),
-              ),
-              DropdownMenuItem(
-                value: '/page5',
-                child: const Text('Page 5'),
-              ),
-              DropdownMenuItem(
-                value: '/page6',
-                child: const Text('Page 6'),
-              ),
-              DropdownMenuItem(
-                value: '/page7',
-                child: const Text('Page 7'),
-              ),
-            ],
-            onChanged: (value) {
-              if (value != null) {
-                Navigator.pushNamed(context, value);
-              }
-            },
-            hint: const Text(
-              'Shop',
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xFF4d2963),
-              ),
-            ),
-          ),
-          const Spacer(),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.search, size: 18, color: Colors.grey),
-                onPressed: () {
-                  showSearch<Map<String, String>?>(
-                    context: parentContext,
-                    delegate: AllProductsSearchDelegate(allProducts),
-                  );
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.person_outline, size: 18, color: Colors.grey),
-                onPressed: () {},
-              ),
-              Stack(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.shopping_bag_outlined, size: 18, color: Colors.grey),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/cart');
-                    },
-                  ),
-                  if (cartItems.isNotEmpty)
-                    Positioned(
-                      right: 8,
-                      top: 8,
-                      child: Container(
-                        padding: const EdgeInsets.all(2),
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Text(
-                          '${cartItems.length}',
-                          style: const TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                      ),
+          // Navigation bar (row)
+          Container(
+            height: 56,
+            color: Colors.white,
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Image.network(
+                      'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+                      height: 32,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors.grey[300],
+                          width: 32,
+                          height: 32,
+                          child: const Center(
+                            child: Icon(Icons.image_not_supported, color: Colors.grey),
+                          ),
+                        );
+                      },
                     ),
-                ],
-              ),
-            ],
+                  ),
+                ),
+                const Spacer(),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                  },
+                  child: const Text(
+                    'Home',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF4d2963),
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/about');
+                  },
+                  child: const Text(
+                    'About',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF4d2963),
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/sale');
+                  },
+                  child: const Text(
+                    'Sale',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF4d2963),
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                DropdownButton<String>(
+                  underline: Container(),
+                  icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963)),
+                  isDense: true,
+                  items: [
+                    DropdownMenuItem(
+                      value: '/clothing',
+                      child: const Text('Clothing'),
+                    ),
+                    DropdownMenuItem(
+                      value: '/merchandise',
+                      child: const Text('Merchandise'),
+                    ),
+                    DropdownMenuItem(
+                      value: '/halloween',
+                      child: const Text('Halloween'),
+                    ),
+                    DropdownMenuItem(
+                      value: '/signature',
+                      child: const Text('Signature & Essential'),
+                    ),
+                    DropdownMenuItem(
+                      value: '/page5',
+                      child: const Text('Page 5'),
+                    ),
+                    DropdownMenuItem(
+                      value: '/page6',
+                      child: const Text('Page 6'),
+                    ),
+                    DropdownMenuItem(
+                      value: '/page7',
+                      child: const Text('Page 7'),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    if (value != null) {
+                      Navigator.pushNamed(context, value);
+                    }
+                  },
+                  hint: const Text(
+                    'Shop',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF4d2963),
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.search, size: 18, color: Colors.grey),
+                      onPressed: () {
+                        showSearch<Map<String, String>?>(
+                          context: parentContext,
+                          delegate: AllProductsSearchDelegate(allProducts),
+                        );
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.person_outline, size: 18, color: Colors.grey),
+                      onPressed: () {},
+                    ),
+                    Stack(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.shopping_bag_outlined, size: 18, color: Colors.grey),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/cart');
+                          },
+                        ),
+                        if (cartItems.isNotEmpty)
+                          Positioned(
+                            right: 8,
+                            top: 8,
+                            child: Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Text(
+                                '${cartItems.length}',
+                                style: const TextStyle(color: Colors.white, fontSize: 12),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
