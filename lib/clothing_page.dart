@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'custom_app_bar.dart'; // Import your custom app bar
 
 // Dummy cart state for demonstration
 List<Map<String, dynamic>> cartItems = [];
@@ -123,7 +122,6 @@ class _ClothingPageState extends State<ClothingPage> {
     },
   ];
 
-  // Helper to parse price for sorting
   double _parsePrice(String price) {
     final matches = RegExp(r'£([\d.]+)').allMatches(price);
     if (matches.isNotEmpty) {
@@ -132,11 +130,9 @@ class _ClothingPageState extends State<ClothingPage> {
     return 0.0;
   }
 
-  // Helper to parse date for sorting
   DateTime _parseDate(String date) =>
       DateTime.tryParse(date) ?? DateTime(2000);
 
-  // Sort items based on selected sort option
   List<Map<String, String>> _sortClothingItems(List<Map<String, String>> items) {
     List<Map<String, String>> sorted = List<Map<String, String>>.from(items);
     switch (_selectedSort) {
@@ -165,7 +161,6 @@ class _ClothingPageState extends State<ClothingPage> {
     }
   }
 
-  // Filter, search, and paginate items
   List<Map<String, String>> get _filteredClothingItems {
     List<Map<String, String>> filtered = _clothingItems;
 
@@ -207,7 +202,6 @@ class _ClothingPageState extends State<ClothingPage> {
     return sorted.sublist(start, end);
   }
 
-  // Calculate total pages for pagination
   int get _totalPages {
     List<Map<String, String>> filtered = _clothingItems;
     if (_selectedFilter != 'All Products') {
@@ -241,7 +235,6 @@ class _ClothingPageState extends State<ClothingPage> {
     return (filtered.length / 10).ceil();
   }
 
-  // Show search overlay
   void _showSearch(BuildContext context) async {
     final result = await showSearch<Map<String, String>?>(
       context: context,
@@ -257,17 +250,179 @@ class _ClothingPageState extends State<ClothingPage> {
     }
   }
 
-  // Navigation helper
-  void _navigateTo(BuildContext context, String route) {
-    Navigator.pushNamed(context, route);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        parentContext: context,
-        onSearch: (ctx) => _showSearch(ctx),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        toolbarHeight: 100,
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+              },
+              child: Image.network(
+                'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+                height: 18,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.grey[300],
+                    width: 18,
+                    height: 18,
+                    child: const Center(
+                      child: Icon(Icons.image_not_supported, color: Colors.grey),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const Spacer(),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+              },
+              child: const Text(
+                'Home',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF4d2963),
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/about');
+              },
+              child: const Text(
+                'About',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF4d2963),
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/sale');
+              },
+              child: const Text(
+                'Sale',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF4d2963),
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            DropdownButton<String>(
+              underline: Container(),
+              icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963)),
+              isDense: true,
+              items: [
+                DropdownMenuItem(
+                  value: '/clothing',
+                  child: const Text('Clothing'),
+                ),
+                DropdownMenuItem(
+                  value: '/merchandise',
+                  child: const Text('Merchandise'),
+                ),
+                DropdownMenuItem(
+                  value: '/page3',
+                  child: const Text('Page 3'),
+                ),
+                DropdownMenuItem(
+                  value: '/page4',
+                  child: const Text('Page 4'),
+                ),
+                DropdownMenuItem(
+                  value: '/page5',
+                  child: const Text('Page 5'),
+                ),
+                DropdownMenuItem(
+                  value: '/page6',
+                  child: const Text('Page 6'),
+                ),
+                DropdownMenuItem(
+                  value: '/page7',
+                  child: const Text('Page 7'),
+                ),
+              ],
+              onChanged: (value) {
+                if (value != null) {
+                  Navigator.pushNamed(context, value);
+                }
+              },
+              hint: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Text(
+                    'Shop',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF4d2963),
+                    ),
+                  ),
+                  SizedBox(width: 2),
+                ],
+              ),
+            ),
+            const Spacer(),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.search, size: 18, color: Colors.grey),
+                  onPressed: () => _showSearch(context),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.person_outline, size: 18, color: Colors.grey),
+                  onPressed: () {
+                    // TODO: Navigate to profile page
+                  },
+                ),
+                Stack(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.shopping_bag_outlined, size: 18, color: Colors.grey),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const CartPage()),
+                        );
+                      },
+                    ),
+                    if (cartItems.isNotEmpty)
+                      Positioned(
+                        right: 8,
+                        top: 8,
+                        child: Container(
+                          padding: const EdgeInsets.all(2),
+                          decoration: const BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            '${cartItems.length}',
+                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
