@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/item_detail_page.dart';
 
 // --- All Products (Signature, Essential, Clothing, Merchandise, Halloween, etc.) ---
 final List<Map<String, String>> allProducts = [
@@ -287,20 +288,28 @@ class AllProductsSearchDelegate extends SearchDelegate<Map<String, String>?> {
         .toList();
 
     return ListView(
-      children: [
-        if (results.isEmpty)
-          const Padding(
-            padding: EdgeInsets.all(32.0),
-            child: Center(child: Text('No results found.')),
-          )
-        else
-          ...results.map((item) => ListTile(
-                leading: Image.asset(item['imageUrl']!, width: 40, height: 40, fit: BoxFit.cover),
-                title: Text(item['title']!),
-                subtitle: Text(item['price']!),
-                onTap: () {},
-              )),
-      ],
+      children: results.isEmpty
+          ? [
+              const Padding(
+                padding: EdgeInsets.all(32.0),
+                child: Center(child: Text('No results found.')),
+              )
+            ]
+          : results
+              .map((item) => ListTile(
+                    leading: Image.asset(item['imageUrl']!, width: 40, height: 40, fit: BoxFit.cover),
+                    title: Text(item['title']!),
+                    subtitle: Text(item['price']!),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ItemDetailPage(item: item),
+                        ),
+                      );
+                    },
+                  ))
+              .toList(),
     );
   }
 
@@ -311,14 +320,21 @@ class AllProductsSearchDelegate extends SearchDelegate<Map<String, String>?> {
         .toList();
 
     return ListView(
-      children: [
-        ...suggestions.map((item) => ListTile(
-              leading: Image.asset(item['imageUrl']!, width: 40, height: 40, fit: BoxFit.cover),
-              title: Text(item['title']!),
-              subtitle: Text(item['price']!),
-              onTap: () {},
-            )),
-      ],
+      children: suggestions
+          .map((item) => ListTile(
+                leading: Image.asset(item['imageUrl']!, width: 40, height: 40, fit: BoxFit.cover),
+                title: Text(item['title']!),
+                subtitle: Text(item['price']!),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ItemDetailPage(item: item),
+                    ),
+                  );
+                },
+              ))
+          .toList(),
     );
   }
 }
@@ -329,7 +345,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({required this.parentContext, super.key});
 
   @override
-  Size get preferredSize => const Size.fromHeight(100 + 56);
+  Size get preferredSize => const Size.fromHeight(100);
 
   @override
   Widget build(BuildContext context) {
