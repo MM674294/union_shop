@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-// --- Cart Items (shared cart state) ---
-List<Map<String, dynamic>> cartItems = [];
-
 // --- All Products (Signature, Essential, Clothing, Merchandise, Halloween, etc.) ---
 final List<Map<String, String>> allProducts = [
   // --- Signature & Essential ---
@@ -261,6 +258,9 @@ final List<Map<String, String>> allProducts = [
   },
 ];
 
+// --- Cart Items (shared cart state) ---
+List<Map<String, dynamic>> cartItems = [];
+
 // --- Search Delegate for all products ---
 class AllProductsSearchDelegate extends SearchDelegate<Map<String, String>?> {
   final List<Map<String, String>> items;
@@ -323,10 +323,10 @@ class AllProductsSearchDelegate extends SearchDelegate<Map<String, String>?> {
   }
 }
 
-// --- AppBar Widget ---
-class _SignatureAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final VoidCallback onSearch;
-  const _SignatureAppBar({required this.onSearch});
+// --- Custom AppBar Widget ---
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final BuildContext parentContext;
+  const CustomAppBar({required this.parentContext, super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(100);
@@ -425,10 +425,6 @@ class _SignatureAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: const Text('Signature & Essential'),
               ),
               DropdownMenuItem(
-                value: '/page4',
-                child: const Text('Page 4'),
-              ),
-              DropdownMenuItem(
                 value: '/page5',
                 child: const Text('Page 5'),
               ),
@@ -446,18 +442,12 @@ class _SignatureAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Navigator.pushNamed(context, value);
               }
             },
-            hint: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
-                  'Shop',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF4d2963),
-                  ),
-                ),
-                SizedBox(width: 2),
-              ],
+            hint: const Text(
+              'Shop',
+              style: TextStyle(
+                fontSize: 14,
+                color: Color(0xFF4d2963),
+              ),
             ),
           ),
           const Spacer(),
@@ -466,7 +456,12 @@ class _SignatureAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.search, size: 18, color: Colors.grey),
-                onPressed: onSearch,
+                onPressed: () {
+                  showSearch<Map<String, String>?>(
+                    context: parentContext,
+                    delegate: AllProductsSearchDelegate(allProducts),
+                  );
+                },
               ),
               IconButton(
                 icon: const Icon(Icons.person_outline, size: 18, color: Colors.grey),
@@ -477,10 +472,7 @@ class _SignatureAppBar extends StatelessWidget implements PreferredSizeWidget {
                   IconButton(
                     icon: const Icon(Icons.shopping_bag_outlined, size: 18, color: Colors.grey),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => const CartPage()),
-                      );
+                      Navigator.pushNamed(context, '/cart');
                     },
                   ),
                   if (cartItems.isNotEmpty)
@@ -504,255 +496,6 @@ class _SignatureAppBar extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-// --- Footer Widget ---
-class _Footer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey[200],
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Column(
-                  children: const [
-                    Text(
-                      'Opening Hours',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      '❄️ Winter Break Closure Dates ❄️\nClosing 4pm 19/12/2025\nReopening 9am 06/01/2026',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      '---------------------------------',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      '(Term Time)\nMonday - Friday 10am - 4pm\n(Outside of Term Time / Consolidation Weeks)\nMonday - Friday 10am - 3pm\nPurchase online 24/7',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(width: 16),
-              Flexible(
-                child: Column(
-                  children: const [
-                    Text(
-                      'Help and Information',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Search\nTerms & Conditions of Sale Policy',
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(width: 16),
-              Flexible(
-                child: Column(
-                  children: [
-                    const Text(
-                      'Latest Offers',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    const TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Email Address',
-                        hintText: 'Enter your email',
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    TextButton(
-                      onPressed: null,
-                      style: TextButton.styleFrom(
-                        backgroundColor: Color(0xFF4d2963),
-                        foregroundColor: Colors.white,
-                      ),
-                      child: const Text('Subscribe'),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// --- Cart Page (minimal) ---
-class CartPage extends StatelessWidget {
-  const CartPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Your Cart'),
-        backgroundColor: Colors.white,
-        foregroundColor: const Color(0xFF4d2963),
-      ),
-      body: cartItems.isEmpty
-          ? const Center(child: Text('Your cart is empty.'))
-          : ListView.builder(
-              itemCount: cartItems.length,
-              itemBuilder: (context, index) {
-                final item = cartItems[index];
-                return ListTile(
-                  leading: Image.asset(item['imageUrl']!, width: 40, height: 40, fit: BoxFit.cover),
-                  title: Text(item['title']!),
-                  subtitle: Text('Qty: ${item['quantity'] ?? 1}'),
-                  trailing: Text(item['price']!),
-                );
-              },
-            ),
-    );
-  }
-}
-
-// --- Signature & Essential Range Page ---
-class SignatureEssentialPage extends StatelessWidget {
-  const SignatureEssentialPage({super.key});
-
-  void _showSearch(BuildContext context) {
-    showSearch<Map<String, String>?>(
-      context: context,
-      delegate: AllProductsSearchDelegate(allProducts),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _SignatureAppBar(
-        onSearch: () => _showSearch(context),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 24),
-              const Text(
-                'Signature & Essential Range',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF4d2963),
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Discover effortless style and comfort with our latest drop - the Signature & Essential range. The Signature line features premium embroidered hoodies in limited colours, plus the new Signature T-Shirt, combining classic design with elevated details. The Essential line offers versatile, must-have t-shirts with a fresh chest logo design, adding a clean, modern touch to your daily rotation.\n\nPlus, grab the limited edition zip hoodie while stocks last - a standout piece designed for those who move differently.',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black87,
-                  height: 1.5,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
-              // Filter and Sort Row
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  DropdownButton<String>(
-                    value: 'All products',
-                    items: const [
-                      DropdownMenuItem(value: 'All products', child: Text('All products')),
-                    ],
-                    onChanged: (val) {},
-                  ),
-                  DropdownButton<String>(
-                    value: 'Alphabetically, Z-A',
-                    items: const [
-                      DropdownMenuItem(value: 'Alphabetically, Z-A', child: Text('Alphabetically, Z-A')),
-                    ],
-                    onChanged: (val) {},
-                  ),
-                  Text(
-                    '${allProducts.length} products',
-                    style: const TextStyle(color: Colors.grey, fontSize: 14),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              // Products Grid
-              GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: MediaQuery.of(context).size.width > 900 ? 4 : 2,
-                crossAxisSpacing: 24,
-                mainAxisSpacing: 32,
-                childAspectRatio: 0.8,
-                children: allProducts.map((product) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Image.asset(
-                          product['imageUrl']!,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              color: Colors.grey[300],
-                              child: const Center(
-                                child: Icon(Icons.image_not_supported, color: Colors.grey),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        product['title']!,
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        product['price']!,
-                        style: const TextStyle(fontSize: 15, color: Colors.grey),
-                      ),
-                    ],
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 32),
-              _Footer(),
-            ],
-          ),
-        ),
       ),
     );
   }
