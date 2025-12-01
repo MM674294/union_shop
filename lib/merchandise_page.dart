@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'custom_app_bar.dart';
 
 class MerchandisePage extends StatefulWidget {
   const MerchandisePage({super.key});
@@ -44,7 +45,7 @@ class _MerchandisePageState extends State<MerchandisePage> {
     'date': DateTime(2024, 2, 16).toIso8601String(),
   },
   {
-    'title': 'limited edition',
+    'title': 'limited edition Lanyard',
     'price': '£2.75',
     'imageUrl': 'assets/images/m6.png',
     'date': DateTime(2024, 2, 23).toIso8601String(),
