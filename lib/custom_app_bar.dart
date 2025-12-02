@@ -263,7 +263,34 @@ List<Map<String, dynamic>> cartItems = [];
   },
 ];
  
- 
+ class ResponsiveBanner extends StatelessWidget {
+  final String text;
+  const ResponsiveBanner({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double fontSize = screenWidth < 400 ? 12 : screenWidth < 600 ? 14 : 16;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      color: const Color(0xFF4d2963),
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1.2,
+        ),
+        maxLines: 3,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+  }
+}
 
 
 
