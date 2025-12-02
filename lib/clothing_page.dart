@@ -376,16 +376,22 @@ class _ClothingPageState extends State<ClothingPage> {
             });
           },
         ),
-        const SizedBox(width: 16),
-        Text(
-          '${_clothingItems.length} products',
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
+        
       ],
     ),
   ),
 ),
-            // Clothing Grid Section
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, top: 8.0, bottom: 8.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${_clothingItems.length} products',
+                  style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
+                ),
+              ),
+            ),
+
             Padding(
               padding: const EdgeInsets.all(16),
               child: GridView.builder(

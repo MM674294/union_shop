@@ -365,9 +365,19 @@ class HalloweenSearchDelegate extends SearchDelegate<Map<String, String>?> {
   }
 }
 
-// --- Halloween Bags Page ---
-class HalloweenBagsPage extends StatelessWidget {
+
+
+// ...cartItems and _allSearchableItems as before...
+
+class HalloweenBagsPage extends StatefulWidget {
   const HalloweenBagsPage({super.key});
+
+  @override
+  State<HalloweenBagsPage> createState() => _HalloweenBagsPageState();
+}
+
+class _HalloweenBagsPageState extends State<HalloweenBagsPage> {
+  String _mainImage = 'assets/images/m27.png';
 
   void _showSearch(BuildContext context) {
     showSearch<Map<String, String>?>(
@@ -380,136 +390,180 @@ class HalloweenBagsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(parentContext: context),
-      drawer: const AppDrawer(), // <-- Add this for the hamburger menu
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 24),
-              const Text(
-                'Halloween',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF4d2963),
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Left: Main image and thumbnails
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      children: [
-                        AspectRatio(
-                          aspectRatio: 1,
-                          child: Image.asset(
-                            'assets/images/m27.png', // Main image
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset('assets/images/m27.png', width: 20, height: 20),
-                            const SizedBox(width: 5),
-                            Image.asset('assets/images/halloween2.png', width: 20, height: 20),
-                            const SizedBox(width: 5),
-                            Image.asset('assets/images/halloween3.png', width: 20, height: 20),
-                          ],
-                        ),
-                      ],
-                    ),
+      drawer: const AppDrawer(),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final isMobile = constraints.maxWidth < 600;
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 24),
+                const Text(
+                  'Halloween',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF4d2963),
                   ),
-                  const SizedBox(width: 32),
-                  // Right: Title, dropdown, quantity, add to cart, and your text
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Halloween Tote Bags',
-                          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          '£2.50',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 16),
-                        // Dropdown for design
-                        DropdownButton<String>(
-                          value: 'Boo!',
-                          items: const [
-                            DropdownMenuItem(value: 'Boo!', child: Text('Boo!')),
-                            DropdownMenuItem(value: 'Pumpkin', child: Text('Pumpkin')),
-                            DropdownMenuItem(value: 'Bat', child: Text('Bat')),
-                          ],
-                          onChanged: (val) {},
-                        ),
-                        const SizedBox(height: 8),
-                        // Quantity selector
-                        Row(
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 24),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Flex(
+                    direction: isMobile ? Axis.vertical : Axis.horizontal,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Left: Main image and thumbnails
+                      Expanded(
+                        flex: isMobile ? 0 : 1,
+                        child: Column(
                           children: [
-                            const Text('Quantity'),
-                            const SizedBox(width: 8),
-                            SizedBox(
-                              width: 50,
-                              child: TextField(
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                            AspectRatio(
+                              aspectRatio: 1,
+                              child: Image.asset(
+                                _mainImage,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) => Container(
+                                  color: Colors.grey[300],
+                                  child: const Center(
+                                    child: Icon(Icons.image_not_supported, size: 48, color: Colors.grey),
+                                  ),
                                 ),
-                                keyboardType: TextInputType.number,
-                                controller: TextEditingController(text: '1'),
                               ),
                             ),
+                            const SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                // Small images underneath the big image, tap to change main image
+                                GestureDetector(
+                                  onTap: () => setState(() => _mainImage = 'assets/images/m27.png'),
+                                  child: Image.asset(
+                                    'assets/images/m27.png',
+                                    width: 40,
+                                    height: 40,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (c, e, s) => const Icon(Icons.image_not_supported),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                GestureDetector(
+                                  onTap: () => setState(() => _mainImage = 'assets/images/halloween2.png'),
+                                  child: Image.asset(
+                                    'assets/images/halloween2.png',
+                                    width: 40,
+                                    height: 40,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (c, e, s) => const Icon(Icons.image_not_supported),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                GestureDetector(
+                                  onTap: () => setState(() => _mainImage = 'assets/images/halloween3.png'),
+                                  child: Image.asset(
+                                    'assets/images/halloween3.png',
+                                    width: 40,
+                                    height: 40,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (c, e, s) => const Icon(Icons.image_not_supported),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
-                        const SizedBox(height: 16),
-                        // Add to cart button
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF4d2963),
-                              foregroundColor: Colors.white,
-                            ),
-                            child: const Text('ADD TO CART'),
+                      ),
+                      if (!isMobile) const SizedBox(width: 32),
+                      // Right: Details
+                      Expanded(
+                        flex: isMobile ? 0 : 1,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: isMobile ? 24 : 0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Halloween Tote Bags',
+                                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                '£2.50',
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 16),
+                              DropdownButton<String>(
+                                value: 'Boo!',
+                                items: const [
+                                  DropdownMenuItem(value: 'Boo!', child: Text('Boo!')),
+                                  DropdownMenuItem(value: 'Pumpkin', child: Text('Pumpkin')),
+                                  DropdownMenuItem(value: 'Bat', child: Text('Bat')),
+                                ],
+                                onChanged: (val) {},
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  const Text('Quantity'),
+                                  const SizedBox(width: 8),
+                                  SizedBox(
+                                    width: 50,
+                                    child: TextField(
+                                      decoration: const InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                                      ),
+                                      keyboardType: TextInputType.number,
+                                      controller: TextEditingController(text: '1'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xFF4d2963),
+                                    foregroundColor: Colors.white,
+                                  ),
+                                  child: const Text('ADD TO CART'),
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              const Text(
+                                'Trick or treat yourself to one of these limited edition Halloween tote bags!\n\n'
+                                'Available to purchase in store & online for just £2.50!!!\n\n'
+                                'Be quick ... before they do a disappearing act ...\n\n'
+                                'Due to the hand crafted nature of this item, final product may differ slightly from original design.\n\n'
+                                'Designs will be printed after purchase and be available up to two working days later.',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
                           ),
                         ),
-                        const SizedBox(height: 24),
-                        // Your custom text at the bottom
-                        const Text(
-                          'Trick or treat yourself to one of these limited edition Halloween tote bags!\n\n'
-                          'Available to purchase in store & online for just £2.50!!!\n\n'
-                          'Be quick ... before they do a disappearing act ...\n\n'
-                          'Due to the hand crafted nature of this item, final product may differ slightly from original design.\n\n'
-                          'Designs will be printed after purchase and be available up to two working days later.',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(height: 32),
-              Footer(
-                onEmailSubmitted: (email) {
-                  print('User subscribed with email: $email');
-                },
-              ),
-            ],
-          ),
-        ),
+                ),
+                const SizedBox(height: 32),
+                // Responsive full-width footer
+                Container(
+                  width: double.infinity,
+                  color: Colors.transparent,
+                  child: Footer(
+                    onEmailSubmitted: (email) {
+                      print('User subscribed with email: $email');
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showSearch(context),
