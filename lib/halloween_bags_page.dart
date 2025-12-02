@@ -567,10 +567,10 @@ class _HalloweenBagsPageState extends State<HalloweenBagsPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showSearch(context),
-        child: const Icon(Icons.search),
         backgroundColor: const Color(0xFF4d2963),
         foregroundColor: Colors.white,
         tooltip: 'Search Products',
+        child: const Icon(Icons.search),
       ),
     );
   }

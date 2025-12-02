@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/about_page.dart';
-import 'package:flutter/gestures.dart';
 import 'package:union_shop/personalisation_page.dart'; // Import the PersonalisationPage
 
 void main() {

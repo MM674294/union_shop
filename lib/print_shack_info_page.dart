@@ -77,11 +77,11 @@ class PrintShackInfoPage extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             // Content
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   SizedBox(height: 8),
                   Text(
                     'Make It Yours at The Union Print Shack',

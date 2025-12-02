@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Import your cartItems if needed
-import 'clothing_page.dart'; // or wherever your cartItems are defined
+import 'package:union_shop/custom_app_bar.dart'; 
 
 class ItemDetailPage extends StatefulWidget {
   final Map<String, String> item;

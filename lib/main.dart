@@ -11,7 +11,8 @@ import 'package:union_shop/footer.dart';
 import 'package:union_shop/print_shack_info_page.dart';
 import 'package:union_shop/print_shack_personalise_page.dart';
 import 'package:union_shop/graduation_page.dart';
-
+import 'package:union_shop/cart_page.dart';
+import 'package:union_shop/login_page.dart';
 // Add this import if you have a PrintShackPage
 // import 'package:union_shop/print_shack_page.dart';
 
@@ -45,6 +46,8 @@ class UnionShopApp extends StatelessWidget {
        '/printshackpersonalise': (context) => const PrintShackPersonalisePage(),
         '/graduation': (context) => const GraduationPage(),
         '/cart': (context) => const CartPage(),
+        '/login': (context) => const LoginPage(),
+        
       },
     );
   }

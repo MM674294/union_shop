@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/item_detail_page.dart';
 
+
+List<Map<String, dynamic>> cartItems = [];
 // --- All Products (Signature, Essential, Clothing, Merchandise, Halloween, etc.) ---
  
  
@@ -266,7 +268,7 @@ import 'package:union_shop/item_detail_page.dart';
 
 
 // --- Cart Items (shared cart state) ---
-List<Map<String, dynamic>> cartItems = [];
+//List<Map<String, dynamic>> cartItems = [];
 
 // --- Search Delegate for all products ---
 class AllProductsSearchDelegate extends SearchDelegate<Map<String, String>?> {

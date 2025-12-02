@@ -3,9 +3,6 @@ import 'package:union_shop/custom_app_bar.dart';
 import 'package:union_shop/item_detail_page.dart';
 import 'package:union_shop/footer.dart';
 
-// Shared cart state
-List<Map<String, dynamic>> cartItems = [];
-
 class ClothingPage extends StatefulWidget {
   const ClothingPage({super.key});
 
@@ -17,9 +14,7 @@ class _ClothingPageState extends State<ClothingPage> {
   String _selectedFilter = 'All Products';
   String _selectedSort = 'Featured';
   int _currentPage = 1;
-  String _searchQuery = '';
-
-  final ScrollController _scrollController = ScrollController();
+  final String _searchQuery = '';
 
   // List of clothing items
   final List<Map<String, String>> _clothingItems = [
@@ -244,22 +239,14 @@ class _ClothingPageState extends State<ClothingPage> {
     setState(() {
       _currentPage = page;
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollController.animateTo(
-        0,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(parentContext: context),
-      drawer: const AppDrawer(), // <-- Add this for the hamburger menu
+      drawer: const AppDrawer(),
       body: SingleChildScrollView(
-        controller: _scrollController,
         child: Column(
           children: [
             // Page Title
@@ -278,109 +265,108 @@ class _ClothingPageState extends State<ClothingPage> {
               ),
             ),
             // Filter & Sort Section
-           Container(
-  width: double.infinity,
-  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-  decoration: const BoxDecoration(
-    border: Border(
-      top: BorderSide(color: Colors.grey),
-      bottom: BorderSide(color: Colors.grey),
-    ),
-  ),
-  child: SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Row(
-      children: [
-        const Text(
-          'Filter by:',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(width: 8),
-        DropdownButton<String>(
-          value: _selectedFilter,
-          items: const [
-            DropdownMenuItem(
-              value: 'All Products',
-              child: Text('All Products'),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              decoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(color: Colors.grey),
+                  bottom: BorderSide(color: Colors.grey),
+                ),
+              ),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    const Text(
+                      'Filter by:',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(width: 8),
+                    DropdownButton<String>(
+                      value: _selectedFilter,
+                      items: const [
+                        DropdownMenuItem(
+                          value: 'All Products',
+                          child: Text('All Products'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Clothing',
+                          child: Text('Clothing'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Merchandise',
+                          child: Text('Merchandise'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Popular',
+                          child: Text('Popular'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'PSUT',
+                          child: Text('PSUT'),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedFilter = value!;
+                          _currentPage = 1;
+                        });
+                      },
+                    ),
+                    const SizedBox(width: 24),
+                    const Text(
+                      'Sort by:',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(width: 8),
+                    DropdownButton<String>(
+                      value: _selectedSort,
+                      items: const [
+                        DropdownMenuItem(
+                          value: 'Featured',
+                          child: Text('Featured'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Best Selling',
+                          child: Text('Best Selling'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'A-Z',
+                          child: Text('A-Z'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Z-A',
+                          child: Text('Z-A'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Price High to Low',
+                          child: Text('Price High to Low'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Price Low to High',
+                          child: Text('Price Low to High'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Date Old to New',
+                          child: Text('Date Old to New'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Date New to Old',
+                          child: Text('Date New to Old'),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedSort = value!;
+                          _currentPage = 1;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
-            DropdownMenuItem(
-              value: 'Clothing',
-              child: Text('Clothing'),
-            ),
-            DropdownMenuItem(
-              value: 'Merchandise',
-              child: Text('Merchandise'),
-            ),
-            DropdownMenuItem(
-              value: 'Popular',
-              child: Text('Popular'),
-            ),
-            DropdownMenuItem(
-              value: 'PSUT',
-              child: Text('PSUT'),
-            ),
-          ],
-          onChanged: (value) {
-            setState(() {
-              _selectedFilter = value!;
-              _currentPage = 1;
-            });
-          },
-        ),
-        const SizedBox(width: 24),
-        const Text(
-          'Sort by:',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(width: 8),
-        DropdownButton<String>(
-          value: _selectedSort,
-          items: const [
-            DropdownMenuItem(
-              value: 'Featured',
-              child: Text('Featured'),
-            ),
-            DropdownMenuItem(
-              value: 'Best Selling',
-              child: Text('Best Selling'),
-            ),
-            DropdownMenuItem(
-              value: 'A-Z',
-              child: Text('A-Z'),
-            ),
-            DropdownMenuItem(
-              value: 'Z-A',
-              child: Text('Z-A'),
-            ),
-            DropdownMenuItem(
-              value: 'Price High to Low',
-              child: Text('Price High to Low'),
-            ),
-            DropdownMenuItem(
-              value: 'Price Low to High',
-              child: Text('Price Low to High'),
-            ),
-            DropdownMenuItem(
-              value: 'Date Old to New',
-              child: Text('Date Old to New'),
-            ),
-            DropdownMenuItem(
-              value: 'Date New to Old',
-              child: Text('Date New to Old'),
-            ),
-          ],
-          onChanged: (value) {
-            setState(() {
-              _selectedSort = value!;
-              _currentPage = 1;
-            });
-          },
-        ),
-        
-      ],
-    ),
-  ),
-),
             Padding(
               padding: const EdgeInsets.only(left: 16.0, top: 8.0, bottom: 8.0),
               child: Align(
@@ -391,7 +377,6 @@ class _ClothingPageState extends State<ClothingPage> {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(16),
               child: GridView.builder(
@@ -407,13 +392,14 @@ class _ClothingPageState extends State<ClothingPage> {
                 itemBuilder: (context, index) {
                   final item = _filteredClothingItems[index];
                   return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
+                    onTap: () async {
+                      await Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (_) => ItemDetailPage(item: item),
                         ),
                       );
+                      setState(() {}); // Refresh in case cart changed
                     },
                     child: Card(
                       elevation: 4,
@@ -446,6 +432,25 @@ class _ClothingPageState extends State<ClothingPage> {
                             child: Text(
                               item['price']!,
                               style: const TextStyle(fontSize: 14, color: Colors.grey),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  cartItems.add({
+                                    'title': item['title'],
+                                    'price': item['price'],
+                                    'image': item['imageUrl'],
+                                    'details': '',
+                                  });
+                                });
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Added to cart!')),
+                                );
+                              },
+                              child: const Text('Add to Cart'),
                             ),
                           ),
                         ],
