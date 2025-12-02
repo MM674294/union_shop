@@ -6,6 +6,9 @@ import 'package:union_shop/clothing_page.dart';
 import 'package:union_shop/merchandise_page.dart';
 import 'package:union_shop/halloween_bags_page.dart';
 import 'package:union_shop/signature_essential_page.dart';
+import 'package:union_shop/custom_app_bar.dart';
+import 'package:union_shop/footer.dart';
+
 void main() {
   runApp(const UnionShopApp());
 }
@@ -69,6 +72,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       appBar: CustomAppBar(parentContext: context),
+      drawer: const AppDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -387,25 +392,25 @@ class HomeScreen extends StatelessWidget {
                       mainAxisSpacing: 48,
                       children: const [
                         ProductCard(
-                          title: 'Placeholder Product 1',
+                          title: 'Portsmouth City Magnet',
                           price: '£10.00',
                           imageUrl:
                               'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                         ),
                         ProductCard(
-                          title: 'Placeholder Product 2',
+                          title: 'Portsmouth signature magnet',
                           price: '£15.00',
                           imageUrl:
                               'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                         ),
                         ProductCard(
-                          title: 'Placeholder Product 3',
+                          title: 'Portmouth Limited Edition Magnet',
                           price: '£20.00',
                           imageUrl:
                               'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                         ),
                         ProductCard(
-                          title: 'Placeholder Product 4',
+                          title: 'Portmouth UoM Magnet',
                           price: '£25.00',
                           imageUrl:
                               'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
@@ -418,19 +423,11 @@ class HomeScreen extends StatelessWidget {
             ),
 
             // Footer Section
-            Container(
-              width: double.infinity,
-              color: Colors.grey[50],
-              padding: const EdgeInsets.all(20),
-              child: const Text(
-                'Placeholder Footer',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
+           Footer(
+  onEmailSubmitted: (email) {
+    print('User subscribed with email: $email');
+  },
+),
           ],
         ),
       ),
