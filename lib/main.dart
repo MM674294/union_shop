@@ -25,16 +25,14 @@ class UnionShopApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
       ),
       home: const HomeScreen(),
-      // By default, the app starts at the '/' route, which is the HomeScreen
       initialRoute: '/',
-      // Define routes for navigation
       routes: {
-        '/product': (context) => const ProductPage(), // Product page route
+        '/product': (context) => const ProductPage(),
         '/about': (context) => const AboutPage(),
-        '/sale': (context) => const SalePage(), // Sale page route
+        '/sale': (context) => const SalePage(),
         '/clothing': (context) => const ClothingPage(),
         '/merchandise': (context) => const MerchandisePage(),
-       '/halloween': (context) => const HalloweenBagsPage(),
+        '/halloween': (context) => const HalloweenBagsPage(),
         '/signature': (context) => const SignatureEssentialPage(),
         '/page5': (context) => const PlaceholderPage(title: 'Page 5'),
         '/page6': (context) => const PlaceholderPage(title: 'Page 6'),
@@ -47,255 +45,18 @@ class UnionShopApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  // Navigate to the HomeScreen
-  void navigateToHome(BuildContext context) {
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-  }
-
-  // Navigate to the ProductPage
-  void navigateToProduct(BuildContext context) {
-    Navigator.pushNamed(context, '/product');
-  }
-
-  void navigateToSale(BuildContext context) {
-    Navigator.pushNamed(context, '/sale'); // Navigate to SalePage
-  }
-
-  // Navigate to specific pages from the dropdown
-  void navigateToPage(BuildContext context, String route) {
-    Navigator.pushNamed(context, route);
-  }
-
-  // Placeholder callback for buttons that are not implemented yet
   void placeholderCallbackForButtons() {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: CustomAppBar(parentContext: context),
+      appBar: CustomAppBar(parentContext: context),
       drawer: const AppDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header Section
-            Container(
-              height: 100,
-              color: Colors.white,
-              child: Column(
-                children: [
-                  // Top banner with promotional text
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    color: const Color(0xFF4d2963),
-                    child: const Text(
-                      'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ),
-                  // Main header with navigation buttons
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        children: [
-                          // Logo that navigates to the HomeScreen
-                          GestureDetector(
-                            onTap: () {
-                              navigateToHome(context);
-                            },
-                            child: Image.network(
-                              'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                              height: 18,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Container(
-                                  color: Colors.grey[300],
-                                  width: 18,
-                                  height: 18,
-                                  child: const Center(
-                                    child: Icon(Icons.image_not_supported, color: Colors.grey),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-
-                          const Spacer(),
-
-                          // Home Button
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-                            },
-                            child: const Text(
-                              'Home',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFF4d2963),
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-
-                          const SizedBox(width: 16), // Space between buttons
-
-                          // About Button
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/about'); // Navigate to the About page
-                            },
-                            child: const Text(
-                              'About',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFF4d2963),
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-
-                          const SizedBox(width: 16), // Space between buttons
-
-                          // Sale Button
-                          TextButton(
-                            onPressed: () {
-                              navigateToSale(context); // Navigate to the Sale page
-                            },
-                            child: const Text(
-                              'Sale',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFF4d2963),
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-
-                          const SizedBox(width: 16), // Space between buttons
-
-                          // Dropdown Button labeled "Show"
-                          DropdownButton<String>(
-                            underline: Container(), // Remove underline
-                            icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963)),
-                            items: [
-                              DropdownMenuItem(
-                                value: '/clothing',
-                                child: const Text('clothing'),
-                              ),
-                              DropdownMenuItem(
-                                value: '/merchandise',
-                                child: const Text('Merchandise'),
-                              ),
-                              DropdownMenuItem(
-                                value: '/halloween',
-                                child: const Text('Halloween'),
-                              ),
-                              DropdownMenuItem(
-                                value: '/signature',
-                                child: const Text('signature & essential'),
-                              ),
-                              DropdownMenuItem(
-                                value: '/page5',
-                                child: const Text('Page 5'),
-                              ),
-                              DropdownMenuItem(
-                                value: '/page6',
-                                child: const Text('Page 6'),
-                              ),
-                              DropdownMenuItem(
-                                value: '/page7',
-                                child: const Text('Page 7'),
-                              ),
-                            ],
-                            onChanged: (value) {
-                              if (value != null) {
-                                navigateToPage(context, value);
-                              }
-                            },
-                            hint: const Text(
-                              'Shop',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFF4d2963),
-                              ),
-                            ),
-                          ),
-                  
-                          const Spacer(),
-
-                          // Icons Section
-                          ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 600),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.search,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
-                                ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.person_outline,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
-                                ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.shopping_bag_outlined,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
-                                ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.menu,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
             // Hero Section
-            SizedBox(
+           SizedBox(
               height: 400,
               width: double.infinity,
               child: Stack(
@@ -423,11 +184,11 @@ class HomeScreen extends StatelessWidget {
             ),
 
             // Footer Section
-           Footer(
-  onEmailSubmitted: (email) {
-    print('User subscribed with email: $email');
-  },
-),
+            Footer(
+              onEmailSubmitted: (email) {
+                print('User subscribed with email: $email');
+              },
+            ),
           ],
         ),
       ),
@@ -453,40 +214,44 @@ class ProductCard extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(context, '/product');
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: Colors.grey[300],
-                  child: const Center(
-                    child: Icon(Icons.image_not_supported, color: Colors.grey),
-                  ),
-                );
-              },
+      child: Card(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.grey[300],
+                    child: const Center(
+                      child: Icon(Icons.image_not_supported, color: Colors.grey),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 4),
-              Text(
-                title,
-                style: const TextStyle(fontSize: 14, color: Colors.black),
-                maxLines: 2,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(fontSize: 14, color: Colors.black),
+                    maxLines: 2,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    price,
+                    style: const TextStyle(fontSize: 13, color: Colors.grey),
+                  ),
+                ],
               ),
-              const SizedBox(height: 4),
-              Text(
-                price,
-                style: const TextStyle(fontSize: 13, color: Colors.grey),
-              ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
