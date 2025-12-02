@@ -564,13 +564,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   Navigator.pushNamed(context, '/page7');
                 },
               ),
-              ListTile(
-                contentPadding: const EdgeInsets.only(left: 56, right: 16),
-                title: const Text('Page 8'),
-                onTap: () {
-                  Navigator.pushNamed(context, '/page8');
-                },
-              ),
+              
             ],
           ),
           ExpansionTile(
@@ -586,17 +580,17 @@ class _AppDrawerState extends State<AppDrawer> {
             children: [
               ListTile(
                 contentPadding: const EdgeInsets.only(left: 56, right: 16),
-                title: const Text('About'),
+                title: const Text('Print Shack Information'),
                 onTap: () {
-                  Navigator.pushNamed(context, '/about');
+                  Navigator.pushNamed(context, '/printshackinfo');
                 },
               ),
               ListTile(
-                contentPadding: const EdgeInsets.only(left: 56, right: 16),
-                title: const Text('Page 2'),
-                onTap: () {
-                  Navigator.pushNamed(context, '/page2');
-                },
+            leading: const Icon(Icons.edit),
+            title: const Text('Print Shack Personalise'),
+            onTap: () {
+              Navigator.pushNamed(context, '/printshackpersonalise');
+            },
               ),
             ],
           ),
@@ -607,13 +601,15 @@ class _AppDrawerState extends State<AppDrawer> {
               Navigator.pushNamed(context, '/sale');
             },
           ),
-          ListTile(
+                   ListTile(
             leading: const Icon(Icons.info_outline),
             title: const Text('About'),
             onTap: () {
               Navigator.pushNamed(context, '/about');
             },
           ),
+
+        
         ],
       ),
     );

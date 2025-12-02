@@ -8,6 +8,8 @@ import 'package:union_shop/halloween_bags_page.dart';
 import 'package:union_shop/signature_essential_page.dart';
 import 'package:union_shop/custom_app_bar.dart';
 import 'package:union_shop/footer.dart';
+import 'package:union_shop/print_shack_info_page.dart';
+import 'package:union_shop/print_shack_personalise_page.dart';
 
 // Add this import if you have a PrintShackPage
 // import 'package:union_shop/print_shack_page.dart';
@@ -38,8 +40,8 @@ class UnionShopApp extends StatelessWidget {
         '/halloween': (context) => const HalloweenBagsPage(),
         '/signature': (context) => const SignatureEssentialPage(),
         '/printshack': (context) => const PlaceholderPage(title: 'Print Shack'), // Replace with PrintShackPage when ready
-        '/page5': (context) => const PlaceholderPage(title: 'Page 5'),
-        '/page6': (context) => const PlaceholderPage(title: 'Page 6'),
+        '/printshackinfo': (context) => const PrintShackInfoPage(),
+       '/printshackpersonalise': (context) => const PrintShackPersonalisePage(),
         '/page7': (context) => const PlaceholderPage(title: 'Page 7'),
       },
     );
