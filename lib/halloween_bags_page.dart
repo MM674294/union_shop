@@ -14,7 +14,7 @@ class HalloweenBagsPage extends StatefulWidget {
 class _HalloweenBagsPageState extends State<HalloweenBagsPage> {
   String _mainImage = 'assets/images/halloween2.png';
   String _selectedDesign = 'Boo!';
-
+  int _quantity = 1;
   String _getImageForDesign(String design) {
     switch (design) {
       case 'Boo!':
@@ -152,23 +152,22 @@ class _HalloweenBagsPageState extends State<HalloweenBagsPage> {
                               ),
                               // ...rest of your code...
                               const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  const Text('Quantity'),
-                                  const SizedBox(width: 8),
-                                  SizedBox(
-                                    width: 50,
-                                    child: TextField(
-                                      decoration: const InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                                      ),
-                                      keyboardType: TextInputType.number,
-                                      controller: TextEditingController(text: '1'),
-                                    ),
+                             Row(
+                              children: [
+                                const Text('Quantity'),
+                                const SizedBox(width: 8),
+                                IconButton(
+                                  icon: const Icon(Icons.remove),
+                                  onPressed: _quantity > 1
+                                  ? () => setState(() => _quantity--): null,
                                   ),
-                                ],
-                              ),
+                                  Text('$_quantity', style: const TextStyle(fontSize: 16)),
+                                  IconButton(
+                                    icon: const Icon(Icons.add),
+                                    onPressed: () => setState(() => _quantity++),
+                                    ),
+                                    ],
+                                    ),
                               const SizedBox(height: 16),
                               SizedBox(
                                 width: double.infinity,
