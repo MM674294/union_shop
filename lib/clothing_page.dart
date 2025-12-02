@@ -278,110 +278,113 @@ class _ClothingPageState extends State<ClothingPage> {
               ),
             ),
             // Filter & Sort Section
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              decoration: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: Colors.grey),
-                  bottom: BorderSide(color: Colors.grey),
-                ),
-              ),
-              child: Row(
-                children: [
-                  const Text(
-                    'Filter by:',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(width: 8),
-                  DropdownButton<String>(
-                    value: _selectedFilter,
-                    items: const [
-                      DropdownMenuItem(
-                        value: 'All Products',
-                        child: Text('All Products'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Clothing',
-                        child: Text('Clothing'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Merchandise',
-                        child: Text('Merchandise'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Popular',
-                        child: Text('Popular'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'PSUT',
-                        child: Text('PSUT'),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedFilter = value!;
-                        _currentPage = 1;
-                      });
-                    },
-                  ),
-                  const SizedBox(width: 24),
-                  const Text(
-                    'Sort by:',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(width: 8),
-                  DropdownButton<String>(
-                    value: _selectedSort,
-                    items: const [
-                      DropdownMenuItem(
-                        value: 'Featured',
-                        child: Text('Featured'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Best Selling',
-                        child: Text('Best Selling'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'A-Z',
-                        child: Text('A-Z'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Z-A',
-                        child: Text('Z-A'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Price High to Low',
-                        child: Text('Price High to Low'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Price Low to High',
-                        child: Text('Price Low to High'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Date Old to New',
-                        child: Text('Date Old to New'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Date New to Old',
-                        child: Text('Date New to Old'),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedSort = value!;
-                        _currentPage = 1;
-                      });
-                    },
-                  ),
-                  const SizedBox(width: 16),
-                  Text(
-                    '${_clothingItems.length} products',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+           Container(
+  width: double.infinity,
+  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+  decoration: const BoxDecoration(
+    border: Border(
+      top: BorderSide(color: Colors.grey),
+      bottom: BorderSide(color: Colors.grey),
+    ),
+  ),
+  child: SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Row(
+      children: [
+        const Text(
+          'Filter by:',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(width: 8),
+        DropdownButton<String>(
+          value: _selectedFilter,
+          items: const [
+            DropdownMenuItem(
+              value: 'All Products',
+              child: Text('All Products'),
             ),
+            DropdownMenuItem(
+              value: 'Clothing',
+              child: Text('Clothing'),
+            ),
+            DropdownMenuItem(
+              value: 'Merchandise',
+              child: Text('Merchandise'),
+            ),
+            DropdownMenuItem(
+              value: 'Popular',
+              child: Text('Popular'),
+            ),
+            DropdownMenuItem(
+              value: 'PSUT',
+              child: Text('PSUT'),
+            ),
+          ],
+          onChanged: (value) {
+            setState(() {
+              _selectedFilter = value!;
+              _currentPage = 1;
+            });
+          },
+        ),
+        const SizedBox(width: 24),
+        const Text(
+          'Sort by:',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(width: 8),
+        DropdownButton<String>(
+          value: _selectedSort,
+          items: const [
+            DropdownMenuItem(
+              value: 'Featured',
+              child: Text('Featured'),
+            ),
+            DropdownMenuItem(
+              value: 'Best Selling',
+              child: Text('Best Selling'),
+            ),
+            DropdownMenuItem(
+              value: 'A-Z',
+              child: Text('A-Z'),
+            ),
+            DropdownMenuItem(
+              value: 'Z-A',
+              child: Text('Z-A'),
+            ),
+            DropdownMenuItem(
+              value: 'Price High to Low',
+              child: Text('Price High to Low'),
+            ),
+            DropdownMenuItem(
+              value: 'Price Low to High',
+              child: Text('Price Low to High'),
+            ),
+            DropdownMenuItem(
+              value: 'Date Old to New',
+              child: Text('Date Old to New'),
+            ),
+            DropdownMenuItem(
+              value: 'Date New to Old',
+              child: Text('Date New to Old'),
+            ),
+          ],
+          onChanged: (value) {
+            setState(() {
+              _selectedSort = value!;
+              _currentPage = 1;
+            });
+          },
+        ),
+        const SizedBox(width: 16),
+        Text(
+          '${_clothingItems.length} products',
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+      ],
+    ),
+  ),
+),
             // Clothing Grid Section
             Padding(
               padding: const EdgeInsets.all(16),

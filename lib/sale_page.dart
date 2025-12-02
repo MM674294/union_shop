@@ -123,70 +123,75 @@ class _SalePageState extends State<SalePage> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('FILTER BY', style: TextStyle(fontSize: 12, color: Colors.grey)),
-                          DropdownButton<String>(
-                            value: _selectedFilter,
-                            items: const [
-                              DropdownMenuItem(value: 'All products', child: Text('All products')),
-                              DropdownMenuItem(value: 'Clothing', child: Text('Clothing')),
-                              DropdownMenuItem(value: 'Merchandise', child: Text('Merchandise')),
-                            ],
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedFilter = value!;
-                                _currentPage = 1;
-                              });
-                            },
+                  // Responsive filter/sort row using Wrap
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Wrap(
+                      spacing: 24,
+                      runSpacing: 8,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('FILTER BY', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                            DropdownButton<String>(
+                              value: _selectedFilter,
+                              items: const [
+                                DropdownMenuItem(value: 'All products', child: Text('All products')),
+                                DropdownMenuItem(value: 'Clothing', child: Text('Clothing')),
+                                DropdownMenuItem(value: 'Merchandise', child: Text('Merchandise')),
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedFilter = value!;
+                                  _currentPage = 1;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('SORT BY', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                            DropdownButton<String>(
+                              value: _selectedSort,
+                              items: const [
+                                DropdownMenuItem(value: 'Best selling', child: Text('Best selling')),
+                                DropdownMenuItem(value: 'Price Low to High', child: Text('Price Low to High')),
+                                DropdownMenuItem(value: 'Price High to Low', child: Text('Price High to Low')),
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedSort = value!;
+                                  _currentPage = 1;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: Text(
+                            '${_filteredAndSortedItems.length} products',
+                            style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
                           ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('SORT BY', style: TextStyle(fontSize: 12, color: Colors.grey)),
-                          DropdownButton<String>(
-                            value: _selectedSort,
-                            items: const [
-                              DropdownMenuItem(value: 'Best selling', child: Text('Best selling')),
-                              DropdownMenuItem(value: 'Price Low to High', child: Text('Price Low to High')),
-                              DropdownMenuItem(value: 'Price High to Low', child: Text('Price High to Low')),
-                            ],
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedSort = value!;
-                                _currentPage = 1;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      '${_filteredAndSortedItems.length} products',
-                      style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 16),
-                  // Grid of sale items (match clothing page style)
+                  // Responsive grid of sale items
                   GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: _pagedItems.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 16,
+                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 220,
                       mainAxisSpacing: 16,
-                      childAspectRatio: 0.9, // Match clothing page
+                      crossAxisSpacing: 16,
+                      childAspectRatio: 0.9,
                     ),
                     itemBuilder: (context, index) {
                       final item = _pagedItems[index];
@@ -207,16 +212,15 @@ class _SalePageState extends State<SalePage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Fixed height for image (match clothing page)
-                              SizedBox(
-                                height: 120,
-                                width: double.infinity,
+                              // Responsive image height using Expanded
+                              Expanded(
                                 child: ClipRRect(
                                   borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
                                   child: item['imageUrl'] != null && item['imageUrl']!.isNotEmpty
                                       ? Image.asset(
                                           item['imageUrl']!,
                                           fit: BoxFit.cover,
+                                          width: double.infinity,
                                           errorBuilder: (context, error, stackTrace) =>
                                               const Center(child: Icon(Icons.image_not_supported)),
                                         )
