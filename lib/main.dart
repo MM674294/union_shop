@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-           
+            
             // Hero Section with Carousel
             SizedBox(
               height: 400,

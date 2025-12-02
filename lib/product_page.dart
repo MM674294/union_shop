@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/footer.dart';
-import 'package:union_shop/custom_app_bar.dart'; // <-- Add this line
+import 'package:union_shop/custom_app_bar.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
-
-  void navigateToHome(BuildContext context) {
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-  }
-
-  void placeholderCallbackForButtons() {
-    // This is the event handler for buttons that don't work yet
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +11,7 @@ class ProductPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header
+            // Header section
             Container(
               color: Colors.white,
               child: Column(
@@ -35,79 +27,12 @@ class ProductPage extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
-                  // Main header
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    height: 56,
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            navigateToHome(context);
-                          },
-                          child: Image.network(
-                            'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                            height: 32,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey[300],
-                                width: 32,
-                                height: 32,
-                                child: const Center(
-                                  child: Icon(Icons.image_not_supported,
-                                      color: Colors.grey),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        const Spacer(),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: const Icon(
-                                Icons.search,
-                                size: 18,
-                                color: Colors.grey,
-                              ),
-                              onPressed: placeholderCallbackForButtons,
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.person_outline,
-                                size: 18,
-                                color: Colors.grey,
-                              ),
-                              onPressed: placeholderCallbackForButtons,
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.shopping_bag_outlined,
-                                size: 18,
-                                color: Colors.grey,
-                              ),
-                              onPressed: placeholderCallbackForButtons,
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.menu,
-                                size: 18,
-                                color: Colors.grey,
-                              ),
-                              onPressed: placeholderCallbackForButtons,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Custom navigation bar
+                  CustomAppBar(parentContext: context),
                 ],
               ),
             ),
-
-            // Product details
+            // Product details section
             Container(
               color: Colors.white,
               padding: const EdgeInsets.all(24),
@@ -152,9 +77,7 @@ class ProductPage extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 24),
-
                   // Product name
                   const Text(
                     'Portsmouth City Magnet',
@@ -164,9 +87,7 @@ class ProductPage extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-
                   const SizedBox(height: 12),
-
                   // Product price
                   const Text(
                     '£10.00',
@@ -176,7 +97,6 @@ class ProductPage extends StatelessWidget {
                       color: Color(0xFF4d2963),
                     ),
                   ),
-
                   // Add to Cart button
                   ElevatedButton(
                     onPressed: () {
@@ -196,10 +116,7 @@ class ProductPage extends StatelessWidget {
                     ),
                     child: const Text('Add to Cart'),
                   ),
-
-
                   const SizedBox(height: 24),
-
                   // Product description
                   const Text(
                     'Ready to stick Portsmouth City magnet. Perfect for your fridge or any magnetic surface, this high-quality magnet features a vibrant design that showcases the spirit of Portsmouth. A great way to show your love for the city!',
@@ -221,8 +138,7 @@ class ProductPage extends StatelessWidget {
                 ],
               ),
             ),
-
-            // Footer (not static, only at the bottom after scrolling)
+            // Footer section
             SizedBox(
               width: double.infinity,
               child: Footer(

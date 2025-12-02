@@ -391,9 +391,7 @@ Size get preferredSize => const Size.fromHeight(kToolbarHeight);
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const ResponsiveBanner(
-            text: 'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
-          ), 
+          
           // Responsive Top banner with promotional text
          
           // Navigation bar (row)
