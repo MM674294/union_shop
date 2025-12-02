@@ -552,16 +552,9 @@ class _AppDrawerState extends State<AppDrawer> {
               ),
               ListTile(
                 contentPadding: const EdgeInsets.only(left: 56, right: 16),
-                title: const Text('Page 6'),
+                title: const Text('Graduation'),
                 onTap: () {
-                  Navigator.pushNamed(context, '/page6');
-                },
-              ),
-              ListTile(
-                contentPadding: const EdgeInsets.only(left: 56, right: 16),
-                title: const Text('Page 7'),
-                onTap: () {
-                  Navigator.pushNamed(context, '/page7');
+                  Navigator.pushNamed(context, '/graduation');
                 },
               ),
               
