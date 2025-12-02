@@ -19,6 +19,8 @@ class _ClothingPageState extends State<ClothingPage> {
   int _currentPage = 1;
   String _searchQuery = '';
 
+  final ScrollController _scrollController = ScrollController();
+
   // List of clothing items
   final List<Map<String, String>> _clothingItems = [
     {
@@ -238,11 +240,26 @@ class _ClothingPageState extends State<ClothingPage> {
     return (filtered.length / 10).ceil();
   }
 
+  void _goToPage(int page) {
+    setState(() {
+      _currentPage = page;
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.animateTo(
+        0,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(parentContext: context),
+      drawer: const AppDrawer(), // <-- Add this for the hamburger menu
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           children: [
             // Page Title
@@ -435,22 +452,14 @@ class _ClothingPageState extends State<ClothingPage> {
               children: [
                 TextButton(
                   onPressed: _currentPage > 1
-                      ? () {
-                          setState(() {
-                            _currentPage--;
-                          });
-                        }
+                      ? () => _goToPage(_currentPage - 1)
                       : null,
                   child: const Text('Previous'),
                 ),
                 Text('Page $_currentPage of $_totalPages'),
                 TextButton(
                   onPressed: _currentPage < _totalPages
-                      ? () {
-                          setState(() {
-                            _currentPage++;
-                          });
-                        }
+                      ? () => _goToPage(_currentPage + 1)
                       : null,
                   child: const Text('Next'),
                 ),

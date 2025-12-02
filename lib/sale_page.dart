@@ -1,349 +1,239 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/custom_app_bar.dart';
+import 'package:union_shop/item_detail_page.dart';
+import 'package:union_shop/footer.dart';
 
-class SalePage extends StatelessWidget {
+class SalePage extends StatefulWidget {
   const SalePage({super.key});
 
-  void navigateToPage(BuildContext context, String route) {
-    Navigator.pushNamed(context, route);
+  @override
+  State<SalePage> createState() => _SalePageState();
+}
+
+class _SalePageState extends State<SalePage> {
+  int _currentPage = 1;
+  static const int _itemsPerPage = 4;
+
+  String _selectedFilter = 'All products';
+  String _selectedSort = 'Best selling';
+
+  // Write your sale items like this:
+  final List<Map<String, String>> saleItems = [
+    {
+      'title': 'A5 Notepad',
+      'price': 'Sold out',
+      'imageUrl': 'assets/images/m12.png',
+      'date': DateTime(2024, 4, 1).toIso8601String(),
+    },
+    {
+      'title': 'Classic Sweatshirts - Neutral',
+      'price': '£17.00 £10.99',
+      'imageUrl': 'assets/images/clothing4.png',
+      'date': DateTime(2024, 4, 2).toIso8601String(),
+    },
+    {
+      'title': 'waterproof Poncho',
+      'price': '£1.99',
+      'imageUrl': 'assets/images/clothing14.png',
+      'date': DateTime(2024, 5, 9).toIso8601String(),
+    },
+    // Add more sale items here...
+  ];
+
+  List<Map<String, String>> get _pagedItems {
+    final start = (_currentPage - 1) * _itemsPerPage;
+    final end = (_currentPage * _itemsPerPage).clamp(0, saleItems.length);
+    return saleItems.sublist(start, end);
+  }
+
+  int get _totalPages => (saleItems.length / _itemsPerPage).ceil();
+
+  final ScrollController _scrollController = ScrollController();
+
+  void _goToPage(int page) {
+    setState(() {
+      _currentPage = page;
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.animateTo(
+        0,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        toolbarHeight: 100,
-        automaticallyImplyLeading: false, // This removes the back arrow
-        flexibleSpace: Column(
-          children: [
-            // Top banner
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              color: const Color(0xFF4d2963),
-              child: const Text(
-                'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 16),
+      appBar: CustomAppBar(parentContext: context),
+      drawer: const AppDrawer(), // <-- Add this for the hamburger menu
+      body: SingleChildScrollView(
+        controller: _scrollController,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              // SALE text and description
+              const SizedBox(height: 16),
+              const Text(
+                'SALE',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-            ),
-            // Navigation bar
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  children: [
-                    // Logo
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-                      },
-                      child: Image.network(
-                        'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                        height: 18,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: Colors.grey[300],
-                            width: 18,
-                            height: 18,
-                            child: const Center(
-                              child: Icon(Icons.image_not_supported, color: Colors.grey),
-                            ),
-                          );
+              const SizedBox(height: 16),
+              const Text(
+                'Don’t miss out! Get yours before they’re all gone!\nAll prices shown are inclusive of the discount 🛒',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+              // Filter and Sort Row
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('FILTER BY', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                      DropdownButton<String>(
+                        value: _selectedFilter,
+                        items: const [
+                          DropdownMenuItem(value: 'All products', child: Text('All products')),
+                          DropdownMenuItem(value: 'Clothing', child: Text('Clothing')),
+                          DropdownMenuItem(value: 'Merchandise', child: Text('Merchandise')),
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedFilter = value!;
+                            _currentPage = 1;
+                          });
                         },
                       ),
-                    ),
-                    const Spacer(),
-
-                    // Home Button
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-                      },
-                      child: const Text(
-                        'Home',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFF4d2963),
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16), // Space between buttons
-
-                    // About Button
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/about'); // Navigate to the About page
-                      },
-                      child: const Text(
-                        'About',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFF4d2963),
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16), // Space between buttons
-
-                    // Sale Button
-                    TextButton(
-                      onPressed: () {
-                        // Stay on the Sale page (no navigation needed)
-                      },
-                      child: const Text(
-                        'SALE!',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFF4d2963),
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16), // Space between buttons
-
-                    // Dropdown Button labeled "Show"
-                    DropdownButton<String>(
-                      underline: Container(), // Remove underline
-                      icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF4d2963)),
-                      items: [
-                        DropdownMenuItem(
-                          value: '/page1',
-                          child: const Text('Page 1'),
-                        ),
-                        DropdownMenuItem(
-                          value: '/page2',
-                          child: const Text('Page 2'),
-                        ),
-                        DropdownMenuItem(
-                          value: '/page3',
-                          child: const Text('Page 3'),
-                        ),
-                        DropdownMenuItem(
-                          value: '/page4',
-                          child: const Text('Page 4'),
-                        ),
-                        DropdownMenuItem(
-                          value: '/page5',
-                          child: const Text('Page 5'),
-                        ),
-                        DropdownMenuItem(
-                          value: '/page6',
-                          child: const Text('Page 6'),
-                        ),
-                        DropdownMenuItem(
-                          value: '/page7',
-                          child: const Text('Page 7'),
-                        ),
-                      ],
-                      onChanged: (value) {
-                        if (value != null) {
-                          navigateToPage(context, value);
-                        }
-                      },
-                      hint: const Text(
-                        'Show',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFF4d2963),
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-
-                    // Icons Section
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 600),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            icon: const Icon(
-                              Icons.search,
-                              size: 18,
-                              color: Colors.grey,
-                            ),
-                            padding: const EdgeInsets.all(8),
-                            constraints: const BoxConstraints(
-                              minWidth: 32,
-                              minHeight: 32,
-                            ),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.person_outline,
-                              size: 18,
-                              color: Colors.grey,
-                            ),
-                            padding: const EdgeInsets.all(8),
-                            constraints: const BoxConstraints(
-                              minWidth: 32,
-                              minHeight: 32,
-                            ),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.shopping_bag_outlined,
-                              size: 18,
-                              color: Colors.grey,
-                            ),
-                            padding: const EdgeInsets.all(8),
-                            constraints: const BoxConstraints(
-                              minWidth: 32,
-                              minHeight: 32,
-                            ),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.menu,
-                              size: 18,
-                              color: Colors.grey,
-                            ),
-                            padding: const EdgeInsets.all(8),
-                            constraints: const BoxConstraints(
-                              minWidth: 32,
-                              minHeight: 32,
-                            ),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: Column(
-        children: [
-          // Main Content
-          const Expanded(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'SALE',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ],
                   ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Don’t miss out! Get yours before they’re all gone!\n All prices shown are inclusive of the discount 🛒',
-                    style: TextStyle(fontSize: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('SORT BY', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                      DropdownButton<String>(
+                        value: _selectedSort,
+                        items: const [
+                          DropdownMenuItem(value: 'Best selling', child: Text('Best selling')),
+                          DropdownMenuItem(value: 'Price Low to High', child: Text('Price Low to High')),
+                          DropdownMenuItem(value: 'Price High to Low', child: Text('Price High to Low')),
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedSort = value!;
+                            _currentPage = 1;
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ),
-          ),
-
-          // Footer Section
-          Container(
-            color: Colors.grey[200],
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Flexible(
-                      child: Column(
-                        children: [
-                          Text(
-                            'Opening Hours',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            '❄️ Winter Break Closure Dates ❄️\nClosing 4pm 19/12/2025\nReopening 9am 06/01/2026',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            '---------------------------------',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            '(Term Time)\nMonday - Friday 10am - 4pm\n(Outside of Term Time / Consolidation Weeks)\nMonday - Friday 10am - 3pm\nPurchase online 24/7',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 16), // Space between columns
-
-                    const Flexible(
-                      child: Column(
-                        children: [
-                          Text(
-                            'Help and Information',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            'Search\nTerms & Conditions of Sale Policy',
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 16), // Space between columns
-
-                    Flexible(
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Latest Offers',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          const TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Email Address',
-                              hintText: 'Enter your email',
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          TextButton(
-                            onPressed: () {
-                              print('Subscribe button pressed');
-                            },
-                            style: TextButton.styleFrom(
-                              backgroundColor: const Color(0xFF4d2963),
-                              foregroundColor: Colors.white,
-                            ),
-                            child: const Text('Subscribe'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+              const SizedBox(height: 8),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${saleItems.length} products',
+                  style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 16),
+              // Grid of sale items
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: _pagedItems.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 24,
+                  mainAxisSpacing: 24,
+                  childAspectRatio: 1,
+                ),
+                itemBuilder: (context, index) {
+                  final item = _pagedItems[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ItemDetailPage(item: item),
+                        ),
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Image placeholder
+                        AspectRatio(
+                          aspectRatio: 1,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: item['imageUrl'] != null && item['imageUrl']!.isNotEmpty
+                                ? Image.asset(
+                                    item['imageUrl']!,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) =>
+                                        const Center(child: Icon(Icons.image_not_supported)),
+                                  )
+                                : const Center(child: Icon(Icons.image)),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          item['title'] ?? 'Product Title',
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          item['price'] ?? '',
+                          style: TextStyle(
+                            color: item['price']!.toLowerCase().contains('sold out')
+                                ? Colors.grey
+                                : Colors.black,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 24),
+              // Pagination controls
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: _currentPage > 1
+                        ? () => _goToPage(_currentPage - 1)
+                        : null,
+                    child: const Text('Previous'),
+                  ),
+                  Text('Page $_currentPage of $_totalPages'),
+                  TextButton(
+                    onPressed: _currentPage < _totalPages
+                        ? () => _goToPage(_currentPage + 1)
+                        : null,
+                    child: const Text('Next'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
+              Footer(
+                onEmailSubmitted: (email) {
+                  print('User subscribed with email: $email');
+                },
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

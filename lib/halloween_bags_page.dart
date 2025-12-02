@@ -380,6 +380,7 @@ class HalloweenBagsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(parentContext: context),
+      drawer: const AppDrawer(), // <-- Add this for the hamburger menu
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),

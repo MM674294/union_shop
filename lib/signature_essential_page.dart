@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/custom_app_bar.dart';
+import 'package:union_shop/item_detail_page.dart';
+import 'package:union_shop/footer.dart';
 
 // --- Cart Items (shared cart state) ---
 List<Map<String, dynamic>> cartItems = [];
@@ -28,119 +30,15 @@ final List<Map<String, String>> signatureEssentialProducts = [
   },
 ];
 
-
-
-// --- Footer Widget ---
-class _Footer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey[200],
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Column(
-                  children: const [
-                    Text(
-                      'Opening Hours',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      '❄️ Winter Break Closure Dates ❄️\nClosing 4pm 19/12/2025\nReopening 9am 06/01/2026',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      '---------------------------------',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      '(Term Time)\nMonday - Friday 10am - 4pm\n(Outside of Term Time / Consolidation Weeks)\nMonday - Friday 10am - 3pm\nPurchase online 24/7',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(width: 16),
-              Flexible(
-                child: Column(
-                  children: const [
-                    Text(
-                      'Help and Information',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Search\nTerms & Conditions of Sale Policy',
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(width: 16),
-              Flexible(
-                child: Column(
-                  children: [
-                    const Text(
-                      'Latest Offers',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    const TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Email Address',
-                        hintText: 'Enter your email',
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    TextButton(
-                      onPressed: null,
-                      style: TextButton.styleFrom(
-                        backgroundColor: Color(0xFF4d2963),
-                        foregroundColor: Colors.white,
-                      ),
-                      child: const Text('Subscribe'),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-
 // --- Signature & Essential Range Page ---
 class SignatureEssentialPage extends StatelessWidget {
   const SignatureEssentialPage({super.key});
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(parentContext: context),
+      drawer: const AppDrawer(), // <-- Add this for the hamburger menu
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
@@ -202,39 +100,53 @@ class SignatureEssentialPage extends StatelessWidget {
                 mainAxisSpacing: 32,
                 childAspectRatio: 0.8,
                 children: signatureEssentialProducts.map((product) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Image.asset(
-                          product['imageUrl']!,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              color: Colors.grey[300],
-                              child: const Center(
-                                child: Icon(Icons.image_not_supported, color: Colors.grey),
-                              ),
-                            );
-                          },
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ItemDetailPage(item: product),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        product['title']!,
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        product['price']!,
-                        style: const TextStyle(fontSize: 15, color: Colors.grey),
-                      ),
-                    ],
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Image.asset(
+                            product['imageUrl']!,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: Colors.grey[300],
+                                child: const Center(
+                                  child: Icon(Icons.image_not_supported, color: Colors.grey),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          product['title']!,
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          product['price']!,
+                          style: const TextStyle(fontSize: 15, color: Colors.grey),
+                        ),
+                      ],
+                    ),
                   );
                 }).toList(),
               ),
               const SizedBox(height: 32),
-              _Footer(),
+              Footer(
+                onEmailSubmitted: (email) {
+                  print('User subscribed with email: $email');
+                },
+              ),
             ],
           ),
         ),

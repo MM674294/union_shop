@@ -18,74 +18,80 @@ class _AboutPageState extends State<AboutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(parentContext: context),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Header Section
-              const Text(
-                'About us',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Welcome to the Union Shop!',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 16),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text:
-                      'We’re dedicated to giving you the very best University branded products, '
-                      'with a range of clothing and merchandise available to shop all year round! '
-                      'We even offer an exclusive ',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                  ),
+      drawer: const AppDrawer(), // <-- Add this for the hamburger menu
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextSpan(
-                      text: 'personalisation service',
-                      style: const TextStyle(
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const PersonalisationPage(),
+                    // Header Section
+                    const Text(
+                      'About us',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Welcome to the Union Shop!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(height: 16),
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text:
+                            'We’re dedicated to giving you the very best University branded products, '
+                            'with a range of clothing and merchandise available to shop all year round! '
+                            'We even offer an exclusive ',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'personalisation service',
+                            style: const TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
                             ),
-                          );
-                        },
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const PersonalisationPage(),
+                                  ),
+                                );
+                              },
+                          ),
+                          const TextSpan(
+                            text: '!',
+                          ),
+                        ],
+                      ),
                     ),
-                    const TextSpan(
-                      text: '!',
+                    const SizedBox(height: 20),
+                    const Text(
+                      'All online purchases are available for delivery or instore collection!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16),
                     ),
+                    const SizedBox(height: 32),
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
-              const Text(
-                'All online purchases are available for delivery or instore collection!',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 32),
-              // Footer at the end of the scrollable content
-              Footer(
-                onEmailSubmitted: (email) {
-                  print('User subscribed with email: $email');
-                },
-              ),
-            ],
+            ),
           ),
-        ),
+          Footer(
+            onEmailSubmitted: (email) {
+              print('User subscribed with email: $email');
+            },
+          ),
+        ],
       ),
     );
   }
