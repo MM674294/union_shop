@@ -44,6 +44,7 @@ class UnionShopApp extends StatelessWidget {
         '/printshackinfo': (context) => const PrintShackInfoPage(),
        '/printshackpersonalise': (context) => const PrintShackPersonalisePage(),
         '/graduation': (context) => const GraduationPage(),
+        '/cart': (context) => const CartPage(),
       },
     );
   }
