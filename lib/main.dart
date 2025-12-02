@@ -73,13 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: (context) => Navigator.pushNamed(context, '/printshack'),
       ),
       _HeroSlide(
-        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-        title: "What's your next move...",
-        subtitle: "Are you with us?",
-        buttonText: "FIND YOUR STUDENT ACCOMMODATION",
-        onPressed: (context) {},
-      ),
-      _HeroSlide(
         imageUrl: 'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
         title: "Browse our Clothing",
         subtitle: "Shop the latest styles",
