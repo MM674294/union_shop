@@ -12,19 +12,19 @@ class HalloweenBagsPage extends StatefulWidget {
 
 
 class _HalloweenBagsPageState extends State<HalloweenBagsPage> {
-  String _mainImage = 'assets/images/m27.png';
+  String _mainImage = 'assets/images/halloween2.png';
   String _selectedDesign = 'Boo!';
 
   String _getImageForDesign(String design) {
     switch (design) {
       case 'Boo!':
-        return 'assets/images/m27.png';
-      case 'Pumpkin':
         return 'assets/images/halloween2.png';
+      case 'Pumpkin':
+        return 'assets/images/halloween1.png';
       case 'Bat':
         return 'assets/images/halloween3.png';
       default:
-        return 'assets/images/m27.png';
+        return 'assets/images/halloween2.png';
     }
   }
 
@@ -75,7 +75,7 @@ class _HalloweenBagsPageState extends State<HalloweenBagsPage> {
                                     _mainImage = _getImageForDesign(_selectedDesign);
                                   }),
                                   child: Image.asset(
-                                    'assets/images/m27.png',
+                                    'assets/images/halloween2.png',
                                     width: 40,
                                     height: 40,
                                     fit: BoxFit.cover,
@@ -89,7 +89,7 @@ class _HalloweenBagsPageState extends State<HalloweenBagsPage> {
                                     _mainImage = _getImageForDesign(_selectedDesign);
                                   }),
                                   child: Image.asset(
-                                    'assets/images/halloween2.png',
+                                    'assets/images/halloween1.png',
                                     width: 40,
                                     height: 40,
                                     fit: BoxFit.cover,
@@ -173,11 +173,19 @@ class _HalloweenBagsPageState extends State<HalloweenBagsPage> {
                               SizedBox(
                                 width: double.infinity,
                                 child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF4d2963),
-                                    foregroundColor: Colors.white,
-                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      cartItems.add({
+                                        'title': 'Halloween Tote Bag - $_selectedDesign',
+                                        'price': '£2.50',
+                                        'image': _mainImage,
+                                        'details': 'Design: $_selectedDesign',
+                                        });
+                                        });
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                           const SnackBar(content: Text('Added to cart!')),
+                                           );
+                                           },
                                   child: const Text('ADD TO CART'),
                                 ),
                               ),
