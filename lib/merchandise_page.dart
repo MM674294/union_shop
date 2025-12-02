@@ -117,7 +117,7 @@ class _MerchandisePageState extends State<MerchandisePage> {
       'date': DateTime(2024, 4, 16).toIso8601String(),
     },
     {
-      'title': 'UoP Teddie bear',
+      'title': 'UoP Teddy bear',
       'price': 'Sold out',
       'imageUrl': 'assets/images/m15.png',
       'date': DateTime(2024, 4, 20).toIso8601String(),
@@ -167,7 +167,7 @@ class _MerchandisePageState extends State<MerchandisePage> {
     {
       'title': 'Portsmouth City Notebook',
       'price': '£7.50',
-      'imageUrl': 'assets/images/m23.png',
+      'imageUrl': 'assets/images/m12.png',
       'date': DateTime(2024, 5, 9).toIso8601String(),
     },
     {

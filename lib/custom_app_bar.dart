@@ -364,23 +364,6 @@ Size get preferredSize => const Size.fromHeight(kToolbarHeight);
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-
-          Container(
-            width: double.infinity,
-            color: const Color(0xFF4d2963),
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal:12),
-            child: const Center(
-              child: Text(
-                'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.2,
-                ),
-              ),
-            ),
-          ),
           // Responsive Top banner with promotional text
          
           // Navigation bar (row)
@@ -430,9 +413,8 @@ Size get preferredSize => const Size.fromHeight(kToolbarHeight);
                     ),
                     IconButton(
                       icon: const Icon(Icons.person_outline, size: 18, color: Colors.grey),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/login');
-                      },
+                      onPressed: () { Navigator.pushNamed(context, '/login');},
+                        
                     ),
                     Stack(
                       children: [

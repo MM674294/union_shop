@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'custom_app_bar.dart';
 
 class Footer extends StatefulWidget {
   final void Function(String email)? onEmailSubmitted;
@@ -32,9 +33,9 @@ class _FooterState extends State<Footer> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Flexible(
+              Flexible(
                 child: Column(
-                  children: [
+                  children: const [
                     Text(
                       'Opening Hours',
                       style: TextStyle(
@@ -64,19 +65,38 @@ class _FooterState extends State<Footer> {
                 ),
               ),
               const SizedBox(width: 16),
-              const Flexible(
+              // Help and Information column
+              Flexible(
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       'Help and Information',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Search\nTerms & Conditions of Sale Policy',
+                    const SizedBox(height: 8),
+                    GestureDetector(
+                      onTap: () {
+                        showSearch<Map<String, String>?>(
+                          context: context,
+                          delegate: AllProductsSearchDelegate(allProducts),
+                        );
+                      },
+                      child: const Text(
+                        'Search',
+                        style: TextStyle(
+                          color: Color(0xFF4d2963),
+                          decoration: TextDecoration.underline,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    const Text(
+                      'Terms & Conditions of Sale Policy',
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -107,7 +127,7 @@ class _FooterState extends State<Footer> {
                     TextButton(
                       onPressed: _submitEmail,
                       style: TextButton.styleFrom(
-                        backgroundColor: const Color(0xFF4d2963),
+                        backgroundColor: Color(0xFF4d2963),
                         foregroundColor: Colors.white,
                       ),
                       child: const Text('Subscribe'),
