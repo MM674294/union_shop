@@ -10,6 +10,7 @@ import 'package:union_shop/custom_app_bar.dart';
 import 'package:union_shop/footer.dart';
 import 'package:union_shop/print_shack_info_page.dart';
 import 'package:union_shop/print_shack_personalise_page.dart';
+import 'package:union_shop/graduation_page.dart';
 
 // Add this import if you have a PrintShackPage
 // import 'package:union_shop/print_shack_page.dart';
