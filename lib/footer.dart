@@ -33,9 +33,9 @@ class _FooterState extends State<Footer> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Flexible(
+              const Flexible(
                 child: Column(
-                  children: const [
+                  children: [
                     Text(
                       'Opening Hours',
                       style: TextStyle(
@@ -127,7 +127,7 @@ class _FooterState extends State<Footer> {
                     TextButton(
                       onPressed: _submitEmail,
                       style: TextButton.styleFrom(
-                        backgroundColor: Color(0xFF4d2963),
+                        backgroundColor: const Color(0xFF4d2963),
                         foregroundColor: Colors.white,
                       ),
                       child: const Text('Subscribe'),

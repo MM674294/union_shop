@@ -73,28 +73,28 @@ class _HomeScreenState extends State<HomeScreen> {
     _dotsController = PageController();
     _slides = [
       _HeroSlide(
-        imageUrl: 'https://shop.upsu.net/cdn/shop/files/yournamehere_1024x1024.jpg?v=1752232561',
+        imageUrl: 'assets/images/clothing10.png',
         title: "The Print Shack",
         subtitle: "Let’s create something uniquely you with our personalisation service — From £3 for one line of text!",
         buttonText: "FIND OUT MORE",
-        onPressed: (context) => Navigator.pushNamed(context, '/printshack'),
+        onPressed: (context) => Navigator.pushNamed(context, '/printshackpersonalise'),
       ),
       _HeroSlide(
-        imageUrl: 'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+        imageUrl: 'assets/images/clothing1.png',
         title: "Browse our Clothing",
         subtitle: "Shop the latest styles",
         buttonText: "BROWSE CLOTHING",
         onPressed: (context) => Navigator.pushNamed(context, '/clothing'),
       ),
       _HeroSlide(
-        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+        imageUrl: 'assets/images/m17.png',
         title: "Shop Merchandise",
         subtitle: "Find unique gifts and more",
         buttonText: "BROWSE MERCHANDISE",
         onPressed: (context) => Navigator.pushNamed(context, '/merchandise'),
       ),
       _HeroSlide(
-        imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+        imageUrl: 'assets/images/m21.png',
         title: "Check Out Our Sale",
         subtitle: "Grab a bargain before it's gone!",
         buttonText: "VIEW SALE",

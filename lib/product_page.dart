@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/footer.dart';
+import 'package:union_shop/custom_app_bar.dart'; // <-- Add this line
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
@@ -156,7 +157,7 @@ class ProductPage extends StatelessWidget {
 
                   // Product name
                   const Text(
-                    'Placeholder Product Name',
+                    'Portsmouth City Magnet',
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -168,7 +169,7 @@ class ProductPage extends StatelessWidget {
 
                   // Product price
                   const Text(
-                    '£15.00',
+                    '£10.00',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -176,11 +177,32 @@ class ProductPage extends StatelessWidget {
                     ),
                   ),
 
+                  // Add to Cart button
+                  ElevatedButton(
+                    onPressed: () {
+                      cartItems.add({
+                        'title': 'Portsmouth City Magnet',
+                        'price': '£10.00',
+                        'image': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                        'details': '',
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Added to cart!')),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4d2963),
+                      foregroundColor: Colors.white,
+                    ),
+                    child: const Text('Add to Cart'),
+                  ),
+
+
                   const SizedBox(height: 24),
 
                   // Product description
                   const Text(
-                    'Description',
+                    'Ready to stick Portsmouth City magnet. Perfect for your fridge or any magnetic surface, this high-quality magnet features a vibrant design that showcases the spirit of Portsmouth. A great way to show your love for the city!',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -189,7 +211,7 @@ class ProductPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'This is a placeholder description for the product. Students should replace this with real product information and implement proper data management.',
+                    'amazing good quality product.',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey,

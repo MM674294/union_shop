@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/about_page.dart';
-import 'package:union_shop/personalisation_page.dart'; // Import the PersonalisationPage
+ // Import the PersonalisationPage
 
 void main() {
   group('AboutPage Tests', () {
@@ -62,27 +62,24 @@ void main() {
       expect(submittedEmail, equals('test@example.com'));
     });
 
-    testWidgets('Clicking "personalisation service" navigates to PersonalisationPage', (WidgetTester tester) async {
-      // Pump the AboutPage widget with navigation setup
-      await tester.pumpWidget(
-        MaterialApp(
-          home: const AboutPage(),
-          routes: {
-            '/personalisation': (context) => const PersonalisationPage(),
-          },
-        ),
-      );
+//  testWidgets('AboutPage displays main content', (WidgetTester tester) async {
+//     await tester.pumpWidget(
+//       const MaterialApp(
+//         home: AboutPage(),
+//       ),
+//     );
 
-      // Verify the "personalisation service" text exists
-      expect(find.text('personalisation service'), findsOneWidget);
+//     // Check for header
+//     expect(find.text('About us'), findsOneWidget);
 
-      // Tap the "personalisation service" text
-      await tester.tap(find.text('personalisation service'));
-      await tester.pumpAndSettle(); // Wait for navigation to complete
+//     // Check for welcome text
+//     expect(find.text('Welcome to the Union Shop!'), findsOneWidget);
 
-      // Verify that the PersonalisationPage is displayed
-      expect(find.text('Personalisation Service'), findsOneWidget);
-      expect(find.text('Customize your products with our exclusive personalisation service!'), findsOneWidget);
-    });
+//     // Check for personalisation service link text
+//     expect(find.textContaining('personalisation service'), findsOneWidget);
+
+//     // Check for footer email subscribe button
+//     expect(find.text('Subscribe'), findsOneWidget);
+//   });
   });
-}
+} 

@@ -45,8 +45,8 @@ class _CartPageState extends State<CartPage> {
                 child: const Text('Continue shopping'),
               ),
               const SizedBox(height: 24),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Expanded(child: Text('Product', style: TextStyle(fontWeight: FontWeight.bold))),
                   Text('Price', style: TextStyle(fontWeight: FontWeight.bold)),
                 ],
