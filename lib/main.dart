@@ -169,8 +169,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 Container(
-                                  color: Colors.black.withOpacity(0.6),
-                                ),
+                                  color: const Color.fromARGB(102, 0, 0, 0), // This is black with 0.4 opacity
+                                  ),
                                 Positioned(
                                   left: 24,
                                   right: 24,
@@ -287,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       shape: BoxShape.circle,
                                       color: _currentPage == index
                                           ? Colors.white
-                                          : Colors.white.withOpacity(0.4),
+                                          : const Color.fromARGB(102, 255, 255, 255), 
                                     ),
                                   ),
                                 );
@@ -421,7 +421,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   // Footer Section
                   Footer(
                     onEmailSubmitted: (email) {
-                      print('User subscribed with email: $email');
+                      debugPrint('User subscribed with email: $email');
                     },
                   ),
                 ],
