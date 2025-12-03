@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/cart_page.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:union_shop/main.dart';
+//import 'package:union_shop/custom_app_bar.dart'; // Make sure this is imported
 
 void main() {
   setUp(() {
@@ -34,7 +35,10 @@ void main() {
     });
   });
 
- testWidgets('CartPage removes item when REMOVE button is tapped', (WidgetTester tester) async {
+
+void main() {
+  testWidgets('CartPage removes item when REMOVE button is tapped', (WidgetTester tester) async {
+    // 1. Setup cart state
     cartItems.clear();
     cartItems.add({
       'title': 'Classic Hoodie',
@@ -49,36 +53,42 @@ void main() {
       'details': 'Size: M',
     });
 
-     addTearDown(tester.view.resetPhysicalSize);
+    // 2. Set test screen size
+    addTearDown(tester.view.resetPhysicalSize);
     tester.view.physicalSize = const Size(1200, 2000);
 
-    await tester.pumpWidget(
-      MaterialApp(
-        home: const CartPage(),
-        routes: {
-          '/checkout': (context) => const Scaffold(body: Placeholder()),
-        },
-      ),
-    );
-    await tester.pumpAndSettle();
+    // 3. Wrap rendering logic in mockNetworkImagesFor
+    await mockNetworkImagesFor(() async { // <--- ADD THIS WRAPPER
+      await tester.pumpWidget(
+        MaterialApp(
+          home: const CartPage(),
+          routes: {
+            '/checkout': (context) => const Scaffold(body: Placeholder()),
+          },
+        ),
+      );
+      await tester.pumpAndSettle();
 
-  expect(find.text('Classic Hoodie'), findsOneWidget);
-    expect(find.text('Classic T-Shirt'), findsOneWidget);
+      // 4. Assertions and Interactions
+      expect(find.text('Classic Hoodie'), findsOneWidget);
+      expect(find.text('Classic T-Shirt'), findsOneWidget);
 
-    // Find and tap the first REMOVE button
-    final removeButtons = find.text('REMOVE');
-    expect(removeButtons, findsNWidgets(2));
-    
-    await tester.tap(removeButtons.first);
-    await tester.pumpAndSettle();
+      // Find and tap the first REMOVE button
+      final removeButtons = find.text('REMOVE');
+      expect(removeButtons, findsNWidgets(2));
+      
+      await tester.tap(removeButtons.first);
+      await tester.pumpAndSettle();
 
-    // Check for SnackBar
-    expect(find.text('Item removed from cart'), findsOneWidget);
+      // Check for SnackBar
+      expect(find.text('Item removed from cart'), findsOneWidget);
 
-    // Verify item was removed
-    expect(find.text('Classic Hoodie'), findsNothing);
-    expect(find.text('Classic T-Shirt'), findsOneWidget);
+      // Verify item was removed
+      expect(find.text('Classic Hoodie'), findsNothing);
+      expect(find.text('Classic T-Shirt'), findsOneWidget);
+    }); // <--- END OF WRAPPER
   });
+}
 
    testWidgets('CartPage displays checkout button and navigates', (WidgetTester tester) async {
     // Add item to cart
