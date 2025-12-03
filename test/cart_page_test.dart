@@ -164,3 +164,47 @@ await mockNetworkImagesFor(() async {
       expect(find.text('£11.00'), findsOneWidget);
     });
   });
+
+
+  testWidgets('CartPage displays checkout button and navigates', (WidgetTester tester) async {
+    // Add item to cart
+    cartItems.add({
+      'title': 'Classic Hoodie',
+      'price': '£25.00',
+      'image': 'assets/images/clothing1.png',
+      'details': 'Size: L',
+    });
+
+    await mockNetworkImagesFor(() async {
+      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      tester.binding.window.physicalSizeTestValue = const Size(1200, 2000);
+      tester.view.devicePixelRatio = 1.0;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: const CartPage(),
+          routes: {
+            '/checkout': (context) => const Scaffold(
+              body: Center(child: Text('Checkout Page')),
+            ),
+          },
+        ),
+      );
+      await tester.pumpAndSettle();
+
+       expect(find.text('CHECKOUT'), findsOneWidget);
+
+      // Verify button is enabled
+      final checkoutButton = find.byType(ElevatedButton);
+      expect(checkoutButton, findsOneWidget);
+
+      // Tap checkout button
+      await tester.tap(checkoutButton);
+      await tester.pumpAndSettle();
+
+      // Verify navigation occurred
+      expect(find.text('Checkout Page'), findsOneWidget);
+    });
+  });
