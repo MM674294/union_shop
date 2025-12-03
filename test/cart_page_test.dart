@@ -308,3 +308,20 @@ await mockNetworkImagesFor(() async {
         ),
       );
       await tester.pumpAndSettle();
+
+      expect(find.text('Add a note to your order'), findsOneWidget);
+
+      // Find and tap the text field
+      final noteField = find.byType(TextField);
+      await tester.tap(noteField);
+      await tester.pumpAndSettle();
+
+      // Type a note
+      await tester.typeText(noteField, 'Please gift wrap this item');
+      await tester.pumpAndSettle();
+
+      // Verify text was entered
+      expect(find.text('Please gift wrap this item'), findsOneWidget);
+    });
+  });
+}
