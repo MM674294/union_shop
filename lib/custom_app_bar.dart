@@ -303,6 +303,7 @@ List<Map<String, dynamic>> cartItems = [];
           fontSize: fontSize,
           fontWeight: FontWeight.bold,
           letterSpacing: 1.2,
+          decoration: TextDecoration.none, 
         ),
         maxLines: 3,
         overflow: TextOverflow.ellipsis,
@@ -402,6 +403,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
 @override
 Size get preferredSize => const Size.fromHeight(88.0);
+
+static Widget getBanner() {
+    return const ResponsiveBanner(
+      text: 'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {

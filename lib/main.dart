@@ -135,12 +135,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(parentContext: context),
-      drawer: const AppDrawer(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
+    return Column(
+    children: [
+      // Banner at the very top, above the navigation bar
+      CustomAppBar.getBanner(),
+      
+      // Scaffold (navigation bar and body)
+      Expanded(
+        child: Scaffold(
+          appBar: CustomAppBar(parentContext: context),
+          drawer: const AppDrawer(),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
             
             // Hero Section with Carousel
             SizedBox(
@@ -372,7 +379,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-    );
+        ), 
+      ),
+    ],
+  ); 
   }
 }
 
