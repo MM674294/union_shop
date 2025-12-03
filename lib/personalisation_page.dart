@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/custom_app_bar.dart';
 import 'package:union_shop/footer.dart';
+import 'package:union_shop/cart_page.dart';
 
 class PersonalisationPage extends StatefulWidget {
   const PersonalisationPage({super.key});
@@ -198,27 +199,39 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                   ),
                 ),
               const SizedBox(height: 16),
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () {
-                    // Add to cart logic here
-                  },
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: const Color(0xFF4d2963),
-                    side: const BorderSide(color: Color(0xFF4d2963)),
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                  ),
-                  child: const Text(
-                    'ADD TO CART',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
+              // ...existing code...
+SizedBox(
+  width: double.infinity,
+  child: OutlinedButton(
+    style: OutlinedButton.styleFrom(
+      foregroundColor: const Color(0xFF4d2963),
+      side: const BorderSide(color: Color(0xFF4d2963)),
+      padding: const EdgeInsets.symmetric(vertical: 18),
+    ),
+    onPressed: () {
+      String details = 'Option: $_selectedOption';
+      if (_linesRequired >= 1) details += '\nLine 1: ${_line1Controller.text}';
+      if (_linesRequired >= 2) details += '\nLine 2: ${_line2Controller.text}';
+      if (_linesRequired >= 3) details += '\nLine 3: ${_line3Controller.text}';
+      if (_linesRequired >= 4) details += '\nLine 4: ${_line4Controller.text}';
+
+      setState(() {
+        cartItems.add({
+          'title': 'Personalised Product',
+          'price': '£3.00',
+          'image': _mainImage,
+          'details': details,
+        });
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Added to cart!')),
+      );
+    },
+    child: const Text('Add to Cart'),
+  ),
+),
+// ...existing code...
               const SizedBox(height: 16),
               // Info section
               const Text(
