@@ -180,3 +180,72 @@ void main() {
       expect(find.text('Checkout Page'), findsOneWidget);
     });
   });
+
+   testWidgets('CartPage checkout button is disabled when cart is empty', (WidgetTester tester) async {
+    await mockNetworkImagesFor(() async {
+      addTearDown(tester.view.resetPhysicalSize);
+
+      tester.view.physicalSize = const Size(1200, 2000);
+      tester.view.devicePixelRatio = 1.0;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: const CartPage(),
+          routes: {
+            '/checkout': (context) => const Placeholder(),
+          },
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Check for checkout button
+      final checkoutButton = find.byType(ElevatedButton);
+      expect(checkoutButton, findsOneWidget);
+
+      // Verify button is disabled by checking the style
+      final buttonWidget = tester.widget<ElevatedButton>(checkoutButton);
+      expect(buttonWidget.onPressed, isNull);
+    });
+  });
+
+  testWidgets('CartPage calculates correct subtotal', (WidgetTester tester) async {
+    // Add multiple items with different prices
+    cartItems.add({
+      'title': 'Item 1',
+      'price': '£10.00',
+      'image': 'assets/images/clothing1.png',
+      'details': '',
+    });
+    cartItems.add({
+      'title': 'Item 2',
+      'price': '£15.50',
+      'image': 'assets/images/clothing2.png',
+      'details': '',
+    });
+    cartItems.add({
+      'title': 'Item 3',
+      'price': '£24.50',
+      'image': 'assets/images/clothing3.png',
+      'details': '',
+    });
+
+    await mockNetworkImagesFor(() async {
+      addTearDown(tester.view.resetPhysicalSize);
+
+      tester.view.physicalSize = const Size(1200, 2000);
+      tester.view.devicePixelRatio = 1.0;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: const CartPage(),
+          routes: {
+            '/checkout': (context) => const Placeholder(),
+          },
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Verify correct subtotal (10 + 15.50 + 24.50 = 50.00)
+      expect(find.text('£50.00'), findsOneWidget);
+    });
+  });
