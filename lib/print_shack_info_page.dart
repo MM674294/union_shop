@@ -7,13 +7,19 @@ class PrintShackInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(parentContext: context),
-      drawer: const AppDrawer(),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+     return Column(
+      children: [
+        // Banner at the top
+        CustomAppBar.getBanner(),
+        // Scaffold with navigation bar and body
+        Expanded(
+          child: Scaffold(
+            appBar: CustomAppBar(parentContext: context),
+            drawer: const AppDrawer(),
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
             const SizedBox(height: 24),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -145,6 +151,9 @@ class PrintShackInfoPage extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ),
+        ),
+      ],
+     );
   }
 }

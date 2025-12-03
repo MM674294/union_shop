@@ -100,13 +100,19 @@ class _SalePageState extends State<SalePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(parentContext: context),
-      drawer: const AppDrawer(),
-      body: SingleChildScrollView(
-        controller: _scrollController,
-        child: Column(
-          children: [
+    return Column(
+      children: [
+        // Banner at the top
+        CustomAppBar.getBanner(),
+        // Scaffold with navigation bar and body
+        Expanded(
+          child: Scaffold(
+            appBar: CustomAppBar(parentContext: context),
+            drawer: const AppDrawer(),
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -288,6 +294,10 @@ class _SalePageState extends State<SalePage> {
           ],
         ),
       ),
-    );
+    ),
+          ),
+        
+      ],
+    );  
   }
 }

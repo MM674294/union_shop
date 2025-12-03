@@ -56,15 +56,21 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(parentContext: context),
-      drawer: const AppDrawer(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+    return Column(
+      children: [
+        // Banner at the top
+        CustomAppBar.getBanner(),
+        // Scaffold with navigation bar and body
+        Expanded(
+          child: Scaffold(
+            appBar: CustomAppBar(parentContext: context),
+            drawer: const AppDrawer(),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
               const SizedBox(height: 32),
               const Text(
                 'Personalisation Service',
@@ -270,6 +276,9 @@ SizedBox(
           ),
         ),
       ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -270,12 +270,21 @@ List<Map<String, String>> get _filteredMerchandiseItems {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(parentContext: context),
-      drawer: const AppDrawer(), // <-- Add this for the hamburger menu
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
+    return Column(
+      children: [
+        // Banner at the top
+        CustomAppBar.getBanner(),
+        // Scaffold with navigation bar and body
+        Expanded(
+          child: Scaffold(
+            appBar: CustomAppBar(parentContext: context),
+            drawer: const AppDrawer(),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
             // Page Title
             // ...inside your build method, replace the filter/sort Row and product count with:
 Container(
@@ -487,6 +496,10 @@ Padding(
           ],
         ),
       ),
-    );
+          ),
+        ),
+      ),
+    ],
+  );
   }
 }

@@ -25,15 +25,18 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(parentContext: context),
-      drawer: const AppDrawer(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+     return Column(
+    children: [
+      // Banner at the top
+      CustomAppBar.getBanner(),
+      // Scaffold with navigation bar and body
+      Expanded(
+        child: Scaffold(
+          appBar: CustomAppBar(parentContext: context),
+          drawer: const AppDrawer(),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
               const Text(
                 'Your cart',
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
@@ -168,6 +171,8 @@ class _CartPageState extends State<CartPage> {
           ),
         ),
       ),
-    );
+    )
+    ],
+     ); 
   }
 }

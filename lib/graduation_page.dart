@@ -27,13 +27,18 @@ class GraduationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(parentContext: context),
-      drawer: const AppDrawer(),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+     return Column(
+    children: [
+      // Banner at the top
+      CustomAppBar.getBanner(),
+      // Scaffold with navigation bar and body
+      Expanded(
+        child: Scaffold(
+          appBar: CustomAppBar(parentContext: context),
+          drawer: const AppDrawer(),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
             // Hero image and title
             Stack(
               children: [
@@ -187,6 +192,9 @@ class GraduationPage extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ),
+      ),
+    ],
+     );
   }
 }

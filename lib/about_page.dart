@@ -16,12 +16,18 @@ class AboutPage extends StatefulWidget {
 class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(parentContext: context),
-      drawer: const AppDrawer(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
+     return Column(
+    children: [
+      // Banner at the top
+      CustomAppBar.getBanner(),
+      // Scaffold with navigation bar and body
+      Expanded(
+        child: Scaffold(
+          appBar: CustomAppBar(parentContext: context),
+          drawer: const AppDrawer(),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -92,6 +98,9 @@ class _AboutPageState extends State<AboutPage> {
           ],
         ),
       ),
-    );
+        ),
+      ),
+    ],
+     );
   }
-}
+}         

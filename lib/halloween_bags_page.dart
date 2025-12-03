@@ -31,15 +31,21 @@ class _HalloweenBagsPageState extends State<HalloweenBagsPage> {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 600;
-    return Scaffold(
-      appBar: CustomAppBar(parentContext: context),
-      drawer: const AppDrawer(),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
+     return Column(
+      children: [
+        // Banner at the top
+        CustomAppBar.getBanner(),
+        // Scaffold with navigation bar and body
+        Expanded(
+          child: Scaffold(
+            appBar: CustomAppBar(parentContext: context),
+            drawer: const AppDrawer(),
+            body: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
                 // ...existing code...
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -213,9 +219,13 @@ class _HalloweenBagsPageState extends State<HalloweenBagsPage> {
                 ),
               ],
             ),
-          );
-        },
-      ),
-    );
+                );
+              },
+            ),
+          ),
+        ),
+      ],
+      );
   }
 }
+                

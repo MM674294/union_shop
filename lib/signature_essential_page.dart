@@ -88,13 +88,19 @@ class _SignatureEssentialPageState extends State<SignatureEssentialPage> {
   @override
   Widget build(BuildContext context) {
     final products = _sortedProducts;
-    return Scaffold(
-      appBar: CustomAppBar(parentContext: context),
-      drawer: const AppDrawer(),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+     return Column(
+      children: [
+        // Banner at the top
+        CustomAppBar.getBanner(),
+        // Scaffold with navigation bar and body
+        Expanded(
+          child: Scaffold(
+            appBar: CustomAppBar(parentContext: context),
+            drawer: const AppDrawer(),
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
               child: Column(
@@ -252,6 +258,9 @@ class _SignatureEssentialPageState extends State<SignatureEssentialPage> {
           ],
         ),
       ),
-    );
+    ),
+        ),
+      ],
+      );
   }
 }
