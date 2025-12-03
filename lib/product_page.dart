@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:union_shop/footer.dart';
 import 'package:union_shop/custom_app_bar.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
 
   @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(parentContext: context), // <-- Put your navigation bar here!
-      drawer: const AppDrawer(), 
+      drawer: const AppDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -29,8 +33,7 @@ class ProductPage extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
-                  // Custom navigation bar
-                  //CustomAppBar(parentContext: context),
+                  CustomAppBar(parentContext: context), // Custom navigation bar
                 ],
               ),
             ),
@@ -102,11 +105,13 @@ class ProductPage extends StatelessWidget {
                   // Add to Cart button
                   ElevatedButton(
                     onPressed: () {
-                      cartItems.add({
-                        'title': 'Portsmouth City Magnet',
-                        'price': '£10.00',
-                        'image': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                        'details': '',
+                      setState(() {
+                        cartItems.add({
+                          'title': 'Portsmouth City Magnet',
+                          'price': '£10.00',
+                          'image': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                          'details': '',
+                        });
                       });
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Added to cart!')),
