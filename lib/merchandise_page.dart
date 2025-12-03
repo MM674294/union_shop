@@ -235,12 +235,36 @@ class _MerchandisePageState extends State<MerchandisePage> {
     }
   }
 
-  List<Map<String, String>> get _filteredMerchandiseItems {
-    final sorted = _sortMerchandiseItems(_merchandiseItems);
-    final start = (_currentPage - 1) * 10;
-    final end = (_currentPage * 10).clamp(0, sorted.length);
-    return sorted.sublist(start, end);
+  // ...existing code...
+
+List<Map<String, String>> get _filteredMerchandiseItems {
+  // Filter first
+  List<Map<String, String>> filtered = _merchandiseItems;
+  if (_selectedFilter != 'All Products') {
+    filtered = filtered.where((item) {
+      final title = item['title']!.toLowerCase();
+      final filter = _selectedFilter.toLowerCase();
+      if (filter == 'clothing') {
+        return title.contains('hat') || title.contains('cap') || title.contains('bag') || title.contains('lanyard') || title.contains('shopper') || title.contains('poncho');
+      } else if (filter == 'merchandise') {
+        return !(title.contains('hat') || title.contains('cap') || title.contains('bag') || title.contains('lanyard') || title.contains('shopper') || title.contains('poncho'));
+      } else if (filter == 'popular') {
+        return title.contains('lanyard') || title.contains('notebook');
+      } else if (filter == 'psut') {
+        return title.contains('psut');
+      }
+      return true;
+    }).toList();
   }
+  // Sort
+  final sorted = _sortMerchandiseItems(filtered);
+  // Paginate
+  final start = (_currentPage - 1) * 10;
+  final end = (_currentPage * 10).clamp(0, sorted.length);
+  return sorted.sublist(start, end);
+}
+
+// ...existing code...
 
   int get _totalPages => (_merchandiseItems.length / 10).ceil();
 

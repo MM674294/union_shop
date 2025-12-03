@@ -19,7 +19,7 @@ List<Map<String, dynamic>> cartItems = [];
     'imageUrl': 'assets/images/signature_hoodie.png',
   },
   {
-    'title': 'Limited Edition Essential Zip Hoodies',
+  'title': 'Limited Edition Essential Zip Hoodies',
     'price': '£20.00 £14.99',
     'imageUrl': 'assets/images/essential_zip_hoodie.png',
   },
@@ -92,7 +92,7 @@ List<Map<String, dynamic>> cartItems = [];
   {
     'title': 'Limmited Edition Essential Zip Hoodies',
     'price': '£20.00 £6.99',
-    'imageUrl': 'assets/images/clothing13.png',
+    'imageUrl': 'assets/images/essential_zip_hoodie.png',
   },
   {
     'title': 'Waterproof poncho',
@@ -238,7 +238,7 @@ List<Map<String, dynamic>> cartItems = [];
   {
     'title': 'Portsmouth City Notebook',
     'price': '£7.50',
-    'imageUrl': 'assets/images/m23.png',
+    'imageUrl': 'assets/images/m12.png',
   },
   {
     'title': 'Portsmouth City Keyring',
