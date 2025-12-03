@@ -7,12 +7,13 @@ void main() {
   testWidgets('ClothingPage displays and interacts correctly', (WidgetTester tester) async {
     await mockNetworkImagesFor(() async {
       // Optionally increase the test window size for scrolling
-       addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+        await mockNetworkImagesFor(() async {
+      // Set window size using modern approach
+      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      addTearDown(tester.view.resetDevicePixelRatio);
 
       tester.binding.window.physicalSizeTestValue = const Size(1200, 2000);
-      tester.binding.window.devicePixelRatioTestValue = 1.0;
-      addTearDown(tester.binding.window.clearDevicePixelRatioTestValue);
-
+      tester.view.devicePixelRatio = 1.0;
       await tester.pumpWidget(
         const MaterialApp(
           home: ClothingPage(),
