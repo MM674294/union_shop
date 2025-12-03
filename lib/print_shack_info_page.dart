@@ -46,7 +46,7 @@ class PrintShackInfoPage extends StatelessWidget {
                       child: Container(
                         color: Colors.grey[300],
                         child: Image.asset(
-                          'assets/images/printshack1.png',
+                          'assets/images/clothing3.png',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -59,7 +59,7 @@ class PrintShackInfoPage extends StatelessWidget {
                       child: Container(
                         color: Colors.grey[300],
                         child: Image.asset(
-                          'assets/images/printshack2.png',
+                          'assets/images/m15.png',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -72,7 +72,7 @@ class PrintShackInfoPage extends StatelessWidget {
                       child: Container(
                         color: Colors.grey[300],
                         child: Image.asset(
-                          'assets/images/printshack3.png',
+                          'assets/images/clothing14.png',
                           fit: BoxFit.cover,
                         ),
                       ),
