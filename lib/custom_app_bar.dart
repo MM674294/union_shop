@@ -652,7 +652,14 @@ class _AppDrawerState extends State<AppDrawer> {
               Navigator.pushNamed(context, '/sale');
             },
           ),
-                   ListTile(
+          ListTile(
+            leading: const Icon(Icons.collections),
+            title: const Text('Collections'),
+            onTap: () {
+              Navigator.pushNamed(context, '/collections');
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.info_outline),
             title: const Text('About'),
             onTap: () {

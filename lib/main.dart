@@ -13,6 +13,7 @@ import 'package:union_shop/print_shack_personalise_page.dart';
 import 'package:union_shop/graduation_page.dart';
 import 'package:union_shop/cart_page.dart';
 import 'package:union_shop/login_page.dart';
+import 'package:union_shop/collections_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -45,6 +46,7 @@ class UnionShopApp extends StatelessWidget {
         '/graduation': (context) => const GraduationPage(),
         '/cart': (context) => const CartPage(),
         '/login': (context) => const LoginPage(),
+        '/collections': (context) => const CollectionsPage(),
       },
     );
   }
