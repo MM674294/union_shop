@@ -283,3 +283,28 @@ await mockNetworkImagesFor(() async {
       expect(find.text('£50.00'), findsOneWidget);
     });
   });
+
+  testWidgets('CartPage note field accepts user input', (WidgetTester tester) async {
+    cartItems.add({
+      'title': 'Classic Hoodie',
+      'price': '£25.00',
+      'image': 'assets/images/clothing1.png',
+      'details': 'Size: L',
+    });
+
+    await mockNetworkImagesFor(() async {
+      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      tester.binding.window.physicalSizeTestValue = const Size(1200, 2000);
+      tester.view.devicePixelRatio = 1.0;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: const CartPage(),
+          routes: {
+            '/checkout': (context) => const Placeholder(),
+          },
+        ),
+      );
+      await tester.pumpAndSettle();
