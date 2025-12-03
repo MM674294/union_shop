@@ -14,10 +14,14 @@ import 'package:union_shop/graduation_page.dart';
 import 'package:union_shop/cart_page.dart';
 import 'package:union_shop/login_page.dart';
 import 'package:union_shop/collections_page.dart';
+import 'package:union_shop/checkout_page.dart';
+
+
 
 void main() {
   runApp(const UnionShopApp());
 }
+List<Map<String, dynamic>> cartItems = [];
 
 class UnionShopApp extends StatelessWidget {
   const UnionShopApp({super.key});
@@ -47,6 +51,7 @@ class UnionShopApp extends StatelessWidget {
         '/cart': (context) => const CartPage(),
         '/login': (context) => const LoginPage(),
         '/collections': (context) => const CollectionsPage(),
+        '/checkout': (context) => const CheckoutPage(),
       },
     );
   }
