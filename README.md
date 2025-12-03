@@ -80,7 +80,7 @@ this command check your enivronment and displays a report of the tatus of your f
 Clone your forked repository:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/union_shop.git
+git https://github.com/MM674294/union_shop.git
 cd union_shop
 ```
 
