@@ -261,6 +261,25 @@ List<Map<String, dynamic>> cartItems = [];
     'price': '£2.50',
     'imageUrl': 'assets/images/m27.png',
   },
+//----personalisation-----
+{
+  'title': 'Personalised Product',
+  'price': '£3.00',
+  'imageUrl': 'assets/images/yournamehere1.png', // or whichever image you want as the default
+  'details': 'Personalisation available',
+},
+{
+  'title': 'Personalised Product',
+  'price': '£3.00',
+  'imageUrl': 'assets/images/yournamehere2.png', // or whichever image you want as the default
+  'details': 'Personalisation available',
+},
+{
+  'title': 'Personalised Product',
+  'price': '£3.00',
+  'imageUrl': 'assets/images/yournamehere3.png', // or whichever image you want as the default
+  'details': 'Personalisation available',
+},
 ];
  
  class ResponsiveBanner extends StatelessWidget {

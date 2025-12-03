@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/custom_app_bar.dart';
 import 'package:union_shop/footer.dart';
-import 'package:union_shop/cart_page.dart';
 
 class PersonalisationPage extends StatefulWidget {
   const PersonalisationPage({super.key});
