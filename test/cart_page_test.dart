@@ -13,11 +13,10 @@ void main() {
 
 
   testWidgets('CartPage displays empty cart message', (WidgetTester tester) async {
-    await mockNetworkImagesFor(() async {
-      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
-      addTearDown(tester.view.resetDevicePixelRatio);
+     await mockNetworkImagesFor(() async {
+      addTearDown(tester.view.resetPhysicalSize);
 
-      tester.binding.window.physicalSizeTestValue = const Size(1200, 2000);
+      tester.view.physicalSize = const Size(1200, 2000);
       tester.view.devicePixelRatio = 1.0;
 
       await tester.pumpWidget(
@@ -212,10 +211,10 @@ await mockNetworkImagesFor(() async {
 
   testWidgets('CartPage checkout button is disabled when cart is empty', (WidgetTester tester) async {
     await mockNetworkImagesFor(() async {
-      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      addTearDown(tester.WidgetTester.binding.window.clearPhysicalSizeTestValue);
       addTearDown(tester.view.resetDevicePixelRatio);
 
-      tester.binding.window.physicalSizeTestValue = const Size(1200, 2000);
+      tester widgetTester.view.resetPhysicalSize(); = const Size(1200, 2000);
       tester.view.devicePixelRatio = 1.0;
 
       await tester.pumpWidget(
