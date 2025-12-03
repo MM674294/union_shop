@@ -155,7 +155,7 @@ Tests use [`network_image_mock`](https://pub.dev/packages/network_image_mock) to
 
 ## Notes
 
-- All product data and images are hardcoded or use copyright-free/AI-generated images.
+- All product images are AI-generated images.
 - The application focuses on functionality over exact visual design.
 - The code is structured for clarity and maintainability, following best practices.
 
@@ -163,7 +163,7 @@ Tests use [`network_image_mock`](https://pub.dev/packages/network_image_mock) to
 
 ## Author
 
-Coursework by [YOUR NAME] for University of Portsmouth modules M30235/M32605.
+Coursework by MM674294 for University of Portsmouth modules M30235/M32605.
 
 ---
 
