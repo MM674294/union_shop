@@ -412,9 +412,7 @@ Size get preferredSize => const Size.fromHeight(88.0);
         children: [
           
           // Responsive Top banner with promotional text
-         const ResponsiveBanner(
-          text: 'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
-          ),
+         
           // Navigation bar (row)
           Container(
             // Remove fixed height!
