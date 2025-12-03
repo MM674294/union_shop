@@ -8,6 +8,8 @@ class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(parentContext: context), // <-- Put your navigation bar here!
+      drawer: const AppDrawer(), 
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -28,7 +30,7 @@ class ProductPage extends StatelessWidget {
                     ),
                   ),
                   // Custom navigation bar
-                  CustomAppBar(parentContext: context),
+                  //CustomAppBar(parentContext: context),
                 ],
               ),
             ),
