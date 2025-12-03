@@ -401,7 +401,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({required this.parentContext, super.key});
 
 @override
-Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+Size get preferredSize => const Size.fromHeight(88.0);
 
   @override
   Widget build(BuildContext context) {
@@ -412,7 +412,9 @@ Size get preferredSize => const Size.fromHeight(kToolbarHeight);
         children: [
           
           // Responsive Top banner with promotional text
-         
+         const ResponsiveBanner(
+          text: 'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
+          ),
           // Navigation bar (row)
           Container(
             // Remove fixed height!
