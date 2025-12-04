@@ -52,11 +52,11 @@ class GraduationPage extends StatelessWidget {
                     color: Colors.grey[300],
                   ),
                 ),
-                Positioned.fill(
-                  child: Container(
-                    color: Colors.black.withOpacity(0.3),
-                  ),
-                ),
+               const Positioned.fill(
+                child: ColoredBox(
+                  color: Color.fromRGBO(0, 0, 0, 0.3),
+                   ),
+                   ),
                 const Positioned.fill(
                   child: Center(
                     child: Text(
