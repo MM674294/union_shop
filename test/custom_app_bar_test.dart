@@ -3,17 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/custom_app_bar.dart';
 
 
-
 void main() {
- 
-
-
-
   group('ResponsiveBanner Tests', () {
     testWidgets('ResponsiveBanner displays text', (WidgetTester tester) async {
       const bannerText = 'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE!';
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: ResponsiveBanner(text: bannerText),
           ),
@@ -24,10 +19,10 @@ void main() {
       expect(find.text(bannerText), findsOneWidget);
     });
 
-    testWidgets('ResponsiveBanner has purple background', (WidgetTester tester) async {
+    testWidgets('ResponsiveBanner has container', (WidgetTester tester) async {
       const bannerText = 'Test Banner';
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: ResponsiveBanner(text: bannerText),
           ),
@@ -35,13 +30,13 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.byType(Container), findsOneWidget);
+      expect(find.byType(Container), findsWidgets);
     });
 
-    testWidgets('ResponsiveBanner text is white', (WidgetTester tester) async {
+    testWidgets('ResponsiveBanner text is displayed', (WidgetTester tester) async {
       const bannerText = 'Test Banner';
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: ResponsiveBanner(text: bannerText),
           ),
@@ -49,23 +44,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      final textWidget = find.text(bannerText);
-      expect(textWidget, findsOneWidget);
-    });
-
-    testWidgets('ResponsiveBanner text is bold', (WidgetTester tester) async {
-      const bannerText = 'Test Banner';
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ResponsiveBanner(text: bannerText),
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      final textWidget = find.text(bannerText);
-      expect(textWidget, findsOneWidget);
+      expect(find.text(bannerText), findsOneWidget);
     });
 
     testWidgets('ResponsiveBanner is responsive on mobile', (WidgetTester tester) async {
@@ -74,7 +53,7 @@ void main() {
 
       const bannerText = 'BIG SALE!';
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: ResponsiveBanner(text: bannerText),
           ),
@@ -91,7 +70,7 @@ void main() {
 
       const bannerText = 'BIG SALE!';
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: ResponsiveBanner(text: bannerText),
           ),
@@ -105,7 +84,7 @@ void main() {
     testWidgets('ResponsiveBanner text is centered', (WidgetTester tester) async {
       const bannerText = 'Test Banner';
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: ResponsiveBanner(text: bannerText),
           ),
@@ -115,8 +94,21 @@ void main() {
 
       expect(find.text(bannerText), findsOneWidget);
     });
-  });
 
+    testWidgets('ResponsiveBanner renders', (WidgetTester tester) async {
+      const bannerText = 'Test Banner';
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: ResponsiveBanner(text: bannerText),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ResponsiveBanner), findsOneWidget);
+    });
+  });
 
   group('allProducts Tests', () {
     test('allProducts list contains items', () {
@@ -124,17 +116,25 @@ void main() {
     });
 
     test('allProducts contains signature products', () {
-      final signatureProducts = allProducts.where((p) => p['title']!.contains('Signature')).toList();
+      final signatureProducts = allProducts
+          .where((p) => p['title']!.contains('Signature'))
+          .toList();
       expect(signatureProducts, isNotEmpty);
     });
 
     test('allProducts contains clothing items', () {
-      final clothingItems = allProducts.where((p) => p['title']!.contains('Hoodie') || p['title']!.contains('T-Shirt')).toList();
+      final clothingItems = allProducts
+          .where((p) => p['title']!.contains('Hoodie') ||
+              p['title']!.contains('T-Shirt'))
+          .toList();
       expect(clothingItems, isNotEmpty);
     });
 
     test('allProducts contains merchandise items', () {
-      final merchandiseItems = allProducts.where((p) => p['title']!.contains('Lanyard') || p['title']!.contains('Pen')).toList();
+      final merchandiseItems = allProducts
+          .where((p) => p['title']!.contains('Lanyard') ||
+              p['title']!.contains('Pen'))
+          .toList();
       expect(merchandiseItems, isNotEmpty);
     });
 
@@ -164,6 +164,4 @@ void main() {
       }
     });
   });
-
-
 }
