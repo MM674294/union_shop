@@ -161,6 +161,7 @@ union_shop/
 │   └── logos/
 ├── pubspec.yaml
 ├── README.md
+├── prompts.md
 └── .gitignore
 ```
 
