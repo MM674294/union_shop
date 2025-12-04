@@ -18,11 +18,11 @@
 
 ## Product Pages & Filtering
 
-11. "How do I create a product grid with pagination in Flutter?"
+11. "How do I create a product grid with pages in Flutter?"
 12. "How do I implement filtering and sorting for products?"
 13. "How do I display product images with proper error handling?"
 14. "How do I create a carousel/slider in Flutter?"
-15. "What's the best way to organize product data models?"
+15. "What's the best most efficient but also simplest to organize product data models?"
 
 ## Shopping Cart & State Management
 
