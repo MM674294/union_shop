@@ -139,7 +139,7 @@ class _ProductPageState extends State<ProductPage> {
                     width: double.infinity,
                     child: Footer(
                       onEmailSubmitted: (email) {
-                        print('User subscribed with email: $email');
+                        debugPrint('User subscribed with email: $email');
                       },
                     ),
                   ),

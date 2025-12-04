@@ -292,7 +292,7 @@ class _SalePageState extends State<SalePage> {
                   // Footer outside the Padding, so it stretches full width
                   Footer(
                     onEmailSubmitted: (email) {
-                      print('User subscribed with email: $email');
+                      debugPrint('User subscribed with email: $email');
                     },
                   ),
                 ],
