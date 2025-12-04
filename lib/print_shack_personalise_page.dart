@@ -232,7 +232,7 @@ class _PrintShackPersonalisePageState extends State<PrintShackPersonalisePage> {
               // Footer
               Footer(
                 onEmailSubmitted: (email) {
-                  print('User subscribed with email: $email');
+                  debugPrint('User subscribed with email: $email');
                 },
               ),
             ],

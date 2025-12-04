@@ -145,7 +145,7 @@ class PrintShackInfoPage extends StatelessWidget {
             // Footer (full width, not static)
             Footer(
               onEmailSubmitted: (email) {
-                print('User subscribed with email: $email');
+                debugPrint('User subscribed with email: $email');
               },
             ),
           ],
