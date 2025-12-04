@@ -509,4 +509,5 @@ void main() {
       expect(find.byType(Footer), findsOneWidget);
     });
   });
+
 }
