@@ -169,7 +169,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
                                 ),
                                 // Dark overlay
                                 Container(
-                                  color: Colors.black.withOpacity(0.4),
+                                  color: Colors.black.withAlpha(102),
                                 ),
                                 // Title overlay
                                 Center(
