@@ -214,7 +214,7 @@ class _HalloweenBagsPageState extends State<HalloweenBagsPage> {
                 // Responsive full-width footer
                 Footer(
                   onEmailSubmitted: (email) {
-                    print('User subscribed with email: $email');
+                    debugPrint('User subscribed with email: $email');
                   },
                 ),
               ],
