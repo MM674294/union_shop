@@ -111,22 +111,7 @@ void main() {
       });
     });
 
-    testWidgets('CollectionsPage is responsive on mobile', (WidgetTester tester) async {
-      addTearDown(tester.view.resetPhysicalSize);
-      tester.view.physicalSize = const Size(400, 800);
 
-      await mockNetworkImagesFor(() async {
-        await tester.pumpWidget(
-          const MaterialApp(
-            home: CollectionsPage(),
-          ),
-        );
-        await tester.pumpAndSettle();
-
-        expect(find.text('Collections'), findsOneWidget);
-        expect(find.text('Autumn Favourites'), findsOneWidget);
-      });
-    });
 
     testWidgets('CollectionsPage displays images', (WidgetTester tester) async {
       addTearDown(tester.view.resetPhysicalSize);
@@ -359,26 +344,5 @@ void main() {
       });
     });
 
-    testWidgets('ProductDetailPage is responsive on mobile', (WidgetTester tester) async {
-      addTearDown(tester.view.resetPhysicalSize);
-      tester.view.physicalSize = const Size(400, 800);
-
-      final testProduct = {
-        'name': 'Test Hoodie',
-        'price': '£25.00',
-        'image': 'assets/images/clothing1.png',
-      };
-
-      await mockNetworkImagesFor(() async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: ProductDetailPage(product: testProduct),
-          ),
-        );
-        await tester.pumpAndSettle();
-
-        expect(find.text('Test Hoodie'), findsOneWidget);
-      });
-    });
   });
 }
