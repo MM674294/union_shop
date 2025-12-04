@@ -190,9 +190,19 @@ Tests use [`network_image_mock`](https://pub.dev/packages/network_image_mock) to
 
 - All product images are AI-generated images.
 - The application focuses on functionality over exact visual design.
-- The code is structured for clarity and maintainability, following best practices.
+- The code is structured for clarity and maintainability, attempting to following best practices.
 
 ---
+
+## Features in Development
+
+- [ ] Payment processing integration
+- [ ] Order history and tracking
+- [ ] User account management dashboard
+- [ ] Firebase authentication
+- [ ] Push notifications
+
+
 
 ## Author
 
