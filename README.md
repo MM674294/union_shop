@@ -132,27 +132,36 @@ Open Chrome DevTools and toggle device toolbar for mobile view.
 union_shop/
 ├── lib/
 │   ├── main.dart
+│   ├── login_page.dart
+│   ├── sign_up_page.dart
 │   ├── custom_app_bar.dart
+│   ├── footer.dart
+│   ├── home_page.dart
 │   ├── product_page.dart
 │   ├── sale_page.dart
 │   ├── clothing_page.dart
 │   ├── merchandise_page.dart
 │   ├── personalisation_page.dart
 │   ├── about_page.dart
-│   ├── footer.dart
-│   └── 
+│   ├── item_detail_page.dart
+│   └── models/
+│       └── product_model.dart
 ├── test/
-│   ├── home_test.dart
-│   ├── product_test.dart
+│   ├── login_page_test.dart
+│   ├── sign_up_test.dart
+│   ├── home_page_test.dart
 │   ├── sale_page_test.dart
 │   ├── clothing_page_test.dart
 │   ├── merchandise_page_test.dart
+│   ├── personalisation_page_test.dart
 │   ├── about_page_test.dart
 │   └── footer_test.dart
 ├── assets/
-│   └── images/
+│   ├── images/
+│   └── logos/
 ├── pubspec.yaml
-└── README.md
+├── README.md
+└── .gitignore
 ```
 
 ---
