@@ -217,12 +217,12 @@ List<Map<String, dynamic>> cartItems = [];
   },
   {
     'title': 'Type C charge and Synce Cable',
-    'price': '£3.00 £1.50',
+    'price': '£3̶.0̶0̶  £1.50',
     'imageUrl': 'assets/images/m19.png',
   },
   {
     'title': 'USB to USB charge and Synce Cables',
-    'price': '£3.00 £1.50',
+    'price': '£3̶.̶0̶0̶ £1.50',
     'imageUrl': 'assets/images/m20.png',
   },
   {
