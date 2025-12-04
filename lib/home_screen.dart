@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/main.dart';
+import 'package:union_shop/custom_app_bar.dart';
+import 'package:union_shop/footer.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
