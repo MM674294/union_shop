@@ -3,13 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/collections_page.dart';
 import 'package:union_shop/custom_app_bar.dart';
 import 'package:union_shop/footer.dart';
-import 'package:union_shop/main.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 void main() {
-  setUp(() {
-    cartItems.clear();
-  });
+  
 
   group('CollectionsPage Tests', () {
     testWidgets('CollectionsPage displays title', (WidgetTester tester) async {
