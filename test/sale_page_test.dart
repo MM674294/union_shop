@@ -33,12 +33,6 @@ void main() {
       expect(find.text('Previous'), findsOneWidget);
       expect(find.text('Next'), findsOneWidget);
       expect(find.textContaining('Page'), findsOneWidget);
-
-      // Tap the first sale item card and check navigation (if navigation is implemented)
-      // If tapping does not navigate, you can comment out the next lines.
-      // await tester.tap(find.byType(Card).first);
-      // await tester.pumpAndSettle();
-      // expect(find.byType(BackButton), findsOneWidget);
     });
   });
 }
