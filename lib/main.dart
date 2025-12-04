@@ -346,25 +346,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                 title: 'Portsmouth City Magnet',
                                 price: '£10.00',
                                 imageUrl:
-                                    'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                    'assets/images/m1.png',
                               ),
                               ProductCard(
                                 title: 'Portsmouth signature magnet',
                                 price: '£15.00',
                                 imageUrl:
-                                    'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                   'assets/images/m2.png',
                               ),
                               ProductCard(
                                 title: 'Portmouth Limited Edition Magnet',
                                 price: '£20.00',
                                 imageUrl:
-                                    'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                    'assets/images/m3.png',
                               ),
                               ProductCard(
                                 title: 'Portmouth UoM Magnet',
                                 price: '£25.00',
                                 imageUrl:
-                                    'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                     'assets/images/m4.png',
                               ),
                             ],
                           ),
