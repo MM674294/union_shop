@@ -193,27 +193,26 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           ),
                           const SizedBox(height: 16),
                           // Delivery Method
-                          const Text('Delivery Method', style: TextStyle(fontWeight: FontWeight.w500)),
-                          RadioListTile<String>(
-                            title: const Text('Ship (£5.99)'),
-                            value: 'Ship',
-                            groupValue: _deliveryMethod,
-                            onChanged: (value) {
-                              setState(() {
-                                _deliveryMethod = value!;
-                              });
-                            },
-                          ),
-                          RadioListTile<String>(
-                            title: const Text('Pick up (Free)'),
-                            value: 'Pickup',
-                            groupValue: _deliveryMethod,
-                            onChanged: (value) {
-                              setState(() {
-                                _deliveryMethod = value!;
-                              });
-                            },
-                          ),
+                          const Text('Delivery Method', style: TextStyle(fontWeight: FontWeight.w600)),
+                          const SizedBox(height: 16),
+                          SegmentedButton<String>(
+                            segments: const <ButtonSegment<String>>[
+                              ButtonSegment<String>(
+                                value: 'Ship',
+                                label: Text('Ship (£5.99)'),
+                                ),
+                                ButtonSegment<String>(
+                                  value: 'Pickup',
+                                  label: Text('Pick up (Free)'),
+                                  ),
+                                  ],
+                                  selected: <String>{_deliveryMethod},
+                                  onSelectionChanged: (Set<String> newSelection) {
+                                    setState(() {
+                                      _deliveryMethod = newSelection.first;
+                                    });
+                                  },
+                                  ),
                           const SizedBox(height: 24),
                           // Payment Section
                           const Text(

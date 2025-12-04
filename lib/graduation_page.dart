@@ -186,7 +186,7 @@ class GraduationPage extends StatelessWidget {
             // Footer
             Footer(
               onEmailSubmitted: (email) {
-                print('User subscribed with email: $email');
+                debugPrint('User subscribed with email: $email');
               },
             ),
           ],
