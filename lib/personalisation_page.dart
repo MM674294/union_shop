@@ -269,7 +269,7 @@ SizedBox(
               const SizedBox(height: 32),
               Footer(
                 onEmailSubmitted: (email) {
-                  print('User subscribed with email: $email');
+                  debugPrint('User subscribed with email: $email');
                 },
               ),
             ],
