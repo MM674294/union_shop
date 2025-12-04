@@ -6,15 +6,39 @@ This repository contains a Flutter application that recreates the Student Union 
 
 ## Features
 
-- **Homepage** with a product carousel
+## Features
+
+### Authentication & User Management
+- **Login Page** with email/password and "Sign in with Shop" option
+- **Sign Up Page** with form validation and password confirmation
+- **Account Dashboard** (in development)
+- **Password visibility toggle** for enhanced UX
+
+### Shopping Features
+- **Homepage** with product carousel and featured items
 - **Navigation bar** with responsive design and drawer menu
-- **Product pages** with details, images, and "Add to Cart" functionality
-- **Sale, Clothing, Merchandise, and Personalisation pages** with filtering, sorting, and pagination
-- **Shopping cart**: add products, view basket, and see item count update in the navigation bar
-- **Search functionality**: search for products by name, including personalised items
-- **Footer** with opening hours, help links, offers, and email subscription
+- **Product pages** (Sale, Clothing, Merchandise, Personalisation) with:
+  - Filtering by category
+  - Sorting (A-Z, Price, Best Selling)
+  - Pagination support
+- **Shopping cart**: add products, view basket, and see item count update in real-time
+- **Search functionality**: search for products by name
+- **Product detail pages** with images, descriptions, and pricing
+
+### Additional Pages
+- **Sale page** with discounted items and product filtering
+- **Clothing page** with filtering and sorting
+- **Merchandise page** with category-based navigation
+- **Personalisation page** for custom items
 - **About Us page** with company information
-- **Responsive layout** for mobile and desktop views
+- **Footer** with opening hours, help links, offers, and email subscription
+
+### Design & UX
+- **Responsive layout** for mobile, tablet, and desktop views
+- **Purple color scheme** (#5C2E91) throughout the app
+- **Professional UI** with proper spacing and typography
+- **Loading states** with spinners during authentication
+- **Error handling** with user-friendly messages
 - **Widget tests** for all main pages and components (see `/test` directory)
 
 ---
