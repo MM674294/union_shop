@@ -554,8 +554,8 @@ class RangeCard extends StatelessWidget {
           ),
           // Dark overlay
           Container(
-            color: Colors.black.withOpacity(0.4),
-          ),
+            color: const Color.fromRGBO(0, 0, 0, 0.4),
+            ),
           // Text overlay
           Center(
             child: Text(

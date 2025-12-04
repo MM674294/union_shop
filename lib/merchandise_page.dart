@@ -490,7 +490,7 @@ Padding(
             // Footer Section (moves with scroll)
             Footer(
               onEmailSubmitted: (email) {
-                print('User subscribed with email: $email');
+                debugPrint('User subscribed with email: $email');
               },
             ),
           ],
