@@ -116,7 +116,7 @@ union_shop/
 │   ├── personalisation_page.dart
 │   ├── about_page.dart
 │   ├── footer.dart
-│   └── ... (other pages/components)
+│   └── 
 ├── test/
 │   ├── home_test.dart
 │   ├── product_test.dart
