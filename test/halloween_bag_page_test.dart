@@ -22,3 +22,39 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
+
+       // 2. Verify basic content
+      expect(find.text('Halloween Tote Bags'), findsOneWidget);
+      expect(find.textContaining('Trick or treat yourself'), findsOneWidget);
+      expect(find.text('£2.50'), findsOneWidget);
+
+      // 3. Test Quantity Increase
+      final increaseButton = find.byIcon(Icons.add);
+      await tester.tap(increaseButton);
+      await tester.pump();
+      expect(find.text('2'), findsOneWidget); // Check if quantity updated to 2
+
+      // 4. Test Design Selection (Dropdown)
+      // Find the DropdownButton
+      final designDropdown = find.byKey(const Key('designDropdown'));
+      expect(designDropdown, findsOneWidget);
+
+      // Tap to open the dropdown
+      await tester.tap(designDropdown);
+      await tester.pumpAndSettle();
+
+      // Tap a new design option (e.g., 'Pumpkin')
+      final pumpkinOption = find.text('Pumpkin').last; // Use .last as the selected value is also present
+      await tester.tap(pumpkinOption);
+      await tester.pumpAndSettle();
+
+      // Verify the selected design changed (check the displayed text in the closed dropdown)
+      expect(find.text('Pumpkin'), findsOneWidget);
+
+      // 5. Test Add to Cart functionality
+      await tester.tap(find.text('ADD TO CART'));
+      await tester.pump(); // Start SnackBar animation
+      expect(find.text('Added to cart!'), findsOneWidget);
+    });
+  });
+}
