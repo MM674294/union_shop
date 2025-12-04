@@ -325,32 +325,37 @@ class _SignUpPageState extends State<SignUpPage> {
               const SizedBox(height: 24),
 
               // Sign in link
+             // ...existing code...
+              // Sign in link - FIXED with Flexible
               Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Already have an account? ',
-                      style: TextStyle(
-                        color: Color(0xFF666666),
-                        fontSize: 14,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: _isLoading ? null : () => Navigator.pop(context),
-                      child: const Text(
-                        'Sign in',
+                child: Flexible(
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
+                    children: [
+                      const Text(
+                        'Already have an account? ',
                         style: TextStyle(
-                          color: Color(0xFF5C2E91),
+                          color: Color(0xFF666666),
                           fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline,
                         ),
                       ),
-                    ),
-                  ],
+                      GestureDetector(
+                        onTap: _isLoading ? null : () => Navigator.pop(context),
+                        child: const Text(
+                          'Sign in',
+                          style: TextStyle(
+                            color: Color(0xFF5C2E91),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
+// ...existing code...
               const SizedBox(height: 60),
             ],
           ),
